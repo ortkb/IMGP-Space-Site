@@ -1,0 +1,11 @@
+.scrollTest{
+    width: 200vw;
+}
+
+.no-scrollbar{ /* Removes scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer & Edge */
+}
+.no-scrollbar::-webkit-scrollbar{
+    display: none; /* Webkit Browsers (Chrome, Safari, Opera) */
+  }
