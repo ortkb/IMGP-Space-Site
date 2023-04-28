@@ -4,23 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css"/> <!-- Swiper -->
     <link rel="stylesheet" href="css/scrollTest.css">
     <title>Document</title>
 </head>
-<body class="" >
+<body class="no-scrollbar" >
 
-    <!-- <img class="scrollTest" src="/img/icon-blue.png" alt=""> -->
-    <div class="parent-container no-scrollbar">
-        <div class="scroll-container">
-            <div class="scroll-page"> a 
-                <img class="offset-img" src="/img/icon-blue.png" alt="">
-            </div>
-            <div class="scroll-page"> b 
-                <img class="offset-img" src="/img/icon-orange.png" alt="">
-            </div>
+    <!-- Slider main container -->
+    <div class="swiper ">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide planetpage-container">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        ...
         </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+    
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
     </div>
-
+    
+    <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
     <script src="js/scrollTest.js"></script>
 
 </body>

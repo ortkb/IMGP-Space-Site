@@ -1,5 +1,5 @@
-.scrollTest{
-    width: 200vw;
+*{
+    margin: 0px;
 }
 
 .no-scrollbar{ /* Removes scrollbar */
@@ -10,36 +10,14 @@
     display: none; /* Webkit Browsers (Chrome, Safari, Opera) */
 }
 
-.parent-container{
-    position: fixed;
-    top: 0;
-    left: 0;
-  /*  note vh and vw switched  */
-    width: 100vh; 
-    height: 100vw;
-  /*    */
-    transform-origin: top left;
-    transform: rotate(-90deg) translateX(-100vh);
-    overflow-x: hidden;
-    overflow-y: scroll;
-  /*   scroll-snap-type: y mandatory; */
-}
-
-.scroll-page{
+.swiper {
     width: 100vw;
     height: 100vh;
 }
 
-.scroll-container{
+.planetpage-container{
     display: flex;
-    flex-direction: row;
-    width: fit-content;
-    height: fit-content;
-    transform-origin: top left;
-    transform: rotate(90deg) translateY(-100vh);
-}
-
-.offset-img{
-    position: relative;
-    left: 150px;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
 }
