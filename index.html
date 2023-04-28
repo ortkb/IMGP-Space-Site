@@ -1,3 +1,5 @@
+<!-- Try another parallax example tomorrow -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +13,38 @@
 <body class="no-scrollbar" >
 
     <!-- Slider main container -->
-    <div class="swiper ">
+    <div class="swiper parallax-bg">
+        <!-- Parallax Background -->
+        <div class="parallax-bg" data-swiper-parallax="-23%"></div>
+
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide planetpage-container">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
-        ...
+        <div class="swiper-slide planetpage-container">
+            <img src="img/icon-blue.png" alt="icon-blue" data-swiper-parallax="-300">
+            <section class="planetpage-textbox" data-swiper-parallax="-300">
+                <h3 class="planetpage-title">planet</h3>
+                <p class="planetpage-desc">Planet Info Planet Info Planet Info Planet Info Planet 
+                </p>
+            </section>
+        </div>
+        <div class="swiper-slide planetpage-container">
+            <img src="img/icon-orange.png" alt="icon-orange" data-swiper-parallax="-300">
+            <section class="planetpage-textbox" data-swiper-parallax="-300">
+                <h3 class="planetpage-title">planet</h3>
+                <p class="planetpage-desc">Planet Info Planet Info Planet Info Planet 
+                </p>
+            </section>
+        </div>
+        <div class="swiper-slide planetpage-container">
+            <img src="img/icon-red.png" alt="icon-red" data-swiper-parallax="-300">
+            <section class="planetpage-textbox" data-swiper-parallax="-300">
+                <h3 class="planetpage-title">planet</h3>
+                <p class="planetpage-desc">Planet Info Planet Info Planet Info 
+                </p>
+            </section>
+        </div>
+
         </div>
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
@@ -30,9 +56,10 @@
         <!-- If we need scrollbar -->
         <div class="swiper-scrollbar"></div>
     </div>
-    
+
     <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
     <script src="js/scrollTest.js"></script>
+
 
 </body>
 </html>

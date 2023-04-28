@@ -1,5 +1,6 @@
-*{
+body{
     margin: 0px;
+    padding: 0px;
 }
 
 .no-scrollbar{ /* Removes scrollbar */
@@ -11,13 +12,33 @@
 }
 
 .swiper {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .planetpage-container{
+    left: 0;
+    position: relative; /* set to relative as parallax-bg is set to absolute */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4em;
+    align-items: center; /* Items stay at 50% height */
+    justify-content: center; /* Items stay at 50% width */
+    gap: 10%;
+}
+
+.planetpage-textbox{
+    width: 40%;
+}
+
+.parallax-bg{
+    background-image: url("../img/windowsXP_BG_pale.jpg");
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130%;
+    height: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
 }
