@@ -7,9 +7,20 @@
     <link rel="stylesheet" href="css/scrollTest.css">
     <title>Document</title>
 </head>
-<body class="no-scrollbar" >
+<body class="" >
 
-    <img class="scrollTest" src="/img/icon-blue.png" alt="">
+    <!-- <img class="scrollTest" src="/img/icon-blue.png" alt=""> -->
+    <div class="parent-container no-scrollbar">
+        <div class="scroll-container">
+            <div class="scroll-page"> a 
+                <img class="offset-img" src="/img/icon-blue.png" alt="">
+            </div>
+            <div class="scroll-page"> b 
+                <img class="offset-img" src="/img/icon-orange.png" alt="">
+            </div>
+        </div>
+    </div>
+
     <script src="js/scrollTest.js"></script>
 
 </body>
