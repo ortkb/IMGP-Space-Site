@@ -1,3 +1,4 @@
+/*
 const swiper = new Swiper('.swiper', {
     speed: 600,
     parallax: true,
@@ -20,6 +21,21 @@ const swiper = new Swiper('.swiper', {
     scrollbar: {
       el: '.swiper-scrollbar',
     },
+});
+
+*/
+
+var swiper = new Swiper('.swiper', {
+  speed: 600,
+  parallax: true,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
 });
 
 document.body.onkeyup = function(event) {
