@@ -1,4 +1,4 @@
-/*
+
 const swiper = new Swiper('.swiper', {
     speed: 600,
     parallax: true,
@@ -9,6 +9,10 @@ const swiper = new Swiper('.swiper', {
     // If we need pagination
     pagination: {
       el: '.swiper-pagination',
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + '">' + (index + 1) + '</span>';
+      },
     },
   
     // Navigation arrows
@@ -23,8 +27,8 @@ const swiper = new Swiper('.swiper', {
     },
 });
 
-*/
 
+/*
 var swiper = new Swiper('.swiper', {
   speed: 600,
   parallax: true,
@@ -37,6 +41,7 @@ var swiper = new Swiper('.swiper', {
     prevEl: '.swiper-button-prev',
   },
 });
+*/
 
 document.body.onkeyup = function(event) {
     if (event.keyCode == 49 || event.key == '1') { // Press '1' to scroll right

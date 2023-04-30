@@ -11,6 +11,8 @@ body{
     display: none; /* Webkit Browsers (Chrome, Safari, Opera) */
 }
 
+/* Swiper */
+
 .swiper {
     width: 100vw;
     height: 100vh;
@@ -29,6 +31,25 @@ body{
     justify-content: center; /* Items stay at 50% width */
     gap: 10%;
 }
+
+.swiper-pagination-bullet {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    color: #000;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .swiper-pagination-bullet-active {
+    color: #fff;
+    background: #007aff;
+  }
+
+
+/* Planetpage */
 
 .planetpage-textbox{
     width: 40%;
