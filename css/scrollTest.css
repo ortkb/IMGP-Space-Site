@@ -18,11 +18,6 @@ body{
     height: 100vh;
 }
 
-.swiper-slide {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
 .planetpage-container{
     left: 0;
     position: relative; /* set to relative as parallax-bg is set to absolute */
@@ -30,6 +25,7 @@ body{
     align-items: center; /* Items stay at 50% height */
     justify-content: center; /* Items stay at 50% width */
     gap: 10%;
+    color: #fff;
 }
 
 .swiper-pagination-bullet {
@@ -57,12 +53,12 @@ body{
 
 .parallax-bg{
     position: absolute;
-    left: 0;
+    left: -30%;
     top: 0;
-    width: 130%;
+    width: 300%;
     height: 100%;
-    -webkit-background-size: cover;
+    /*-webkit-background-size: cover; */
     background-size: cover;
     background-position: center;
-    background-image: url("../img/windowsXP_BG_pale.jpg");
+    background-image: url("../img/space_bg2.jpg");
 }
