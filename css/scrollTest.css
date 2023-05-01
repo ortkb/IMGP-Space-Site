@@ -37,13 +37,22 @@ body{
     color: #000;
     opacity: 1;
     background: rgba(0, 0, 0, 0.2);
-  }
+} 
 
-  .swiper-pagination-bullet-active {
+.swiper-pagination-bullet-active {
     color: #fff;
     background: #007aff;
-  }
+}
 
+/* Wrong Screensize spread */
+
+#wrong-screensize-spread{
+    position: fixed;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
 
 /* Planetpage */
 
