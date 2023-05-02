@@ -1,0 +1,9 @@
+/* Wrong Screensize spread */
+
+#wrong-screensize-spread{
+    position: fixed;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
