@@ -7,48 +7,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/swiper-bundle.min.css"/> <!-- Swiper -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@300&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/scrollTest.css">
     <title>IntergalacticExplorers</title>
 </head>
-<body class="no-scrollbar" >
+
+<body class="no-scrollbar">
 
     <!-- Slider main container -->
     <div class="swiper">
         <!-- Parallax Background -->
-        <div class="parallax-bg" data-swiper-parallax="-43%"></div>
+        <div class="parallax-bg" data-swiper-parallax="-33%"></div>
 
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
         <!-- Slides -->
         <div class="swiper-slide planetpage-container">
-            <img src="mercury.png" alt="mercury" data-swiper-parallax="-300">
-            <section class="planetpage-textbox" data-swiper-parallax="-300">
+            <img src="img/Planets/mercury.png" class="planet-img" alt="mercury">
+            <section class="planetpage-textbox">
                 <h3 class="planetpage-title">Mercury</h3>
-                <p class="planetpage-desc"> From Mercury, the Sun would appear more than 3 times larger and 7 times brighter than if you were on Earth. 
+                <p class="planetpage-desc"> 
+                    From Mercury, the Sun would appear more than 3 times larger and 7 times brighter than if you were on Earth. 
                 </p>
             </section>
         </div>
         <div class="swiper-slide planetpage-container">
-            <img src="venus.png" alt="venus" data-swiper-parallax="-300">
-            <section class="planetpage-textbox" data-swiper-parallax="-300">
+            <img src="img/Planets/venus.png" class="planet-img" alt="venus">
+            <section class="planetpage-textbox">
                 <h3 class="planetpage-title">Venus</h3>
-                <p class="planetpage-desc"> It’s often called Earth’s twin because it’s similar in size and density. The surface is a rusty colour with mountains and thousands of large volcanoes. Scientists think it’s possible some volcanoes are still active.
+                <p class="planetpage-desc">
+                    It’s often called Earth’s twin because it’s similar in size and density. The surface is a rusty colour with mountains and thousands of large volcanoes. Scientists think it’s possible some volcanoes are still active.
                 </p>
             </section>
         </div>
         <div class="swiper-slide planetpage-container">
-            <img src="earth.png" alt="earth" data-swiper-parallax="-300">
-            <section class="planetpage-textbox" data-swiper-parallax="-300">
+            <img src="img/Planets/earth.png" class="planet-img" alt="earth">
+            <section class="planetpage-textbox">
                 <h3 class="planetpage-title">Earth</h3>
-                <p class="planetpage-desc"> The Earth is the only world in our solar system with liquid water on the surface. Just slightly larger than nearby Venus, Earth is the biggest of the four planets closest to the Sun, all of which are made of rock and metal.
+                <p class="planetpage-desc">
+                    The Earth is the only world in our solar system with liquid water on the surface. Just slightly larger than nearby Venus, Earth is the biggest of the four planets closest to the Sun, all of which are made of rock and metal.
                 </p>
             </section>
         </div>
 
-        </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-    
+    </div>
+
         <!-- If we need navigation buttons -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>

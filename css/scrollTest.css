@@ -24,7 +24,7 @@ body{
     display: flex;
     align-items: center; /* Items stay at 50% height */
     justify-content: center; /* Items stay at 50% width */
-    gap: 10%;
+    gap: 5%;
     color: #fff;
 }
 
@@ -37,28 +37,55 @@ body{
     color: #000;
     opacity: 1;
     background: rgba(0, 0, 0, 0.2);
-  }
+}
 
-  .swiper-pagination-bullet-active {
+.swiper-pagination-bullet-active {
     color: #fff;
     background: #007aff;
-  }
+}
+
+.swiper-button-prev {
+    color: #fff; 
+}
+
+.swiper-button-next {
+    color: #fff; 
+}
 
 
 /* Planetpage */
 
+.planet-img{
+    max-width: 40vw;
+    flex: 1;
+}
+
 .planetpage-textbox{
-    width: 40%;
+    max-width: 30vw;
+    flex: 2;
 }
 
 .parallax-bg{
     position: absolute;
     left: -30%;
     top: 0;
-    width: 190%;
+    width: 250%;
     height: 100%;
     /*-webkit-background-size: cover; */
     background-size: cover;
     background-position: center;
     background-image: url("../img/space_bg_1920x1080.jpg");
+}
+
+/* Fonts */
+
+.planetpage-title {
+    font-size: 2em;
+    letter-spacing: 1px;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.planetpage-desc {
+    font-size: 1em;
+    font-family: 'Rubik', sans-serif;
 }
