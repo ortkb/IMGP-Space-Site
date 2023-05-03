@@ -1,5 +1,3 @@
-<!-- Try another parallax example tomorrow -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +11,17 @@
 </head>
 <body class="no-scrollbar" >
 
+    <!-- Error messages -->
+    <section id="errormessage-spread">
+        <button type="button" id="errormessage-button">x</button>
+        <div id="errormessage-textbox">
+            <h3 id="errormessage-title">Sorry!</h3>
+            <p id="errormessage-desc">This site is designed for mobile and tablet devices. Please use the side buttons or click + drag to navigate the page.</p>
+            <p>Width</p>
+            <p id="errormessage-width-display">### / 1007</p>
+        </div>
+    </section>
+    
     <!-- Slider main container -->
     <div class="swiper">
         <!-- Parallax Background -->
@@ -57,13 +66,6 @@
         <!-- If we need scrollbar -->
         <div class="swiper-scrollbar"></div>
     </div>
-
-    <!-- Error messages -->
-    <section id="errormessage-spread">
-        <button type="button" id="errormessage-button">x</button>
-        <h3 id="errormessage-title">Sorry!</h3>
-        <p id="errormessage-desc"></p>
-    </section>
 
     <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
     <script src="js/scrollTest.js"></script>
