@@ -1,0 +1,39 @@
+/* Wrong Screensize spread */
+
+/* Breakpoints: 
+Desktop: over 1008px, Tablet: 1007px - 640px, Mobile: less than 640px 
+https://learn.microsoft.com/en-us/windows/apps/design/layout/screen-sizes-and-breakpoints-for-responsive-design */
+
+/* Default - Larger screens and/or non-touchscreen devices */
+#errormessage-spread{
+    position: fixed;
+    background-color: blue;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
+
+/* Small screens (presumably mobile) */ 
+
+@media screen and (max-width: 640px) and (orientation: landscape) {
+    #errormessage-spread{
+        display: none;
+    }   
+}
+
+/* Touchscreens */
+@media (pointer: coarse) and (orientation: landscape) {
+	#errormessage-spread{
+        display: none;
+    }  
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+

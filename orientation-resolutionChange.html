@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/swiper-bundle.min.css"/> <!-- Swiper -->
-    <link rel="stylesheet" href="css/changeResolution.css">
+    <link rel="stylesheet" href="css/resolutionCheck.css">
     <link rel="stylesheet" href="css/scrollTest.css">
     <title>IntergalacticExplorers</title>
 </head>
 <body class="no-scrollbar" >
-    <div id="wrong-screensize-spread"></div>
+
     <!-- Slider main container -->
     <div class="swiper">
         <!-- Parallax Background -->
@@ -58,12 +58,22 @@
         <div class="swiper-scrollbar"></div>
     </div>
 
+    <!-- Error messages -->
+    <section id="errormessage-spread">
+        <button type="button" id="errormessage-button">x</button>
+        <h3 id="errormessage-title">Sorry!</h3>
+        <p id="errormessage-desc"></p>
+    </section>
+
     <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
     <script src="js/scrollTest.js"></script>
+    <script src="js/resolutionCheck.js"></script>
 
     <style>
+        /* different colours / backgrounds to differentiate from index.html */
         .parallax-bg{
             background-image: none;
+            background-color: brown;
         }
     </style>
 
