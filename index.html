@@ -12,16 +12,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@300&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/scrollTest.css">
+    <link rel="stylesheet" href="css/main.css">
     <title>IntergalacticExplorers</title>
-    <style>
-        h3{
-            font-size: 3.74em;
-        }
-    </style>
 </head>
 
 <body class="no-scrollbar">
+
+    <!-- Error messages -->
+    <section id="errormessage-spread">
+        <div class="position-center-container">
+            <div id="errormessage-textbox">
+                <h3 id="errormessage-title" class=" font-bebas">Sorry!</h3>
+                <p id="errormessage-desc" class="font-rubik">This site is designed for mobile and tablet devices. Please use the side buttons or click + drag to navigate the page.</p>
+                <button type="button" id="errormessage-button" class="font-rubik">Close</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Slider main container -->
     <div class="swiper">
@@ -34,8 +40,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/mercury.png" class="planet-img" alt="mercury">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Mercury</h3>
-                <p class="planetpage-desc"> 
+                <h3 class="planetpage-title font-bebas">Mercury</h3>
+                <p class="planetpage-desc font-rubik"> 
                     From Mercury, the Sun would appear more than 3 times larger and 7 times brighter than if you were on Earth. 
                 </p>
             </section>
@@ -43,8 +49,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/venus.png" class="planet-img" alt="venus">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Venus</h3>
-                <p class="planetpage-desc">
+                <h3 class="planetpage-title font-bebas">Venus</h3>
+                <p class="planetpage-desc font-rubik">
                     It’s often called Earth’s twin because it’s similar in size and density. The surface is a rusty colour with mountains and thousands of large volcanoes. Scientists think it’s possible some volcanoes are still active.
                 </p>
             </section>
@@ -52,8 +58,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/earth.png" class="planet-img" alt="earth">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Earth</h3>
-                <p class="planetpage-desc">
+                <h3 class="planetpage-title font-bebas">Earth</h3>
+                <p class="planetpage-desc font-rubik">
                     The Earth is the only world in our solar system with liquid water on the surface. Just slightly larger than nearby Venus, Earth is the biggest of the four planets closest to the Sun, all of which are made of rock and metal.
                 </p>
             </section>
@@ -61,8 +67,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/mars.png" class="planet-img" alt="mars">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Mars</h3>
-                <p class="planetpage-desc"> 
+                <h3 class="planetpage-title font-bebas">Mars</h3>
+                <p class="planetpage-desc font-rubik"> 
                     Mars is a dusty, cold, desert world with a very thin atmosphere. Mars is also a planet with seasons, ice, valleys, and extinct volcanoes.
                 </p>
             </section>
@@ -70,8 +76,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/jupiter.png" class="planet-img" alt="jupiter">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Jupiter</h3>
-                <p class="planetpage-desc">
+                <h3 class="planetpage-title font-bebas">Jupiter</h3>
+                <p class="planetpage-desc font-rubik">
                     Jupiter is the largest planet in the solar system. It's stripes and swirls are actually cold, windy clouds of ammonia and water, floating in an atmosphere of hydrogen and helium. 
                 </p>
             </section>
@@ -79,8 +85,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/saturn.png" class="planet-img" alt="saturn">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Saturn</h3>
-                <p class="planetpage-desc">
+                <h3 class="planetpage-title font-bebas">Saturn</h3>
+                <p class="planetpage-desc font-rubik">
                     Saturn is the second-largest planet in our solar system. It is not the only planet to have rings – made of chunks of ice and rock – but none are as spectacular or as complicated as Saturn's. Saturn is a massive ball made mostly of hydrogen and helium.
                 </p>
             </section>
@@ -88,8 +94,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/uranus.png" class="planet-img" alt="uranus">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Uranus</h3>
-                <p class="planetpage-desc">
+                <h3 class="planetpage-title font-bebas">Uranus</h3>
+                <p class="planetpage-desc font-rubik">
                     Uranus is the seventh planet from the Sun, and has the third-largest diameter in our solar system. It was the first planet found with the aid of a telescope, Uranus was discovered in 1781 by astronomer William Herschel, although he originally thought it was either a comet or a star.
                 </p>
             </section>
@@ -97,8 +103,8 @@
         <div class="swiper-slide planetpage-container">
             <img src="img/Planets/neptune.png" class="planet-img" alt="neptune">
             <section class="planetpage-textbox">
-                <h3 class="planetpage-title">Neptune</h3>
-                <p class="planetpage-desc">
+                <h3 class="planetpage-title font-bebas">Neptune</h3>
+                <p class="planetpage-desc font-rubik">
                     Dark, cold, and whipped by supersonic winds, ice giant Neptune is the eighth and most distant planet in our solar system. Neptune is the only planet in our solar system not visible to the naked eye and the first predicted by mathematics before its discovery.
                 </p>
             </section>
@@ -116,6 +122,7 @@
 
     <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
     <script src="js/scrollTest.js"></script>
+    <script src="js/resolutionCheck.js"></script>
 
 
 </body>

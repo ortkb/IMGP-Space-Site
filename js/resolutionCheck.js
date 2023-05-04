@@ -14,7 +14,7 @@ let isLandscape = screen.width > screen.height; // Is screen width a higher valu
 
 if (detectDeviceType() == "Desktop"){
     // if the device is not a mobile device..
-    writeErrorMessage("It's better on a tablet / mobile!", "This site is deigned for mobile and tablet devices. Please use the side buttons or click + drag to navigate the page.");
+    writeErrorMessage("It's better on tablet / mobile!", "This site is designed for mobile and tablet devices. Please use the side buttons or click + drag to navigate the page.");
     // user should be able to close this window if needed.
 } else  {
     // if device is detected as a mobile / tablet device..
@@ -45,6 +45,7 @@ function checkLandscapeOrientation(){
 }
 
 function closeErrorMessage(){
+    console.log("CLOSE");
     document.getElementById("errormessage-spread").style.display = "none";
 }
 

@@ -3,6 +3,11 @@ body{
     padding: 0px;
 }
 
+h3{
+    font-size: 3.74em;
+    margin: 0px;
+}
+
 .no-scrollbar{ /* Removes scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer & Edge */
@@ -63,14 +68,12 @@ body{
 
 /* Fonts */
 
-.planetpage-title {
-    font-size: 2em;
+.font-bebas{
     letter-spacing: 1px;
     font-family: 'Bebas Neue', cursive;
 }
 
-.planetpage-desc {
-    font-size: 1em;
+.font-rubik {
     font-family: 'Rubik', sans-serif;
 }
 
@@ -82,4 +85,55 @@ body{
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+/* Error message */
+
+#errormessage-spread{ /* Applies by default to larger screens and/or non-touchscreen devices */
+    position: fixed;
+    background-color: rgba(90, 84, 148, 0.96);
+    color: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
+#errormessage-textbox{
+    text-align: center;
+}
+
+#errormessage-button{
+    border-color: #fff;
+    border-style: solid;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgb(90, 84, 148);
+    padding: 15px 32px;
+    text-align: center;
+}
+
+#errormessage-button:hover{
+    background-color: rgb(121, 116, 174);
+}
+
+@media screen and (max-width: 640px) and (orientation: landscape) { /* Small screens (presumably mobile) */ 
+    #errormessage-spread{
+        display: none;
+    }   
+}
+
+/* Touchscreens */
+@media (pointer: coarse) and (orientation: landscape) {
+	#errormessage-spread{
+        display: none;
+    }  
+}
+
+/* Desktop / Laptop (devices using a mouse pointer) */
+/* set visible */
+@media (pointer: fine){
+    #errormessage-spread{
+        display: block;
+    }  
 }
