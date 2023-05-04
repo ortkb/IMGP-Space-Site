@@ -1,0 +1,41 @@
+/* Error Message / Wrong Screensize spread */
+
+/* Breakpoints: 
+Desktop: over 1008px, Tablet: 1007px - 640px, Mobile: less than 640px 
+https://learn.microsoft.com/en-us/windows/apps/design/layout/screen-sizes-and-breakpoints-for-responsive-design */
+
+/* Applies by default to larger screens and/or non-touchscreen devices */
+#errormessage-spread{
+    position: fixed;
+    background-color: rgba(90, 84, 148, 0.96);
+    color: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
+#errormessage-textbox{
+    text-align: center;
+}
+
+/* Small screens (presumably mobile) */ 
+@media screen and (max-width: 640px) and (orientation: landscape) {
+    #errormessage-spread{
+        display: none;
+    }   
+}
+
+/* Touchscreens */
+@media (pointer: coarse) and (orientation: landscape) {
+	#errormessage-spread{
+        display: none;
+    }  
+}
+
+/* Desktop / Laptop (devices using a mouse pointer) */
+/* set visible */
+@media (pointer: fine){
+    #errormessage-spread{
+        display: block;
+    }  
+}
