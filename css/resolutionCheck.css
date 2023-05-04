@@ -7,7 +7,8 @@ https://learn.microsoft.com/en-us/windows/apps/design/layout/screen-sizes-and-br
 /* Applies by default to larger screens and/or non-touchscreen devices */
 #errormessage-spread{
     position: fixed;
-    background-color: blue;
+    background-color: rgba(90, 84, 148, 0.9);
+    color: #fff;
     width: 100vw;
     height: 100vh;
     z-index: 5;
