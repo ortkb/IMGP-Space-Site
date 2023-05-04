@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/swiper-bundle.min.css"> <!-- Swiper -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> <!-- Animate on scroll -->
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,14 +50,16 @@
                     Intro slide
                 </h3>
                 <p class="font-rubik">
-                    Aliens &gt;&gt;  you should memorise the order solar system &gt;&gt; test at the end
+                    There’s been a disaster and we need you to save the solar system! <br>
+                    Gary the alien has messed up the order of the planet with their spaceship and we need you to save the solar system. <br>
+                    Save the solar system by remembering the order of planets and putting them back in order!
                 </p>
                 <h4 class="font-bebas">
                     Swipe to scroll
                 </h4>
                 <img src="img/Hand gif.gif" alt="scroll input gif">
             </div>
-            <div class="swiper-slide planetpage-container">
+            <div class="swiper-slide planetpage-container" data-aos="fade-up">
                 <img src="img/Planets/mercury.png" class="planet-img" alt="mercury">
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">Mercury</h3>
@@ -141,9 +144,15 @@
     
 
     <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Animate on Scroll-->
+    
+
     <script src="js/main.js"></script>
     <script src="js/resolutionCheck.js"></script>
-
+    
+    <script>
+        AOS.init();
+    </script>
 
 </body>
 </html>
