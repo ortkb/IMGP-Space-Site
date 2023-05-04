@@ -7,7 +7,7 @@ https://learn.microsoft.com/en-us/windows/apps/design/layout/screen-sizes-and-br
 /* Applies by default to larger screens and/or non-touchscreen devices */
 #errormessage-spread{
     position: fixed;
-    background-color: rgba(90, 84, 148, 0.9);
+    background-color: rgba(90, 84, 148, 0.96);
     color: #fff;
     width: 100vw;
     height: 100vh;
@@ -16,10 +16,6 @@ https://learn.microsoft.com/en-us/windows/apps/design/layout/screen-sizes-and-br
 
 #errormessage-textbox{
     text-align: center;
-}
-
-#errormessage-button{
-    float: right;
 }
 
 /* Small screens (presumably mobile) */ 
