@@ -1,3 +1,7 @@
+addEventListener("load", function(){ // on page load..
+  // remove loading screen
+});
+
 const swiper = new Swiper('.swiper', {
     speed: 600,
     parallax: true,
@@ -27,3 +31,14 @@ document.body.onkeyup = function(event) {
           });
     }
 }
+
+// check when a swipe has been made
+swiper.on( 'slideChange', function() {
+  if ( swiper.activeIndex > swiper.previousIndex ) {
+      console.log( 'left' );
+  } else {
+      console.log('right');
+  }
+});
+
+// get on touch event to switch between spaceship and spaceship flying images 
