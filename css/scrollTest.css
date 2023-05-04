@@ -24,7 +24,7 @@ body{
     display: flex;
     align-items: center; /* Items stay at 50% height */
     justify-content: center; /* Items stay at 50% width */
-    gap: 5%;
+    gap: 10%;
     color: #fff;
 }
 
@@ -41,7 +41,6 @@ body{
 
 .swiper-pagination-bullet-active {
     color: #fff;
-    background: #007aff;
 }
 
 .swiper-button-prev {
@@ -61,15 +60,14 @@ body{
 }
 
 .planetpage-textbox{
-    max-width: 30vw;
-    flex: 2;
+    width: 40%;
 }
 
 .parallax-bg{
     position: absolute;
     left: -30%;
     top: 0;
-    width: 250%;
+    width: 190%;
     height: 100%;
     /*-webkit-background-size: cover; */
     background-size: cover;
