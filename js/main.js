@@ -1,5 +1,5 @@
 addEventListener("load", function(){ // on page load..
-  // remove loading screen
+  document.getElementById("loader").style.display = "none";
 });
 
 const swiper = new Swiper('.swiper', {

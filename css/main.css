@@ -8,6 +8,11 @@ h3{
     margin: 0px;
 }
 
+h4{
+    font-size: 2em;
+    margin: 0px;
+}
+
 .no-scrollbar{ /* Removes scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer & Edge */
@@ -72,6 +77,15 @@ h3{
     background-size: cover;
     background-position: center;
     background-image: url("../img/space_bg_1920x1080.jpg");
+}
+
+/* Load Screen */
+#loader{
+    position: fixed;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
 }
 
 /* Fonts */
