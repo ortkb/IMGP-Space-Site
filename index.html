@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/swiper-bundle.min.css"> <!-- Swiper -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> <!-- Animate on scroll -->
+    <link rel="stylesheet" href="css/w3.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,13 +43,14 @@
         <!-- Parallax Background -->
         <div class="parallax-bg" data-swiper-parallax="-33%"></div>
         <!-- Additional required wrapper -->
+
         <div class="swiper-wrapper">
             <!-- Slides -->
             <div class="swiper-slide planetpage-container flex-direction-vertical">
-                <h3 class="font-bebas">
+                <h3 class="font-bebas planetpage-title">
                     Intro slide
                 </h3>
-                <p class="font-rubik">
+                <p class="font-rubik planetpage-desc">
                     There’s been a disaster and we need you to save the solar system! <br>
                     Gary the alien has messed up the order of the planet with their spaceship and we need you to save the solar system. <br>
                     Save the solar system by remembering the order of planets and putting them back in order!
@@ -59,13 +60,13 @@
                 </h4>
                 <img src="img/Hand gif.gif" alt="scroll input gif">
             </div>
-            <div class="swiper-slide planetpage-container" data-aos="fade-up">
+            <div class="swiper-slide planetpage-container">
                 <img src="img/Planets/mercury.png" class="planet-img" alt="mercury">
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">Mercury</h3>
-                    <p class="planetpage-desc font-rubik"> 
+                    <p class="planetpage-desc font-rubik scrollreveal-test"> 
                         Mercury is the smallest planet in our solar system and nearest to the Sun. <br>
-From Mercury, the Sun would appear more than 3 times larger and 7 times brighter than if you were on Earth. <br>
+                        From Mercury, the Sun would appear more than 3 times larger and 7 times brighter than if you were on Earth. <br>
                     </p>
                 </section>
             </div>
@@ -75,7 +76,7 @@ From Mercury, the Sun would appear more than 3 times larger and 7 times brighter
                     <h3 class="planetpage-title font-bebas">Venus</h3>
                     <p class="planetpage-desc font-rubik">
                         Venus is the second planet from the Sun and is the closest planet to Earth.<br>
-It’s often called Earth’s twin because it’s similar in size and density. The surface is a rusty colour with mountains and thousands of large volcanoes. Scientists think it’s possible some volcanoes are still active.<br>
+                        It’s often called Earth’s twin because it’s similar in size and density. The surface is a rusty colour with mountains and thousands of large volcanoes. Scientists think it’s possible some volcanoes are still active.<br>
                     </p>
                 </section>
             </div>
@@ -85,7 +86,7 @@ It’s often called Earth’s twin because it’s similar in size and density. T
                     <h3 class="planetpage-title font-bebas">Earth</h3>
                     <p class="planetpage-desc font-rubik">
                         While Earth is only the fifth largest planet in the solar system, it is the only world in our solar system with liquid water on the surface.<br>
-Just slightly larger than nearby Venus, Earth is the biggest of the four planets closest to the Sun, all of which are made of rock and metal.<br>
+                        Just slightly larger than nearby Venus, Earth is the biggest of the four planets closest to the Sun, all of which are made of rock and metal.<br>
                     </p>
                 </section>
             </div>
@@ -134,6 +135,19 @@ Just slightly larger than nearby Venus, Earth is the biggest of the four planets
                     </p>
                 </section>
             </div>
+            <div class="swiper-slide planetpage-container flex-direction-vertical">
+                <h3 class="font-bebas planetpage-title">
+                    Intro slide
+                </h3>
+                <p class="font-rubik planetpage-desc">
+                    Well done! You now know more about the solar system, it is time to use your knowledge to reorder the planets to save the solar system.
+                    <br>Click to save the solar system now!
+                </p>
+                <h4 class="font-bebas">
+                    BUTTONHERE
+                </h4>
+                <img src="img/Hand gif.gif" alt="scroll input gif">
+            </div>
         </div>
 
         <!-- Add Pagination -->
@@ -144,18 +158,9 @@ Just slightly larger than nearby Venus, Earth is the biggest of the four planets
 
     </div>
 
-    
-
     <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Animate on Scroll-->
-    
-
     <script src="js/main.js"></script>
     <script src="js/resolutionCheck.js"></script>
-    
-    <script>
-        AOS.init();
-    </script>
 
 </body>
 </html>
