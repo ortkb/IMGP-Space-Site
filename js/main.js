@@ -27,7 +27,6 @@ class Spaceship{
 
   orientSpaceship(_swipeDirection){
     if (this.isValid){
-      //console.log(_swipeDirection);
       let isSpaceshipFlipped = this.spaceship.classList.contains("flipped");
       if (_swipeDirection == "LEFT" && !isSpaceshipFlipped){ // If Spaceship is facing left (and doesn't already have the 'flipped' class), flip the image so it faces left.
         this.spaceship.classList.add("flipped");
@@ -79,6 +78,8 @@ swiper.on('slideChange', function() {
 });
 
 // While the user is swiping, finds whether the user is swiping left or right
+
+/*
 swiper.on("touchMove", function(){
   if (swipeDirectionDetector.hasDirectionChanged(swiper.touches.diff)){
     console.log("change in direction!");
@@ -87,24 +88,36 @@ swiper.on("touchMove", function(){
   // get on touch event to switch between spaceship and spaceship flying images 
 })
 
+*/
+
 // Hammer
 
-var hammertime = new Hammer(document.body);
-hammertime.on('panmove', function(event) {
-	console.log(event.direction);
-  if (event.direction = 2){
-    spaceship.orientSpaceship("RIGHT");
-  }
-  else if (event.direction = 4){
-    spaceship.orientSpaceship("LEFT");
-  }
-});
+
+
+
 
 // If scrolling to the left, returns '-1', if scrolling right (or not scrolling), returns '1'
-class SwipeDirectionDetector { 
-  prevSwipeDiff = 0;
+class SwipeDirectionListener { 
   prevSwipeDirection = 0;
 
+  constructor(){
+    this.hammertime = new Hammer(document.body);
+
+    this.hammertime.on('panmove', function(event) {
+      if(this.prevDirection !== event.direction){
+        if (event.direction == 2){
+          spaceship.orientSpaceship("RIGHT");
+        }
+        else if (event.direction == 4){
+          spaceship.orientSpaceship("LEFT");
+        }
+      }
+
+      this.prevDirection = event.direction;
+    });
+  }
+
+  /*
   getNewSwipeDirection(newSwipeDiff){
     //console.log(newSwipeDiff);
     if(newSwipeDiff == undefined){
@@ -117,6 +130,7 @@ class SwipeDirectionDetector {
     this.prevSwipeDiff = newSwipeDiff;
     return isScrollingLeft ? -1 : 1; 
   }
+  
 
   getCurrentSwipeDirection(){
     return this.prevSwipeDirection;
@@ -133,6 +147,8 @@ class SwipeDirectionDetector {
     return hasChanged;
   }
 
+  */
+
 }
 
-const swipeDirectionDetector = new SwipeDirectionDetector();
+const swipeDirectionListener = new SwipeDirectionListener();
