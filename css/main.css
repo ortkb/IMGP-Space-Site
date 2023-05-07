@@ -86,15 +86,6 @@ h4{
     background-image: url("../img/space_bg_1920x1080.jpg");
 }
 
-/* Load Screen */
-#loader{
-    position: fixed;
-    z-index: 10;
-    width: 100vw;
-    height: 100vh;
-    background-color: #fff;
-}
-
 /* Fonts */
 
 .font-bebas{
@@ -145,6 +136,17 @@ h4{
 .flipped{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+
+/* Load Screen */
+#loader{
+    position: fixed;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(123, 114, 200, 0.96);
+    color: #fff;
+    text-align: center;
 }
 
 /* Error message */
