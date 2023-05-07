@@ -77,78 +77,24 @@ swiper.on('slideChange', function() {
   }
 });
 
-// While the user is swiping, finds whether the user is swiping left or right
-
-/*
-swiper.on("touchMove", function(){
-  if (swipeDirectionDetector.hasDirectionChanged(swiper.touches.diff)){
-    console.log("change in direction!");
-    //spaceship.orientSpaceship(swipeDirectionDetector.getCurrentSwipeDirection(swiper.touches.diff));
-  }
-  // get on touch event to switch between spaceship and spaceship flying images 
-})
-
-*/
 
 // Hammer
 
+function SwipeDirectionListener(){
+  let prevDirection = 0;
+  let hammer = new Hammer(document.body);
 
-
-
-
-// If scrolling to the left, returns '-1', if scrolling right (or not scrolling), returns '1'
-class SwipeDirectionListener { 
-  prevSwipeDirection = 0;
-
-  constructor(){
-    this.hammertime = new Hammer(document.body);
-
-    this.hammertime.on('panmove', function(event) {
-      if(this.prevDirection !== event.direction){
-        if (event.direction == 2){
-          spaceship.orientSpaceship("RIGHT");
-        }
-        else if (event.direction == 4){
-          spaceship.orientSpaceship("LEFT");
-        }
+  hammer.on('panmove', function(event) {
+    if(prevDirection !== event.direction){
+      if (event.direction == 2){
+        spaceship.orientSpaceship("RIGHT");
       }
-
-      this.prevDirection = event.direction;
-    });
-  }
-
-  /*
-  getNewSwipeDirection(newSwipeDiff){
-    //console.log(newSwipeDiff);
-    if(newSwipeDiff == undefined){
-      console.error("'newSwipeDiff' parameter is not defined.");
+      else if (event.direction == 4){
+        spaceship.orientSpaceship("LEFT");
+      }
     }
-    if(this.prevSwipeDiff == newSwipeDiff || newSwipeDiff == 0){
-      return 0; // If the direction is the same, (e.g. swiping vertically), then return 0
-    }
-    let isScrollingLeft = this.prevSwipeDiff < newSwipeDiff;
-    this.prevSwipeDiff = newSwipeDiff;
-    return isScrollingLeft ? -1 : 1; 
-  }
-  
-
-  getCurrentSwipeDirection(){
-    return this.prevSwipeDirection;
-  }
-
-  hasDirectionChanged(newSwipeDiff){
-    let currentDirection = this.getNewSwipeDirection(newSwipeDiff)
-    if (currentDirection == 0){
-      return false; // If the current direction is neither left or right, return false (the direction has not changed)
-    }
-    let hasChanged = currentDirection !== this.prevSwipeDirection;
-    this.prevSwipeDirection = currentDirection;
-
-    return hasChanged;
-  }
-
-  */
-
+    prevDirection = event.direction;
+  });
 }
 
 const swipeDirectionListener = new SwipeDirectionListener();
