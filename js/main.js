@@ -9,8 +9,6 @@ addEventListener("load", function(){ // on page load..
 });
 
 
-
-
 // ---- Spaceship ----
 
 class Spaceship{
@@ -36,10 +34,25 @@ class Spaceship{
       }
     }
   }
+
+  isFlyingClassApplied(){
+    return this.spaceship.classList.contains("spaceship-flying");
+  }
+
+  addFlyingImg(){
+    if (this.isValid && !this.spaceship.classList.contains("spaceship-flying")){
+      this.spaceship.classList.add("spaceship-flying");
+    }
+  }
+
+  removeFlyingImg(){
+    if (this.isValid && this.isFlyingClassApplied()){
+      this.spaceship.classList.remove("spaceship-flying");
+    }
+  }
 }
 
 const spaceship = new Spaceship(document.getElementById("spaceship") ?? null);
-
 
 // ---- Swiper ----
 
@@ -77,6 +90,13 @@ swiper.on('slideChange', function() {
   }
 });
 
+swiper.on('slideChangeTransitionStart', function(){
+  spaceship.addFlyingImg();
+});
+
+swiper.on("slideChangeTransitionEnd", function(){
+  spaceship.removeFlyingImg();
+});
 
 // Hammer
 

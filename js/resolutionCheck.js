@@ -45,7 +45,6 @@ function checkLandscapeOrientation(){
 }
 
 function closeErrorMessage(){
-    console.log("CLOSE");
     document.getElementById("errormessage-spread").style.display = "none";
 }
 
