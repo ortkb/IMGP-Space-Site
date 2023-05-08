@@ -36,6 +36,18 @@ h4{
     color: #fff; 
 }
 
+/* Scroll animation */
+
+.scroll-ani {
+    width: 200px;
+    height: 150px;
+    opacity: 90%;
+}
+
+.swipe-to-scroll {
+    transform: translateY(22vh);
+}
+
 /* Spaceship */
 
 #spaceship{
@@ -85,6 +97,12 @@ h4{
 
 .planetpage-desc{
     text-align:center;
+}
+
+.narrative {
+    font-size: 2rem;
+    width:50%;
+    font-family: 'Rubik', sans-serif;
 }
 
 .parallax-bg{
