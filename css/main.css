@@ -97,13 +97,29 @@ h4{
 }
 
 .planetpage-desc{
-    text-align:center;
+    text-align: left;
 }
 
-.narrative {
+.narrative-1 {
+    font-size: 3rem;
+    width:50%;
+    font-family: 'Bebas', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+.narrative-2 {
     font-size: 2rem;
     width:50%;
     font-family: 'Rubik', sans-serif;
+    text-align: center;
+}
+
+.narrative-3 {
+    font-size: 1.75rem;
+    width:50%;
+    font-family: 'Rubik', sans-serif;
+    text-align: center;
 }
 
 .parallax-bg{
