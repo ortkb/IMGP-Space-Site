@@ -47,18 +47,6 @@ h4{
     color: #fff; 
 }
 
-/* Scroll animation */
-
-.scroll-ani {
-    width: 200px;
-    height: 150px;
-    opacity: 90%;
-}
-
-.swipe-to-scroll {
-    transform: translateY(22vh);
-}
-
 /* Spaceship */
 
 #spaceship{
@@ -90,7 +78,6 @@ h4{
     justify-content: center; /* Items stay at 50% width */
     gap: 5%;
     color: #fff;
-    font-size: 10px;
 }
 
 .planet-img{
@@ -111,25 +98,22 @@ h4{
     text-align: left;
 }
 
-.narrative-1 {
+.narrative-title {
     font-size: 3rem;
     width:50%;
-    font-family: 'Bebas', sans-serif;
     font-weight: bold;
     text-align: center;
 }
 
-.narrative-2 {
+.narrative-desc {
     font-size: 2rem;
     width:50%;
-    font-family: 'Rubik', sans-serif;
     text-align: center;
 }
 
-.narrative-3 {
+.narrative-desc-small {
     font-size: 1.75rem;
     width:50%;
-    font-family: 'Rubik', sans-serif;
     text-align: center;
 }
 
@@ -143,6 +127,18 @@ h4{
     background-size: cover;
     background-position: center;
     background-image: url("../img/space_bg_1920x1080.jpg");
+}
+
+/* Scroll animation */
+
+.scroll-ani {
+    width: 200px;
+    height: 150px;
+    opacity: 90%;
+}
+
+.swipe-to-scroll {
+    transform: translateY(10vh);
 }
 
 /* Fonts */
@@ -245,6 +241,18 @@ h4{
 }
 
 /* Media Queries */
+
+@media screen and (max-width: 1200px){
+    /* Tablet Scaling for text / img */
+    h3{
+        font-size: 1.5em;
+    }
+    
+    h4{
+        font-size: 1em;
+    }    
+
+}
 
 @media screen and (max-width: 640px) and (orientation: landscape) { /* Small screens (presumably mobile) */ 
     #errormessage-spread{
