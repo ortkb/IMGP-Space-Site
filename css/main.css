@@ -61,8 +61,6 @@ h4{
     width: 178px;
     height: 120px;
     background-size: 178px 137px; /* should equal width and height */
-    background-size: 178px 137px;
-    /*margin-top: 76.96%; */
 }
 
 .spaceship-flying{
@@ -251,6 +249,14 @@ h4{
     h4{
         font-size: 1em;
     }    
+    #spaceship{
+        top: 65vh;
+        left: 50vw;
+        width: 134px;
+        height: 120px;
+        background-size: 134px 120px;
+    }
+
 
 }
 
