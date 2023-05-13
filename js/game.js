@@ -1,17 +1,12 @@
+//to - do
 /*
-class PlanetSlot extends Phaser.Physics.Arcade.Sprite{
-    
-    constructor(scene, x, y){
-        super(scene, x, y, )
+Create planet and dropZone / slot classes.
 
-    }
 
-    initHitbox(){
-        this.hitbox = this.scene.add.zone(this.x, this.y, 200, 200);
-        this.scene.physics.add.overlap();
-    }
-}
 */
+
+
+// Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
 
 class SpaceScene extends Phaser.Scene{
     constructor(){
@@ -30,9 +25,11 @@ class SpaceScene extends Phaser.Scene{
         this.background.setOrigin(0,0);
         
         this.createPlanets(); // Create planet(s)
-
+        this.createDropZones();
+        this.createDragAndDropListeners();
         
-        this.input.on("pointerdown", this.dragStart, this);
+        
+        
     }
 
     update(){
@@ -42,43 +39,92 @@ class SpaceScene extends Phaser.Scene{
     /// ///
 
 
-
-
-    /// /// 
-
-    // Click + Drag code from WClarkson (Youtube):
-    // Link: https://youtu.be/t56DvozbZX4
-
-    /*
     createPlanets(){
-        let placeholder = this.add.image(100, 300, "planet-1");
-        placeholder.setScale(0.05);
-        placeholder.setInteractive();
-    }
-    
-    dragStart(pointer, targets){
-        this.input.off("pointerdown", this.dragStart, this);
-        this.dragObject = targets[0];
-        this.input.on("pointermove", this.dragMove, this);
-        this.input.on("pointerup", this.dragEnd, this);
+        let planet = this.add.image(100, 300, "planet-1").setInteractive();;
+        planet.setScale(0.02);
+        this.input.setDraggable(planet);
+
     }
 
-    dragMove(pointer){
-        if (typeof this.dragObject !== "undefined") {
-            this.dragObject.x = pointer.x;
-            this.dragObject.y = pointer.y;
+    createDropZones(){
+        let x = 300;
+        const y = 200;
+
+        
+        for (let i = 0; i < 3; i++){
+            let zone = this.add.zone(x, y, 100, 100).setRectangleDropZone(100, 100);
+            const graphics = this.add.graphics();
+            graphics.lineStyle(2, 0xFFFFFF)
+            //graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+            graphics.strokeCircle(zone.x, zone.y, this.getSquareRadius(zone.input.hitArea.width));
+            x += 200;
         }
+        
     }
 
-    dragEnd(){
-        this.input.on("pointerdown", this.dragStart, this);
-        this.input.off("pointermove", this.dragMove, this);
-        this.input.off("pointerup", this.dragEnd, this);
+    getSquareRadius(sideLength){
+        return (sideLength * Math.sqrt(2)/2);
     }
-    */
 
-    // End of borrowed code
+    createDragAndDropListeners(){
+        this.input.on("dragstart", function(pointer, gameObject){ 
+            this.children.bringToTop(gameObject); // brings image to top layer
+        }, this);
 
+        this.input.on("drag", function(pointer, gameObject, dragX, dragY){
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
+
+        this.input.on('dragenter', function(pointer, gameObject, dropZone) {
+            // show change in graphic when hovering over the dropbox
+            /*
+            graphics.clear();
+            graphics.lineStyle(2, 0x00ffff);
+            graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+            */
+        });
+
+        this.input.on('dragleave', function(pointer, gameObject, dropZone){
+            // graphic change after entering >> leaving a hover over the dropbox
+            /*
+            graphics.clear();
+            graphics.lineStyle(2, 0xffff00);
+            graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+            */
+        });
+
+        this.input.on('drop', function(pointer, gameObject, dropZone){
+            // Position of the gameObject (the held planet) is snapped to the dropZone's origin.s
+            gameObject.x = dropZone.x;
+            gameObject.y = dropZone.y;
+            // Make it so that the gameobject can't be interacted with after dropping
+            // ### gameObject.input.enabled = false;
+
+        });
+
+        this.input.on('dragend', function(pointer, gameObject, dropped){
+
+            if (!dropped){
+                // If not dropped, return to start position
+                gameObject.x = gameObject.input.dragStartX;
+                gameObject.y = gameObject.input.dragStartY;
+            }
+
+            // change graphic line color
+            /*
+            graphics.clear();
+            graphics.lineStyle(2, 0xffff00);
+            graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+            */
+
+        });
+
+    }
+
+    createGraphicsOutline(_zone, _x, _y, graphicsObject){
+
+    }
 
     clickDrag(){
 
