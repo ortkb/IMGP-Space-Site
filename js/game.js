@@ -1,12 +1,32 @@
 //to - do
 /*
 Create planet and dropZone / slot classes.
-
+Do I really need the line graphics changing color? An outline and bg would do. Cut if unneeded.
 
 */
 
 
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
+
+class Planet extends Phaser.GameObjects.Image{
+    constructor (img, id, x, y, scene){
+        super(scene);
+        this.id = id;
+        this.setTexture(img);
+        this.setPosition(x, y);
+        this.setScale(0.02);
+    }
+}
+
+class PlanetSlot extends Phaser.GameObjects.Zone{
+    constructor(graphic, id, x, y, width, height, scene){
+        super(scene);
+
+    }
+
+    // group graphic in this class 
+    // so the planetslot ID and the graphic are stored in the same slot
+}
 
 class SpaceScene extends Phaser.Scene{
     constructor(){
@@ -17,7 +37,7 @@ class SpaceScene extends Phaser.Scene{
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
-        this.load.image("planet-1", "img/Planets/mercury.png")
+        this.load.image("planet-1", "img/Planets/mercury.png");
     }
 
     create(){
@@ -40,10 +60,12 @@ class SpaceScene extends Phaser.Scene{
 
 
     createPlanets(){
-        let planet = this.add.image(100, 300, "planet-1").setInteractive();;
+        //let planet = this.add.image(100, 300, "planet-1").setInteractive();
+        let planet = this.children.add(new Planet("planet-1", 1, 400, 400, this)).setInteractive();
+        //this.children.add(new Planet("planet-1", this, 400, 400);
+        console.log(planet.id);
         planet.setScale(0.02);
         this.input.setDraggable(planet);
-
     }
 
     createDropZones(){
@@ -55,6 +77,7 @@ class SpaceScene extends Phaser.Scene{
             let zone = this.add.zone(x, y, 100, 100).setRectangleDropZone(100, 100);
             const graphics = this.add.graphics();
             graphics.lineStyle(2, 0xFFFFFF)
+            // Hitbox is slightly larger than indicator to let in less precise inputs.
             //graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
             graphics.strokeCircle(zone.x, zone.y, this.getSquareRadius(zone.input.hitArea.width));
             x += 200;
@@ -119,6 +142,10 @@ class SpaceScene extends Phaser.Scene{
             */
 
         });
+
+    }
+
+    changeGraphics(gameObject, color){
 
     }
 
