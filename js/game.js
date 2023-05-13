@@ -3,12 +3,14 @@
 Create planet and dropZone / slot classes.
 Do I really need the line graphics changing color? An outline and bg would do. Cut if unneeded.
 
+
+do I need a physics object to trigger an overlap?   
 */
 
 
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
 
-class Planet extends Phaser.GameObjects.Image{
+class Planet extends Phaser.Physics.Arcade.Image{
     constructor (img, id, x, y, scene){
         super(scene);
         this.id = id;
@@ -16,13 +18,42 @@ class Planet extends Phaser.GameObjects.Image{
         this.setPosition(x, y);
         this.setScale(0.02);
     }
+
+
 }
 
 class PlanetSlot extends Phaser.GameObjects.Zone{
-    constructor(graphic, id, x, y, width, height, scene){
-        super(scene);
+    constructor(id, x, y, width, height, scene){
+        super(scene, x, y, width, height);
+        this.id = id;
+        
+        // set up dropzone
+        this.setRectangleDropZone(width, height);
 
+        const graphics = scene.add.graphics();
+        graphics.lineStyle(2, 0xFFFFFF)
+        // Hitbox is slightly larger than indicator to let in less precise inputs.
+        //graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+        graphics.strokeCircle(x, y, this.getSquareRadius(this.input.hitArea.width));
+
+
+        // Overlap
+        //scene.physics.add.existing(this, true); // 'true' means this is a static physics body
+        
+        /*
+        scene.physics.add.overlap(this, function(thisElement, collisionObject, planetBody, collisionBody){
+            if (collisionObject instanceof Planet){
+                alert("holy shit collision detected");
+            }
+            else{
+                console.log("collision detected : " + collisionObject);
+            }
+        });
+        */
     }
+
+    getSquareRadius = (sideLength) => sideLength * Math.sqrt(2)/2;
+    
 
     // group graphic in this class 
     // so the planetslot ID and the graphic are stored in the same slot
@@ -44,16 +75,21 @@ class SpaceScene extends Phaser.Scene{
         this.background = this.add.image(10, 10, "spaceBackground");
         this.background.setOrigin(0,0);
         
-        this.createPlanets(); // Create planet(s)
-        this.createDropZones();
+        this.planets = this.createPlanets(); // Create planet(s)
+        this.zones = this.createDropZones();
         this.createDragAndDropListeners();
         
-        
-        
-    }
+        //check for overlap
+        this.physics.add.overlap(this.zones, function(){
+            console.log("overlap success?!");
+        }, null, this);
 
-    update(){
-
+        /*
+        for (let i = 0; i < this.zones.length; i++){
+            console.log(this.zones[i]);
+        }
+        */
+        
     }
 
     /// ///
@@ -63,30 +99,25 @@ class SpaceScene extends Phaser.Scene{
         //let planet = this.add.image(100, 300, "planet-1").setInteractive();
         let planet = this.children.add(new Planet("planet-1", 1, 400, 400, this)).setInteractive();
         //this.children.add(new Planet("planet-1", this, 400, 400);
-        console.log(planet.id);
-        planet.setScale(0.02);
         this.input.setDraggable(planet);
+
+        return planet;
     }
 
     createDropZones(){
         let x = 300;
         const y = 200;
-
+        const width = 100;
+        const height = 100;
+        let zones = [];
         
         for (let i = 0; i < 3; i++){
-            let zone = this.add.zone(x, y, 100, 100).setRectangleDropZone(100, 100);
-            const graphics = this.add.graphics();
-            graphics.lineStyle(2, 0xFFFFFF)
-            // Hitbox is slightly larger than indicator to let in less precise inputs.
-            //graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-            graphics.strokeCircle(zone.x, zone.y, this.getSquareRadius(zone.input.hitArea.width));
+            let newPlanetSlot = this.children.add(new PlanetSlot(i + 1, x, y, width, height, this));
+            //let zone = this.add.zone(x, y, 100, 100).setRectangleDropZone(100, 100);
             x += 200;
+            zones.push(newPlanetSlot);
         }
-        
-    }
-
-    getSquareRadius(sideLength){
-        return (sideLength * Math.sqrt(2)/2);
+        return zones;        
     }
 
     createDragAndDropListeners(){
@@ -101,20 +132,11 @@ class SpaceScene extends Phaser.Scene{
 
         this.input.on('dragenter', function(pointer, gameObject, dropZone) {
             // show change in graphic when hovering over the dropbox
-            /*
-            graphics.clear();
-            graphics.lineStyle(2, 0x00ffff);
-            graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-            */
         });
 
         this.input.on('dragleave', function(pointer, gameObject, dropZone){
             // graphic change after entering >> leaving a hover over the dropbox
-            /*
-            graphics.clear();
-            graphics.lineStyle(2, 0xffff00);
-            graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-            */
+            
         });
 
         this.input.on('drop', function(pointer, gameObject, dropZone){
@@ -122,7 +144,7 @@ class SpaceScene extends Phaser.Scene{
             gameObject.x = dropZone.x;
             gameObject.y = dropZone.y;
             // Make it so that the gameobject can't be interacted with after dropping
-            // ### gameObject.input.enabled = false;
+            gameObject.input.enabled = false;
 
         });
 
@@ -135,12 +157,6 @@ class SpaceScene extends Phaser.Scene{
             }
 
             // change graphic line color
-            /*
-            graphics.clear();
-            graphics.lineStyle(2, 0xffff00);
-            graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-            */
-
         });
 
     }
@@ -177,6 +193,12 @@ const config = {
     height: 600,
 
     scene:[SpaceScene],
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    },
 
     backgroundColor: "#ddd"
 }
