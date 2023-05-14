@@ -7,12 +7,25 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         this.setRectangleDropZone(width, height);
 
         // Graphics 
-        const graphics = scene.add.graphics();
-        graphics.lineStyle(2, 0xFFFFFF)
+        this.graphics = scene.add.graphics();
+        this.graphics.lineStyle(2, 0xFFFFFF)
+        this.drawGraphics();
+        
+    }
+
+    drawGraphics(){
         //graphics.strokeRect(this.x - this.input.hitArea.width / 2, this.y - this.input.hitArea.height / 2, this.input.hitArea.width, this.input.hitArea.height);
-        //graphics.strokeCircle(x, y, this.getSquareRadius(this.input.hitArea.width));
+        this.graphics.strokeCircle(this.x, this.y, this.getSquareRadius(this.input.hitArea.width));
 
     }
+
+    changeGraphicColor(color){ // this
+        this.graphics.clear();
+        this.graphics.lineStyle(2, color);
+        drawGraphics();
+    }
+
+
 
     getSquareRadius = (sideLength) => sideLength * Math.sqrt(2)/2;
 }

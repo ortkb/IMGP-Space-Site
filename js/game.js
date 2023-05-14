@@ -2,9 +2,6 @@
 /*
 Create planet and dropZone / slot classes.
 Do I really need the line graphics changing color? An outline and bg would do. Cut if unneeded.
-
-
-do I need a physics object to trigger an overlap?   
 */
 
 
@@ -75,8 +72,6 @@ class SpaceScene extends Phaser.Scene{
             this.physics.add.existing(newPlanetSlot, true); // add physics
             
             x += 200;
-
-            return newPlanetSlot; // this is a sin but needed for testing;
 
             zones.push(newPlanetSlot);
         }
