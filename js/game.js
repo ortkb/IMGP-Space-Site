@@ -19,44 +19,7 @@ class Planet extends Phaser.Physics.Arcade.Image{
         this.setScale(0.02);
     }
 
-
-}
-
-class PlanetSlot extends Phaser.GameObjects.Zone{
-    constructor(id, x, y, width, height, scene){
-        super(scene, x, y, width, height);
-        this.id = id;
-        
-        // set up dropzone
-        this.setRectangleDropZone(width, height);
-
-        const graphics = scene.add.graphics();
-        graphics.lineStyle(2, 0xFFFFFF)
-        // Hitbox is slightly larger than indicator to let in less precise inputs.
-        //graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-        graphics.strokeCircle(x, y, this.getSquareRadius(this.input.hitArea.width));
-
-
-        // Overlap
-        //scene.physics.add.existing(this, true); // 'true' means this is a static physics body
-        
-        /*
-        scene.physics.add.overlap(this, function(thisElement, collisionObject, planetBody, collisionBody){
-            if (collisionObject instanceof Planet){
-                alert("holy shit collision detected");
-            }
-            else{
-                console.log("collision detected : " + collisionObject);
-            }
-        });
-        */
-    }
-
-    getSquareRadius = (sideLength) => sideLength * Math.sqrt(2)/2;
-    
-
-    // group graphic in this class 
-    // so the planetslot ID and the graphic are stored in the same slot
+    // scene.add physics image here?
 }
 
 class SpaceScene extends Phaser.Scene{
@@ -72,35 +35,30 @@ class SpaceScene extends Phaser.Scene{
     }
 
     create(){
+        // Background
         this.background = this.add.image(10, 10, "spaceBackground");
         this.background.setOrigin(0,0);
-        
+        // Elements
         this.planets = this.createPlanets(); // Create planet(s)
         this.zones = this.createDropZones();
         this.createDragAndDropListeners();
         
-        //check for overlap
-        this.physics.add.overlap(this.zones, function(){
-            console.log("overlap success?!");
-        }, null, this);
+        // Test
+        this.mouseSprite = this.physics.add.image(400, 300, 'spaceBackground').setScale(0.05).setInteractive();
+        this.input.setDraggable(this.mouseSprite);
 
-        /*
-        for (let i = 0; i < this.zones.length; i++){
-            console.log(this.zones[i]);
-        }
-        */
-        
+        //check for overlap
+
+        this.physics.add.overlap(this.mouseSprite, this.zones, null, function process (_planet, zone)
+            {
+                console.log("bepis");
+            }
+        );        
     }
 
-    /// ///
-
-
     createPlanets(){
-        //let planet = this.add.image(100, 300, "planet-1").setInteractive();
         let planet = this.children.add(new Planet("planet-1", 1, 400, 400, this)).setInteractive();
-        //this.children.add(new Planet("planet-1", this, 400, 400);
         this.input.setDraggable(planet);
-
         return planet;
     }
 
@@ -114,7 +72,12 @@ class SpaceScene extends Phaser.Scene{
         for (let i = 0; i < 3; i++){
             let newPlanetSlot = this.children.add(new PlanetSlot(i + 1, x, y, width, height, this));
             //let zone = this.add.zone(x, y, 100, 100).setRectangleDropZone(100, 100);
+            this.physics.add.existing(newPlanetSlot, true); // add physics
+            
             x += 200;
+
+            return newPlanetSlot; // this is a sin but needed for testing;
+
             zones.push(newPlanetSlot);
         }
         return zones;        
