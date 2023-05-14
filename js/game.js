@@ -54,8 +54,7 @@ class SpaceScene extends Phaser.Scene{
         this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
             {
                 if(planet.id == planetSlot.id){
-                    planetSlot.overlappingCorrectPlanet = true;
-                    console.log("correct"); 
+                    planetSlot.isOverlappingCorrectPlanet();
                     
                 }
                 // id check here
@@ -64,15 +63,13 @@ class SpaceScene extends Phaser.Scene{
     }
 
     update(){
-
-        //this.isCorrect = checkIfCorrect();
-        if (this.isCorrect){
-            this.isCorrect = false;
+        if (this.isCorrectAnswer){
+            this.isCorrectAnswer = false;
         }
         for (let i = 0; i < this.planetSlots.length; i++){
             this.planetSlots[i].update();
-            if(this.planetSlots[i].isCorrect == true){
-                this.isCorrect = true;
+            if(this.planetSlots[i].isCorrectAnswer == true){
+                this.isCorrectAnswer = true;
                 console.log("is truee");
             }
         }
@@ -135,12 +132,26 @@ class SpaceScene extends Phaser.Scene{
         });
 
         this.input.on('drop', function(pointer, gameObject, dropZone){
-            
-            // Position of the gameObject (the held planet) is snapped to the dropZone's origin.s
+            /*
+            if (this.isCorrectAnswer){
+                // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
+                gameObject.x = dropZone.x;
+                gameObject.y = dropZone.y;
+                // Make it so that the gameobject can't be interacted with after dropping
+                gameObject.input.enabled = false;
+            }else{
+                gameObject.x = gameObject.input.dragStartX;
+                gameObject.y = gameObject.input.dragStartY;
+            }
+            */
+
+            // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
             gameObject.x = dropZone.x;
             gameObject.y = dropZone.y;
             // Make it so that the gameobject can't be interacted with after dropping
             gameObject.input.enabled = false;
+
+            
         });
 
         this.input.on('dragend', function(pointer, gameObject, dropped){
