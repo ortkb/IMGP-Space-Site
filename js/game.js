@@ -7,13 +7,15 @@ Do I really need the line graphics changing color? An outline and bg would do. C
 
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
 
-class Planet extends Phaser.Physics.Arcade.Image{
+class Planet extends Phaser.GameObjects.Image{
     constructor (img, id, x, y, scene){
         super(scene);
         this.id = id;
         this.setTexture(img);
         this.setPosition(x, y);
         this.setScale(0.02);
+
+        scene.physics.world.enableBody(this)
     }
 
     // scene.add physics image here?
@@ -46,9 +48,11 @@ class SpaceScene extends Phaser.Scene{
 
         //check for overlap
 
-        this.physics.add.overlap(this.mouseSprite, this.zones, null, function process (_planet, zone)
+        //this.physics.add.overlap(this.mouseSprite, this.zones, null, function process (_planet, zone)
+        this.physics.add.overlap(this.planets, this.zones, null, function process (_planet, zone)
             {
-                console.log("bepis");
+                console.log(zone.id);
+                // id check here
             }
         );        
     }
