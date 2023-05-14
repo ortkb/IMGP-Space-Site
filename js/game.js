@@ -10,11 +10,11 @@ Do I really need the line graphics changing color? An outline and bg would do. C
 class Planet extends Phaser.GameObjects.Image{
     constructor (img, id, x, y, scene){
         super(scene);
+
         this.id = id;
         this.setTexture(img);
         this.setPosition(x, y);
         this.setScale(0.02);
-
         scene.physics.world.enableBody(this);
     }
 
@@ -28,13 +28,14 @@ class Planet extends Phaser.GameObjects.Image{
 class SpaceScene extends Phaser.Scene{
     constructor(){
         super("game");
+        this.isCorrectAnswer = false;
     }
 
     preload(){
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
-        this.load.image("planet-1", "img/Planets/mercury.png");
+        this.load.image("planet-0", "img/Planets/mercury.png");
     }
 
     create(){
@@ -45,10 +46,6 @@ class SpaceScene extends Phaser.Scene{
         this.planets = this.createPlanets(); // Create planet(s)
         this.planetSlots = this.createDropZones();
         this.createDragAndDropListeners();
-        
-        // Test
-        this.mouseSprite = this.physics.add.image(400, 300, 'spaceBackground').setScale(0.05).setInteractive();
-        this.input.setDraggable(this.mouseSprite);
 
         //check for overlap
         this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
@@ -63,14 +60,14 @@ class SpaceScene extends Phaser.Scene{
     }
 
     update(){
+        console.log(this.isCorrectAnswer);
         if (this.isCorrectAnswer){
             this.isCorrectAnswer = false;
         }
         for (let i = 0; i < this.planetSlots.length; i++){
             this.planetSlots[i].update();
-            if(this.planetSlots[i].isCorrectAnswer == true){
+            if(this.planetSlots[i].isCorrect == true){
                 this.isCorrectAnswer = true;
-                console.log("is truee");
             }
         }
         
@@ -81,8 +78,8 @@ class SpaceScene extends Phaser.Scene{
         let y = 400;
         let planetsArray = [];
         for (let i = 0; i < 3; i++){
-            let planet = this.children.add(new Planet("planet-" + 1, i+1, x, y, this)).setInteractive();
-            //let planet = this.children.add(new Planet("planet-" + i, i+1, x, y, this)).setInteractive();
+            let planet = this.children.add(new Planet("planet-" + 0, i, x, y, this)).setInteractive();
+            //let planet = this.children.add(new Planet("planet-" + i, i, x, y, this)).setInteractive();
             this.input.setDraggable(planet);
 
             x += 120;
@@ -102,7 +99,7 @@ class SpaceScene extends Phaser.Scene{
         let zonesArray = [];
         
         for (let i = 0; i < 3; i++){
-            let newPlanetSlot = this.children.add(new PlanetSlot(i + 1, x, y, width, height, this));
+            let newPlanetSlot = this.children.add(new PlanetSlot(i, x, y, width, height, this));
             this.physics.add.existing(newPlanetSlot, true); // add physics
             
             x += 200;
@@ -113,67 +110,71 @@ class SpaceScene extends Phaser.Scene{
     }
 
     createDragAndDropListeners(){
-        this.input.on("dragstart", function(pointer, gameObject){ 
-            this.children.bringToTop(gameObject); // brings image to top layer
+        this.input.on("dragstart", function(pointer, planet){ 
+            this.children.bringToTop(planet); // brings image to top layer
         }, this);
 
-        this.input.on("drag", function(pointer, gameObject, dragX, dragY){
-            gameObject.x = dragX;
-            gameObject.y = dragY;
-        });
+        this.input.on("drag", function(pointer, planet, dragX, dragY){
+            planet.x = dragX;
+            planet.y = dragY;
+        }, this);
 
         this.input.on('dragenter', function(pointer, gameObject, dropZone) {
             // show change in graphic when hovering over the dropbox
-        });
+        }, this);
 
         this.input.on('dragleave', function(pointer, gameObject, dropZone){
             // graphic change after entering >> leaving a hover over the dropbox
             
-        });
+        }, this);
 
-        this.input.on('drop', function(pointer, gameObject, dropZone){
-            /*
+        this.input.on('drop', function(pointer, planet, planetSlot){
             if (this.isCorrectAnswer){
+                this.runCorrectAnswer(planet, planetSlot);
                 // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
-                gameObject.x = dropZone.x;
-                gameObject.y = dropZone.y;
+                planet.x = planetSlot.x;
+                planet.y = planetSlot.y;
                 // Make it so that the gameobject can't be interacted with after dropping
-                gameObject.input.enabled = false;
+                planet.input.enabled = false;
             }else{
-                gameObject.x = gameObject.input.dragStartX;
-                gameObject.y = gameObject.input.dragStartY;
+                this.runIncorrectAnswer(planet, planetSlot);
+                planet.x = planet.input.dragStartX;
+                planet.y = planet.input.dragStartY;
             }
-            */
-
-            // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
-            gameObject.x = dropZone.x;
-            gameObject.y = dropZone.y;
-            // Make it so that the gameobject can't be interacted with after dropping
-            gameObject.input.enabled = false;
-
             
-        });
+        }, this);
 
-        this.input.on('dragend', function(pointer, gameObject, dropped){
+        this.input.on('dragend', function(pointer, planet, dropped){
 
             if (!dropped){
                 // If not dropped, return to start position
-                gameObject.x = gameObject.input.dragStartX;
-                gameObject.y = gameObject.input.dragStartY;
+                planet.x = planet.input.dragStartX;
+                planet.y = planet.input.dragStartY;
             }
 
             // change graphic line color
-        });
+        }, this);
 
     }
 
-    showHint(index){
+    runCorrectAnswer(_planet, _planetSlot){
+        // give audio / visual feedback
+        this.physics.world.disable(_planetSlot);
+        this.slotFilled();
+        this.isEverySlotFilled()
+    }
 
+    runIncorrectAnswer(_planet, _planetSlot){
+        // give audio / visual feedback
+        this.showHint(_planetSlot.id);
+    }
+
+    showHint(_id){
+        alert("show hint for planetSlot " + _id + " here.");
     }
 
     slotFilled(){
         // check if every slot is filled
-        this.isEverySlotFilled()
     }
 
     isEverySlotFilled(){
