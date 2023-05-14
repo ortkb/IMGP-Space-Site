@@ -15,10 +15,14 @@ class Planet extends Phaser.GameObjects.Image{
         this.setPosition(x, y);
         this.setScale(0.02);
 
-        scene.physics.world.enableBody(this)
+        scene.physics.world.enableBody(this);
     }
 
-    // scene.add physics image here?
+    orbitSun(){
+        // set origin to sun's position (or a point offscreen)
+        // rotate
+    }
+
 }
 
 class SpaceScene extends Phaser.Scene{
@@ -36,10 +40,10 @@ class SpaceScene extends Phaser.Scene{
     create(){
         // Background
         this.background = this.add.image(10, 10, "spaceBackground");
-        this.background.setOrigin(0,0);
+        this.background.setOrigin(0, 0);
         // Elements
         this.planets = this.createPlanets(); // Create planet(s)
-        this.zones = this.createDropZones();
+        this.planetSlots = this.createDropZones();
         this.createDragAndDropListeners();
         
         // Test
@@ -47,20 +51,50 @@ class SpaceScene extends Phaser.Scene{
         this.input.setDraggable(this.mouseSprite);
 
         //check for overlap
-
-        //this.physics.add.overlap(this.mouseSprite, this.zones, null, function process (_planet, zone)
-        this.physics.add.overlap(this.planets, this.zones, null, function process (_planet, zone)
+        this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
             {
-                console.log(zone.id);
+                if(planet.id == planetSlot.id){
+                    planetSlot.overlappingCorrectPlanet = true;
+                    console.log("correct"); 
+                    
+                }
                 // id check here
             }
         );        
     }
 
+    update(){
+
+        //this.isCorrect = checkIfCorrect();
+        if (this.isCorrect){
+            this.isCorrect = false;
+        }
+        for (let i = 0; i < this.planetSlots.length; i++){
+            this.planetSlots[i].update();
+            if(this.planetSlots[i].isCorrect == true){
+                this.isCorrect = true;
+                console.log("is truee");
+            }
+        }
+        
+    }
+
     createPlanets(){
-        let planet = this.children.add(new Planet("planet-1", 1, 400, 400, this)).setInteractive();
-        this.input.setDraggable(planet);
-        return planet;
+        let x = 100;
+        let y = 400;
+        let planetsArray = [];
+        for (let i = 0; i < 3; i++){
+            let planet = this.children.add(new Planet("planet-" + 1, i+1, x, y, this)).setInteractive();
+            //let planet = this.children.add(new Planet("planet-" + i, i+1, x, y, this)).setInteractive();
+            this.input.setDraggable(planet);
+
+            x += 120;
+            y += 20;
+
+            planetsArray.push(planet);
+        }
+        
+        return planetsArray;
     }
 
     createDropZones(){
@@ -68,18 +102,17 @@ class SpaceScene extends Phaser.Scene{
         const y = 200;
         const width = 100;
         const height = 100;
-        let zones = [];
+        let zonesArray = [];
         
         for (let i = 0; i < 3; i++){
             let newPlanetSlot = this.children.add(new PlanetSlot(i + 1, x, y, width, height, this));
-            //let zone = this.add.zone(x, y, 100, 100).setRectangleDropZone(100, 100);
             this.physics.add.existing(newPlanetSlot, true); // add physics
             
             x += 200;
 
-            zones.push(newPlanetSlot);
+            zonesArray.push(newPlanetSlot);
         }
-        return zones;        
+        return zonesArray;        
     }
 
     createDragAndDropListeners(){
@@ -102,12 +135,12 @@ class SpaceScene extends Phaser.Scene{
         });
 
         this.input.on('drop', function(pointer, gameObject, dropZone){
+            
             // Position of the gameObject (the held planet) is snapped to the dropZone's origin.s
             gameObject.x = dropZone.x;
             gameObject.y = dropZone.y;
             // Make it so that the gameobject can't be interacted with after dropping
             gameObject.input.enabled = false;
-
         });
 
         this.input.on('dragend', function(pointer, gameObject, dropped){
@@ -120,18 +153,6 @@ class SpaceScene extends Phaser.Scene{
 
             // change graphic line color
         });
-
-    }
-
-    changeGraphics(gameObject, color){
-
-    }
-
-    createGraphicsOutline(_zone, _x, _y, graphicsObject){
-
-    }
-
-    clickDrag(){
 
     }
 
@@ -158,7 +179,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: true // remove debug to get rid of blue boxes, lines, etc
         }
     },
 

@@ -3,6 +3,9 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         super(scene, x, y, width, height);
         this.id = id;
         
+        this.currentlyOverlappingCorrectPlanet = false;
+        this.isCorrect = false;
+
         // set up dropzone
         this.setRectangleDropZone(width, height);
 
@@ -25,7 +28,19 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         drawGraphics();
     }
 
-
+    update(){
+        // if currently 
+        // if currentlyOverlappingCorrectPlanet is not set to true every frame, isCorrect will equal false.
+        if (this.isCorrect){
+            this.isCorrect = false;
+        }
+        
+        if (this.currentlyOverlappingCorrectPlanet == true){
+            this.isCorrect = true;
+            this.currentlyOverlappingCorrectPlanet = false;
+        }
+        
+    }
 
     getSquareRadius = (sideLength) => sideLength * Math.sqrt(2)/2;
 }
