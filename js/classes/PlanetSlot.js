@@ -17,7 +17,6 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     }
 
     drawGraphics(){
-        //graphics.strokeRect(this.x - this.input.hitArea.width / 2, this.y - this.input.hitArea.height / 2, this.input.hitArea.width, this.input.hitArea.height);
         this.graphics.strokeCircle(this.x, this.y, this.getSquareRadius(this.input.hitArea.width));
 
     }
@@ -29,8 +28,7 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     }
 
     update(){
-        // if currently 
-        // if currentlyOverlappingCorrectPlanet is not set to true every frame, isCorrect will equal false.
+        // if currentlyOverlappingCorrectPlanet is not set to true every frame, isCorrect will be set to false.
         if (this.isCorrect){
             this.isCorrect = false;
         }

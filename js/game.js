@@ -3,7 +3,7 @@
 
 this should really be running on deltatime instead of frames
 
-start location of rotation should be the coordinates of the planetSlot
+start location of rotation / rotationRadius should be the coordinates of the planetSlot
 
 */
 
@@ -24,20 +24,16 @@ class Planet extends Phaser.GameObjects.Image{
         scene.physics.world.enableBody(this);
 
         this.isOrbiting = false;
-        this.rotation = 0;
+        this.orbitRotation = 0;
 
         this.params = this.getParameters();
-        console.log(this.params.rotationRadius);
     }
 
     orbitSun(){        
-        this.body.rotation += 0.5; // spinning in place
-        
-
-        this.setDisplayOrigin(this.scene.sun.x, this.scene.sun.y);
-        this.rotation += this.params.rotationSpeed;
-        Phaser.Math.RotateTo(this, 0, 300, this.rotation, this.params.rotationRadius);
-        if (this.rotation >= 360) {this.rotation = 0;}
+        this.body.rotation += 1; // spinning in place
+        this.orbitRotation += this.params.rotationSpeed;
+        Phaser.Math.RotateTo(this, 0, 300, this.orbitRotation, this.params.rotationRadius);
+        if (this.orbitRotation >= 360) {this.rotation = 0;}
     }
 
 
@@ -45,12 +41,11 @@ class Planet extends Phaser.GameObjects.Image{
         if (this.isOrbiting){
             this.orbitSun();
         }
-        //Phaser.Actions.RotateAroundDistance(this, { x: 100, y: 100 }, 0.02, 100);
     }
 
     getParameters(){
-        //return {rotationSpeed: 0.01, rotationRadius: Phaser.Math.Between(this.scene.sun.x, this.scene.sun.y, this.planetSlotObject.x, this.planetSlotObject.y) }
-        return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x - this.planetSlotObject.width / 2}
+        //return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x - this.planetSlotObject.width / 2}
+        return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x}
     }
 
 }
