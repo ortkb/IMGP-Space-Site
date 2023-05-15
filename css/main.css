@@ -11,6 +11,7 @@ h3{
 h4{
     font-size: 2em;
     margin: 0px;
+    text-align: center;
 }
 
 .no-scrollbar{ /* Removes scrollbar */
@@ -31,7 +32,8 @@ h4{
     padding: 15px 32px;
     text-align: center;
     cursor:pointer;
-    font-size:16px;
+    font-size: 20px;
+    margin-top: 5%;
 }
 
 /* Swiper */
@@ -102,15 +104,23 @@ h4{
 
 .narrative-title {
     font-size: 3rem;
-    width:50%;
+    width:60%;
     font-weight: bold;
     text-align: center;
+    margin-bottom:0.5%;
 }
 
 .narrative-desc {
     font-size: 2rem;
-    width:50%;
+    width:60%;
     text-align: center;
+}
+
+.narrative-desc-2 {
+    font-size: 2rem;
+    width:60%;
+    text-align: center;
+    margin-bottom: -5%;
 }
 
 .narrative-desc-small {
@@ -134,13 +144,15 @@ h4{
 /* Scroll animation */
 
 .scroll-ani {
-    width: 200px;
-    height: 150px;
-    opacity: 90%;
+    width: 160px;
+    height: 120px;
+    opacity: 80%;
+    margin-bottom: -8%;
+    margin-top: 10%;
 }
 
 .swipe-to-scroll {
-    transform: translateY(10vh);
+    transform: translateY(15vh);
 }
 
 /* Fonts */
