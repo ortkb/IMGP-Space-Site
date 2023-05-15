@@ -1,7 +1,10 @@
 //to - do
 /*
-Create planet and dropZone / slot classes.
-Do I really need the line graphics changing color? An outline and bg would do. Cut if unneeded.
+
+this should really be running on deltatime instead of frames
+
+start location of rotation should be the coordinates of the planetSlot
+
 */
 
 
@@ -12,15 +15,42 @@ class Planet extends Phaser.GameObjects.Image{
         super(scene);
 
         this.id = id;
-        this.setTexture(img);
-        this.setPosition(x, y);
-        this.setScale(0.02);
+        
+        this.scene = scene; // used when calling scene from functions
+        this.planetSlotObject = this.scene.planetSlots[this.id];
+        this.setTexture(img)
+            .setPosition(x, y)
+            .setScale(0.02);
         scene.physics.world.enableBody(this);
+
+        this.isOrbiting = false;
+        this.rotation = 0;
+
+        this.params = this.getParameters();
+        console.log(this.params.rotationRadius);
     }
 
-    orbitSun(){
-        // set origin to sun's position (or a point offscreen)
-        // rotate
+    orbitSun(){        
+        this.body.rotation += 0.5; // spinning in place
+        
+
+        this.setDisplayOrigin(this.scene.sun.x, this.scene.sun.y);
+        this.rotation += this.params.rotationSpeed;
+        Phaser.Math.RotateTo(this, 0, 300, this.rotation, this.params.rotationRadius);
+        if (this.rotation >= 360) {this.rotation = 0;}
+    }
+
+
+    update(){
+        if (this.isOrbiting){
+            this.orbitSun();
+        }
+        //Phaser.Actions.RotateAroundDistance(this, { x: 100, y: 100 }, 0.02, 100);
+    }
+
+    getParameters(){
+        //return {rotationSpeed: 0.01, rotationRadius: Phaser.Math.Between(this.scene.sun.x, this.scene.sun.y, this.planetSlotObject.x, this.planetSlotObject.y) }
+        return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x - this.planetSlotObject.width / 2}
     }
 
 }
@@ -33,18 +63,23 @@ class SpaceScene extends Phaser.Scene{
 
     preload(){
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
+        this.load.image("sunBackground", "img/sun 2.png");
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
         this.load.image("planet-0", "img/Planets/mercury.png");
+        
     }
 
     create(){
         // Background
-        this.background = this.add.image(10, 10, "spaceBackground");
-        this.background.setOrigin(0, 0);
+        var background = this.add.image(0, 0, "spaceBackground");
+        background.setOrigin(0, 0);
+        this.sun = this.add.image(0, 300, "sunBackground")
+            .setOrigin(0, 0.5)
+            .setScale(1.5);
         // Elements
-        this.planets = this.createPlanets(); // Create planet(s)
         this.planetSlots = this.createDropZones();
+        this.planets = this.createPlanets(); // Create planet(s)
         this.createDragAndDropListeners();
 
         //check for overlap
@@ -54,13 +89,11 @@ class SpaceScene extends Phaser.Scene{
                     planetSlot.isOverlappingCorrectPlanet();
                     
                 }
-                // id check here
             }
         );        
     }
 
     update(){
-        console.log(this.isCorrectAnswer);
         if (this.isCorrectAnswer){
             this.isCorrectAnswer = false;
         }
@@ -69,6 +102,10 @@ class SpaceScene extends Phaser.Scene{
             if(this.planetSlots[i].isCorrect == true){
                 this.isCorrectAnswer = true;
             }
+        }
+
+        for (let i = 0; i < this.planets.length; i++){
+            this.planets[i].update();
         }
         
     }
@@ -160,6 +197,8 @@ class SpaceScene extends Phaser.Scene{
     runCorrectAnswer(_planet, _planetSlot){
         // give audio / visual feedback
         this.physics.world.disable(_planetSlot);
+        _planetSlot.graphics.clear();
+        _planet.isOrbiting = true;
         this.slotFilled();
         this.isEverySlotFilled()
     }
