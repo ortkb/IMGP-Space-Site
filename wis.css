@@ -1,7 +1,7 @@
 *{
-    color:rgb(1, 1, 1);
+    color:rgb(255, 255, 255);
     font-size: 16px;
-    background-image: url("Background.jpg");
+    background-image: url("../img/space_bg_1920x1080.jpg");
 }
 
 .image{   /* link: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div */
@@ -19,7 +19,7 @@ h2{
 text-align: center;
 }
 h3{
-    color:rgb(35, 35, 117); /* this needs to change once the background has been added! */
+    color:rgb(253, 253, 255); /* this needs to change once the background has been added! */
 }
 /* fonts: needs to be put into file to work*/
 .font-rubik {
