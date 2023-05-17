@@ -5,50 +5,47 @@ this should really be running on deltatime instead of frames
 
 start location of rotation / rotationRadius should be the coordinates of the planetSlot
 
+- popup messages on incorrect answer
+- intro messages
+
+
+
 */
+
+const introMessageText = [
+    "Drag the planets back to the correct order.", 
+    "Aliens"
+]
+
+class Textbox extends Phaser.GameObjects.GameObject{
+    constructor(textArray, x, y, width, height, scene){
+        super(scene, "textbox");
+        console.log(this.x);
+
+        this.currentPage = 0;
+
+        const zone = scene.add.zone(x, y, width, height).setInteractive();
+        zone.on("pointerdown", function(){
+            // progress to next page
+        });
+        const bg = scene.add.rexRoundRectangle(x, y, width, height, 30, 0xffffff); //200, 150, 400, 100, 200, 30 (corner radius), 0xffffff
+    }
+
+    setupTextBox(textArray){
+    if (typeof textArray == "string"){ // if textarray is a string rather than an array of strings..
+        // load the one string
+    }
+    }
+
+    
+
+    close(){
+        this.destroy();
+    }
+}
 
 
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
-
-class Planet extends Phaser.GameObjects.Image{
-    constructor (img, id, x, y, scene){
-        super(scene);
-
-        this.id = id;
-        
-        this.scene = scene; // used when calling scene from functions
-        this.planetSlotObject = this.scene.planetSlots[this.id];
-        this.setTexture(img)
-            .setPosition(x, y)
-            .setScale(0.02);
-        scene.physics.world.enableBody(this);
-
-        this.isOrbiting = false;
-        this.orbitRotation = 0;
-
-        this.params = this.getParameters();
-    }
-
-    orbitSun(){        
-        this.body.rotation += 1; // spinning in place
-        this.orbitRotation += this.params.rotationSpeed;
-        Phaser.Math.RotateTo(this, 0, 300, this.orbitRotation, this.params.rotationRadius);
-        if (this.orbitRotation >= 360) {this.rotation = 0;}
-    }
-
-
-    update(){
-        if (this.isOrbiting){
-            this.orbitSun();
-        }
-    }
-
-    getParameters(){
-        //return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x - this.planetSlotObject.width / 2}
-        return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x}
-    }
-
-}
 
 class SpaceScene extends Phaser.Scene{
     constructor(){
@@ -62,6 +59,9 @@ class SpaceScene extends Phaser.Scene{
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
         this.load.image("planet-0", "img/Planets/mercury.png");
+
+        // Round rectangles
+        this.load.plugin('rexroundrectangleplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexroundrectangleplugin.min.js', true);
         
     }
 
@@ -86,6 +86,7 @@ class SpaceScene extends Phaser.Scene{
                 }
             }
         );        
+
     }
 
     update(){
@@ -218,7 +219,7 @@ class SpaceScene extends Phaser.Scene{
 
 const config = {
     type: Phaser.AUTO,
-    width: 800,
+    width: 1000,
     height: 600,
 
     scene:[SpaceScene],
@@ -228,6 +229,22 @@ const config = {
             debug: true // remove debug to get rid of blue boxes, lines, etc
         }
     },
+    scale: {
+        parent: 'gameContainer',
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+
+        min: {
+            width: 800,
+            height: 600
+        },
+
+        max: {
+            width: 1600,
+            height: 1200
+        }
+    },
+
 
     backgroundColor: "#ddd"
 }
