@@ -24,11 +24,13 @@ class Textbox extends Phaser.GameObjects.GameObject{
 
         this.currentPage = 0;
 
+        const bg = scene.add.rexRoundRectangle(x, y, width, height, 30, 0xffffff); //200, 150, 400, 100, 200, 30 (corner radius), 0xffffff
         const zone = scene.add.zone(x, y, width, height).setInteractive();
         zone.on("pointerdown", function(){
             // progress to next page
         });
-        const bg = scene.add.rexRoundRectangle(x, y, width, height, 30, 0xffffff); //200, 150, 400, 100, 200, 30 (corner radius), 0xffffff
+        
+        // object.setActive(false).setVisible(false);
     }
 
     setupTextBox(textArray){
@@ -49,10 +51,12 @@ class Textbox extends Phaser.GameObjects.GameObject{
 
 class SpaceScene extends Phaser.Scene{
     constructor(){
-        super("game");
+        super({
+            key: 'SpaceScene'
+        })
         this.isCorrectAnswer = false;
     }
-
+    
     preload(){
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         this.load.image("sunBackground", "img/sun 2.png");
@@ -62,7 +66,12 @@ class SpaceScene extends Phaser.Scene{
 
         // Round rectangles
         this.load.plugin('rexroundrectangleplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexroundrectangleplugin.min.js', true);
-        
+        // Ui plugin
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: "js/rexuiplugin.min.js",
+            sceneKey: 'rexUI'
+        });
     }
 
     create(){
@@ -86,7 +95,6 @@ class SpaceScene extends Phaser.Scene{
                 }
             }
         );        
-
     }
 
     update(){
@@ -222,7 +230,8 @@ const config = {
     width: 1000,
     height: 600,
 
-    scene:[SpaceScene],
+    scene:[Demo, SpaceScene],
+    //scene:[SpaceScene],
     physics: {
         default: 'arcade',
         arcade: {
