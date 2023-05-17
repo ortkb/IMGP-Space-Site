@@ -17,31 +17,52 @@ const introMessageText = [
     "Aliens"
 ]
 
-class Textbox extends Phaser.GameObjects.GameObject{
-    constructor(textArray, x, y, width, height, scene){
-        super(scene, "textbox");
-        console.log(this.x);
-
+class SingleUseTextbox extends Phaser.GameObjects.GameObject{
+    constructor(textArray, _x, _y, _width, _height, scene){
+        super(scene, "sprite");
         this.currentPage = 0;
+        this.textArray = textArray;
+        //this.scene = scene;
 
-        const bg = scene.add.rexRoundRectangle(x, y, width, height, 30, 0xffffff); //200, 150, 400, 100, 200, 30 (corner radius), 0xffffff
-        const zone = scene.add.zone(x, y, width, height).setInteractive();
-        zone.on("pointerdown", function(){
-            // progress to next page
-        });
+        const bg = scene.add.rexRoundRectangle(_x, _y, _width, _height, 30, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
         
-        // object.setActive(false).setVisible(false);
+        const zone = scene.add.zone(_x, _y, _width, _height).setInteractive();
+        zone.on("pointerdown", function(){
+            this.nextMessage();
+            // progress to next page
+        });       
+
+        this.displayText = scene.make.text({
+            x: _x,
+            y: _y,
+            text: 'TEXTHERE',
+            origin: { x: 0.5, y: 0.5 },
+            style: {
+                font: 'bold 25px Arial',
+                fill: '#000',
+                wordWrap: { width: 300 }
+            },
+        });
     }
 
-    setupTextBox(textArray){
+    setText(_text){
     if (typeof textArray == "string"){ // if textarray is a string rather than an array of strings..
-        // load the one string
+        
     }
+        this.displayText.setText(_text);
     }
 
-    
+    nextMessage(){
+        if (this.currentPage > this.textArray.length){
+            this.close();
+        }
+        // Move over to next text message.
+        this.currentPage++;
+        this.setText(this.textArray(this.currentPage));
+    }
 
     close(){
+        // object.setActive(false).setVisible(false);
         this.destroy();
     }
 }
@@ -66,12 +87,6 @@ class SpaceScene extends Phaser.Scene{
 
         // Round rectangles
         this.load.plugin('rexroundrectangleplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexroundrectangleplugin.min.js', true);
-        // Ui plugin
-        this.load.scenePlugin({
-            key: 'rexuiplugin',
-            url: "js/rexuiplugin.min.js",
-            sceneKey: 'rexUI'
-        });
     }
 
     create(){
@@ -94,7 +109,9 @@ class SpaceScene extends Phaser.Scene{
                     
                 }
             }
-        );        
+        );     
+        //const bg = this.add.rexRoundRectangle(200, 150, 300, 300, 30, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
+        this.add.existing(new SingleUseTextbox(introMessageText, 200, 150, 400, 200, this));
     }
 
     update(){
@@ -230,8 +247,7 @@ const config = {
     width: 1000,
     height: 600,
 
-    scene:[Demo, SpaceScene],
-    //scene:[SpaceScene],
+    scene:[SpaceScene],
     physics: {
         default: 'arcade',
         arcade: {
