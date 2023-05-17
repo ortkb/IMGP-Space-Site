@@ -303,7 +303,7 @@ h4{
   
   .popupText{ /* someone needs to change this up for the styling to properly be on the planet*/
     position: absolute;
-    width: 30%;
+    width: 30vw;
     height: auto;
     top: 70%; /*20px*/
     left: 10%;
