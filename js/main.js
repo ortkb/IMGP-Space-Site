@@ -139,7 +139,8 @@ function clickToShow2() {
 function clickToShow3() {
   var div = document.getElementById("clickToShow3");
     div.style.display = div.style.display == "block" ? "none" : "block";
-}
+    div.classList.toggle("show");
+  }
 //jupiter popup 
 function clickToShow4() {
   var div = document.getElementById("clickToShow4");

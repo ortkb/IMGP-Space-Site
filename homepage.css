@@ -13,6 +13,38 @@ body {
   position: absolute;
 }
 
+#content {
+  position: relative;
+  font-family: 'Rubik', sans-serif;
+  color: #fff ;
+  text-align: center;
+  width: 70%;
+  margin: auto;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-top: 5%;
+}
+
+#info1 {
+  font-size: 1.25rem;
+  margin-bottom: 3vh;
+}
+
+#info2 {
+  font-size: 1.25rem;
+}
+
+#buttons {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1vh;
+  justify-content: center;
+}
+
 .message-button{
   border-color: #fff;
   border-style: solid;
@@ -24,8 +56,8 @@ body {
   text-align: center;
   cursor:pointer;
   font-size: 20px;
-  margin-top: 5%;
   position: relative;
+  margin: 1vw;
 }
 
 /* Fonts */
