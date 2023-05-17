@@ -19,18 +19,26 @@ const introMessageText = [
 
 class SingleUseTextbox extends Phaser.GameObjects.GameObject{
     constructor(textArray, _x, _y, _width, _height, scene){
-        super(scene, "sprite");
+        super(scene, "TextBox");
         this.currentPage = 0;
         this.textArray = textArray;
         //this.scene = scene;
 
-        const bg = scene.add.rexRoundRectangle(_x, _y, _width, _height, 30, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
+        const bg = scene.add.rexRoundRectangle(_x, _y, _width, _height, 20, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
         
-        const zone = scene.add.zone(_x, _y, _width, _height).setInteractive();
+        let zone = scene.add.zone(0, 0, 1000, 600)
+            .setInteractive()
+            .setOrigin(0, 0); // fullscreen zone to change messages
+        
+
         zone.on("pointerdown", function(){
-            this.nextMessage();
+            this.currentPage++;
+            if (this.currentPage >= this.textArray.length){
+                this.destroyAllInArray([bg, zone, this]);
+            }
+            this.displayText.setText(this.textArray[this.currentPage]);
             // progress to next page
-        });       
+        }, this);       
 
         this.displayText = scene.make.text({
             x: _x,
@@ -43,27 +51,19 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
                 wordWrap: { width: 300 }
             },
         });
-    }
-
-    setText(_text){
-    if (typeof textArray == "string"){ // if textarray is a string rather than an array of strings..
         
-    }
-        this.displayText.setText(_text);
-    }
-
-    nextMessage(){
-        if (this.currentPage > this.textArray.length){
-            this.close();
+        if (typeof this.textArray == "string"){
+            this.displayText.setText(this.textArray);
         }
-        // Move over to next text message.
-        this.currentPage++;
-        this.setText(this.textArray(this.currentPage));
+        else{
+            this.displayText.setText(this.textArray[0]);
+        }
     }
 
-    close(){
-        // object.setActive(false).setVisible(false);
-        this.destroy();
+    destroyAllInArray(_array){
+        for (let i = 0; i < _array.length; i++){         
+            _array[i].destroy();
+        }
     }
 }
 
@@ -91,8 +91,8 @@ class SpaceScene extends Phaser.Scene{
 
     create(){
         // Background
-        var background = this.add.image(0, 0, "spaceBackground");
-        background.setOrigin(0, 0);
+        var background = this.add.image(0, 0, "spaceBackground")
+            .setOrigin(0, 0);
         this.sun = this.add.image(0, 300, "sunBackground")
             .setOrigin(0, 0.5)
             .setScale(1.5);
