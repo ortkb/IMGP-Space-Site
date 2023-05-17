@@ -1,5 +1,5 @@
 *{
-    color:azure;
+    color:rgb(1, 1, 1);
     font-size: 16px;
     background-image: url("Background.jpg");
 }
@@ -19,7 +19,7 @@ h2{
 text-align: center;
 }
 h3{
-    color:rgb(254, 254, 255);
+    color:rgb(35, 35, 117); /* this needs to change once the background has been added! */
 }
 /* fonts: needs to be put into file to work*/
 .font-rubik {
