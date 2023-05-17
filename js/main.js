@@ -122,9 +122,10 @@ const swipeDirectionListener = new SwipeDirectionListener();
 //code for the popups on the planets 
 //mercury popup
 function clickToShow() {
-  var div = document.getElementById("clickToShow");
-    div.style.display = div.style.display == "block" ? "none" : "block";
+  var popup1 = document.getElementById("infoPopup1");
+  popup1.classList.toggle("show");
 }
+
 // Venus code pop up
 function clickToShow1() {
   var div = document.getElementById("clickToShow1");
@@ -139,7 +140,6 @@ function clickToShow2() {
 function clickToShow3() {
   var div = document.getElementById("clickToShow3");
     div.style.display = div.style.display == "block" ? "none" : "block";
-    div.classList.toggle("show");
   }
 //jupiter popup 
 function clickToShow4() {

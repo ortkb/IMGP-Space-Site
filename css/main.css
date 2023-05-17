@@ -301,23 +301,27 @@ h4{
     position: relative;
   }
   
-  .text-block{ /* someone needs to change this up for the styling to properly be on the planet*/
+  .popupText{ /* someone needs to change this up for the styling to properly be on the planet*/
     position: absolute;
-    width: 70%;
-    height: 70%;
-    top: 50%; /*20px*/
-    left: 50%;
+    width: 30%;
+    height: auto;
+    top: 70%; /*20px*/
+    left: 10%;
     background-color:black; /*could change*/
     color: white;
     padding-left: 10px;
     padding-right:10px;
-    opacity: 0.7;
     visibility: hidden;
   }
 
-  .show {
+  .popup1 .popupText{
+    visibility: hidden;
+  }
+
+  .popup1 .show {
     visibility: visible;
   }
-  p{
+
+  p {
   opacity: 1;
   }  
