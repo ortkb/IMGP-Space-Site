@@ -1,261 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="css/swiper-bundle.min.css"> <!-- Swiper -->
-    <!-- <link rel="stylesheet" href="css/w3.css"> -->
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="preload" href="img/wave_1.gif" as="image"> <!-- Preload loading screen gif -->
-    <title>IntergalacticExplorers</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <title>IntergalacticExplorers</title>
 </head>
+<body>
 
-<body class="no-scrollbar">
+  <div id="bg"></div>
 
-    <!-- Error messages -->
-    <section id="errormessage-spread">
-        <div class="position-center-container">
-            <div id="errormessage-textbox">
-                <h3 id="errormessage-title" class="font-bebas">Sorry!</h3>
-                <p id="errormessage-desc" class="font-rubik">This site is designed for mobile and tablet devices. Please use the side buttons or click + drag to navigate the page.</p>
-                <button type="button" id="errormessage-button" class="font-rubik">Close</button>
-            </div>
-        </div>
-    </section>
+  <div id="content">
 
-    <div id="loader" class="position-center-container font-bebas">
-        <img src="img/wave_1.gif" alt="loading screen gif">
-        <p>LOADING...</p>
+    <div id="welcome"><h1>Welcome to Intergalactic explorers!</h1></div>
+
+    <div id="info1">
+      We’re dedicated in getting young explorers interested in stem.
+      With the massive gender wage gap in the stem field we want to focus on lessening the gap and inspire all young explorers to pursue their interests in stem.
     </div>
 
-    <div id="spaceship"></div>
-
-    <!-- Slider main container -->
-    <div class="swiper">
-        <!-- Parallax Background -->
-        <div class="parallax-bg" data-swiper-parallax="-33%"></div>
-        <!-- Additional required wrapper -->
-
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide planetpage-container flex-direction-vertical">
-                <h1 class="font-bebas narrative-title">Hey there fellow astronaut!</h1>
-
-                <h3 class="font-rubik narrative-desc">
-                    My name is Buzz, let's explore the milky way. 
-                </h3>
-                <h3 class="font-rubik narrative-desc">
-                    See how many space facts you can remember!
-                </h3>
-
-                <!-- <h3 class="font-rubik narrative-desc-small">3, 2, 1 …. Blast off!</h3> -->
-
-                <div class="swipe-to-scroll">
-                    <img class="scroll-ani" src="img/Hand gif.gif" alt="scroll input gif">
-                    
-                    <h4 class="font-bebas ">
-                        Swipe to scroll
-                    </h4>
-                </div>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/mercury.png" class="planet-img" alt="mercury" style="cursor:pointer;" onclick="clickToShow();"> <!-- this is the popup for mercury-->
-                <div class="text-block" id="clickToShow"> <!-- this is the div mentioned in the homepage css--> <!-- link: https://jsfiddle.net/3e8pnLd4/8/-->
-                    <p> <b>My</b> Very Educated Mother Just Served Us Nuggets</p>
-                </div> 
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">1 - Mercury</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                       Our first Stop, Mercury!
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik"> 
-                            The <b>smallest planet</b> and closest to the sun.
-                        </li>
-                        <li class="planetpage-desc font-rubik">
-                            From Mercury, the sun looks 3 times larger and 7 times brighter than from earth. 
-                        </li>
-                        
-                    </ul>
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/venus.png" class="planet-img" alt="venus" style="cursor:pointer;" onclick="clickToShow1();">
-                <div class="text-block" id="clickToShow1"> <!-- each div is numbered to avoid confusion-->
-                    <p> My <b>Very</b> Educated Mother Just Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">2 - Venus</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        Look it’s Earth’s twin, Venus.
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik"> This planet has a <b>similar size and density to earth.</b> </li>
-                        <li class="planetpage-desc font-rubik">The surface has mountains and thousands of large volcanoes. Scientists think that some of these volcanoes are still active. </li>
-                    </ul>
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/earth.png" class="planet-img" alt="earth" style="cursor:pointer;" onclick="clickToShow2();">
-                <div class="text-block" id="clickToShow2"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very <b>Educated</b> Mother Just Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">3 - Earth</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        Woah, look it’s your home planet Earth!
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik"> 
-                            Earth is <b>the fifth largest planet</b> in the milky way and the only planet with <b>liquid water on its surface.</b>
-                        </li>
-                        
-                        <li class="planetpage-desc font-rubik">
-                            Your home planet is the biggest planet we’ve seen so far!
-                        </li>
-                    </ul>
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/mars.png" class="planet-img" alt="mars" style="cursor:pointer;" onclick="clickToShow3();">
-                <div class="text-block" id="clickToShow3"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated <b>Mother</b> Just Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">4 -Mars</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        We’ve made it to Mars! A dusty, cold, desert world.
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik"> 
-                            <b>Mars also has seasons, ice, valleys and extinct volcanoes.</b>
-                        </li>
-                    </ul>
-
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/jupiter.png" class="planet-img" alt="jupiter" width="2500" height="7000" style="cursor:pointer;" onclick="clickToShow4();"> <!-- needs fixing for the sizing!-->
-                <div class="text-block" id="clickToShow4"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother <b>Just</b> Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">5 - Jupiter</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        We’re half way through our exploration of the solar system and we’ve reached Jupiter. 
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik"> 
-                            The stripe and swirls on the planet are actually really cold windy clouds.  
-                        </li>
-                        
-                        <li class="planetpage-desc font-rubik">
-                            Jupiter is the <b>biggest planet</b> in the solar system!
-                        </li>
-                    </ul>
-
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/saturn.png" class="planet-img" alt="saturn" style="cursor:pointer;" onclick="clickToShow5();" > 
-                <div class="text-block" id="clickToShow5"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother Just <b>Served</b> Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">6 - Saturn</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        Saturn! The planet with the biggest and brightest rings.
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik">
-                            The other gas giants (Jupiter, Uranus and Neptune) also have rings, though Saturn's rings are the <b>biggest and brightest</b>.
-                        </li>
-                        <li class="planetpage-desc font-rubik"> 
-                            Did you know that the rings are made out of chunks of ice and rocks?
-                        </li>
-                    </ul>
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/uranus.png" class="planet-img" alt="uranus" style="cursor:pointer;" onclick="clickToShow6();">
-                <div class="text-block" id="clickToShow6"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother Just Served <b>Us</b> Nuggets</p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">7 - Uranus</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        Our next stop is Uranus.
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik">
-                            Uranus was the <b>first planet</b> to be discovered using a telescope. The planet was originally thought to be a comet or star.
-                        </li>
-                        <li class="planetpage-desc font-rubik"> 
-                            Uranus is the <b>coldest</b> planet in the solar system, even though Neptune is further away from the Sun.
-                        </li>
-                    </ul>
-
-                </section>
-            </div>
-            <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/neptune.png" class="planet-img" alt="neptune" style="cursor:pointer;" onclick="clickToShow7();">
-                <div class="text-block" id="clickToShow7"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother Just Served Us <b>Nuggets</b> </p> <!-- the text for the pop-up -->
-                </div>
-                <section class="planetpage-textbox">
-                    <h3 class="planetpage-title font-bebas">8 - Neptune</h3>
-                    <p class="planetpage-desc font-rubik"> 
-                        Our final stop is Neptune. The <b>furthest planet</b> from the sun.
-                    </p>
-                    <ul>
-                        <li class="planetpage-desc font-rubik">
-                            Neptune is so far out, it takes over <b>164 years</b> for every time it orbits the Sun.
-                        </li>
-                        <li class="planetpage-desc font-rubik"> 
-                            Neptune is the only planet that you <b>can’t see</b> with a naked eye while on Earth.         
-                        </li>
-                    </ul>
-                
-                    </section>
-            </div>
-            <div class="swiper-slide planetpage-container flex-direction-vertical">
-                <p class="font-rubik planetpage-desc narrative">
-                    <h1 class="font-bebas narrative-title">Houston we have a problem.</h1>
-
-                    <h2 class="font-rubik narrative-desc-2">Disaster! Gary the alien has messed up the order of the planets. 
-                        We need your help to save the solar system. 
-                    </h2>
-                    <br>
-                    <h3 class="font-rubik narrative-desc-small"><b>Can you help reorder the planets?</b></h3>
-                </p>
-                
-                <a href="game.html">
-                <button type="button" class="font-bebas message-button">
-                    Save the solar system!
-                </button>
-                </a>
-                <!-- <img src="img/Alien Spaceship.png" alt="scroll input gif" width="178px" height="120px"> In need of help with the sizing of the spaceship; needs to be the same size as when you move through slides! -->
-            </div>
-        </div>
-
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-
+    <div id="info2">
+      Getting children interested in stem fields from a young age means they are more likely to pursue further education and jobs in these sectors. 
+      Intergalactic explorers is dedicated to help your child to learn and explore space and discover new role models.
     </div>
 
-    <script src="js/swiper-bundle.min.js"></script> <!-- Swiper -->
-    <script src="js/hammer.min.js"></script> <!-- Hammer -->
-    <script src="js/main.js"></script>
-    <script src="js/resolutionCheck.js"></script>
+    <h3>Select which area you would like to learn about.</h3>
+
+  </div>
+
+  <div id="buttons">
+
+    <a href="wis.html">
+      <button type="button" class="font-bebas message-button">
+        Women in space
+      </button>
+      </a>
+
+      <a href="planets.html">
+        <button type="button" class="font-bebas message-button">
+          Learn about the solar system!
+        </button>
+      </a>
+
+  </div>
+
 
 </body>
 </html>

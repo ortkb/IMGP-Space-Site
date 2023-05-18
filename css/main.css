@@ -9,7 +9,7 @@ h3{
 }
 
 h4{
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 0px;
     text-align: center;
 }
@@ -107,26 +107,31 @@ h4{
     width:60%;
     font-weight: bold;
     text-align: center;
-    margin-bottom:0.5%;
-}
-
-.narrative-desc {
-    font-size: 2rem;
-    width:60%;
-    text-align: center;
+    margin-bottom:-3%;
+    margin-top: -5%;
 }
 
 .narrative-desc-2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     width:60%;
     text-align: center;
     margin-bottom: -5%;
+    font-weight: 100;
 }
 
-.narrative-desc-small {
-    font-size: 1.75rem;
-    width:50%;
+.narrative-desc-3 {
+    font-size: 1.5rem;
+    width:60%;
     text-align: center;
+    margin-bottom: 5%;
+}
+
+.narrative-desc-2-last-slide {
+    font-size: 1.5rem;
+    width:60%;
+    text-align: center;
+    margin-bottom: -13%;
+    font-weight: 100;
 }
 
 .parallax-bg{
@@ -141,18 +146,38 @@ h4{
     background-image: url("../img/space_bg_1920x1080.jpg");
 }
 
+.parallax-alien-container{
+    position: absolute;
+    left: 50%;
+    top: -25%;
+    width: 130%;
+    height: 100%;
+    /*-webkit-background-size: cover; */
+    
+}
+
+.parallax-alien{
+    opacity: 0.3;
+    background-image: url("../img/Alien Spaceship.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: none;
+    width: 300px;
+    height: 300px;
+}
+
 /* Scroll animation */
 
 .scroll-ani {
-    width: 160px;
-    height: 120px;
+    width: 130px;
+    height: 100px;
     opacity: 80%;
     margin-bottom: -8%;
-    margin-top: 10%;
 }
 
 .swipe-to-scroll {
-    transform: translateY(15vh);
+    margin-bottom: -15%;
+    text-align: center;
 }
 
 /* Fonts */
@@ -301,18 +326,27 @@ h4{
     position: relative;
   }
   
-  .text-block{ /* someone needs to change this up for the styling to properly be on the planet*/
+  .popupText{ /* someone needs to change this up for the styling to properly be on the planet*/
     position: absolute;
-    width: 70%;
-    height: 70%;
-    top: 50%; /*20px*/
-    left: 50%;
+    width: 30vw;
+    height: auto;
+    top: 70%; /*20px*/
+    left: 10%;
     background-color:black; /*could change*/
     color: white;
     padding-left: 10px;
     padding-right:10px;
-    opacity: 0.7;
+    visibility: hidden;
   }
-  p{
+
+  .popupText{
+    visibility: hidden;
+  }
+
+  .show {
+    visibility: visible;
+  }
+
+  p {
   opacity: 1;
   }  
