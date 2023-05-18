@@ -120,10 +120,14 @@ function SwipeDirectionListener(){
 const swipeDirectionListener = new SwipeDirectionListener();
 
 //code for the popups on the planets 
-//mercury popup
+/* code copied from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup 
+    modified function name, changed to getElementsByClassName, added for loop
+*/
 function clickToShow() {
-  var popup1 = document.getElementById("infoPopup1");
-  popup1.classList.toggle("show");
+  var popup1 = document.getElementsByClassName("infoPopup");
+  for (var eachPopup of popup1) {
+    eachPopup.classList.toggle("show");
+  }
 }
 
 // Venus code pop up
