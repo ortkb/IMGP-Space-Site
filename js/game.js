@@ -162,14 +162,13 @@ class SpaceScene extends Phaser.Scene{
 
         //check for overlap
   
-        let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
-        introTextbox.setFadeOut(3000);
+        //let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
+        //introTextbox.setFadeOut(3000);
 
         this.overlap = this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
             {
                 if(planet.id == planetSlot.id){
                     planetSlot.isOverlappingCorrectPlanet();
-                    
                 }
             }
         );   
@@ -191,7 +190,6 @@ class SpaceScene extends Phaser.Scene{
             this.isCorrectAnswer = false;
         }
         for (let i = 0; i < this.planetSlots.length; i++){
-            this.planetSlots[i].update();
             if(this.planetSlots[i].isCorrect == true){
                 this.isCorrectAnswer = true;
             }
@@ -260,7 +258,8 @@ class SpaceScene extends Phaser.Scene{
 
         this.input.on('drop', function(pointer, planet, planetSlot){
             console.log(planet.id + " - - - " + planetSlot.id);
-            if (this.isCorrectAnswer){
+            //if (this.isCorrectAnswer){ 
+            if (planet.id == planetSlot.id){
                 this.runCorrectAnswer(planet, planetSlot);
                 // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
                 planet.x = planetSlot.x;

@@ -30,7 +30,6 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     }
 
     update(){
-        // if currentlyOverlappingCorrectPlanet is not set to true every frame, isCorrect will be set to false.
         if (this.isCorrect){
             this.isCorrect = false;
         }
