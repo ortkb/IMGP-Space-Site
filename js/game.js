@@ -51,7 +51,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
         }
         this.setFadeOut(3000); 
 
-        this.update = scene.events.on('update', this.update, this);
+        this.updateListener = scene.events.on('update', this.update, this);
     }
 
     update(){
@@ -71,10 +71,10 @@ class Textbox extends Phaser.GameObjects.GameObject{
     }
 
     closeTextbox(_scene){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
-        _scene.test();
-        this.zone.removeInteractive();
+        //this.zone.removeInteractive();
         this.zone.setScale(0, 0);
-        this.destroyAllInArray([this.background, this.zone, this.update, this]);
+        // I cannot find a way to delete this.updateListener cleanly - for some reason the planet orbiting breaks when I just destroy() it. Wild.
+        this.destroyAllInArray([this.background, this.zone, this]);
     }
 
     destroyAllInArray(_array){
@@ -162,12 +162,12 @@ class SpaceScene extends Phaser.Scene{
 
         //check for overlap
   
-        // let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
-        // introTextbox.setFadeOut(3000); 
+        let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
+        introTextbox.setFadeOut(3000); 
     }
 
     update(){
-        
+
     }
 
     createPlanets(){
@@ -176,7 +176,6 @@ class SpaceScene extends Phaser.Scene{
         let planetsArray = [];
         for (let i = 0; i < 3; i++){
             let planet = this.children.add(new Planet("planet-" + 0, i, x, y, this)).setInteractive();
-            //let planet = this.children.add(new Planet("planet-" + i, i, x, y, this)).setInteractive();
             this.input.setDraggable(planet);
 
             x += 120;
@@ -227,7 +226,6 @@ class SpaceScene extends Phaser.Scene{
 
         this.input.on('drop', function(pointer, planet, planetSlot){
             console.log(planet.id + " - - - " + planetSlot.id);
-            //if (this.isCorrectAnswer){ 
             if (planet.id == planetSlot.id){
                 this.runCorrectAnswer(planet, planetSlot);
                 // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
@@ -259,6 +257,7 @@ class SpaceScene extends Phaser.Scene{
     runCorrectAnswer(_planet, _planetSlot){
         console.log("correct");
         // give audio / visual feedback
+        _planetSlot.removeInteractive();
         this.physics.world.disable(_planetSlot);
         _planetSlot.graphics.clear();
         _planet.isOrbiting = true;
