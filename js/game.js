@@ -162,42 +162,11 @@ class SpaceScene extends Phaser.Scene{
 
         //check for overlap
   
-        //let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
-        //introTextbox.setFadeOut(3000);
-
-        this.overlap = this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
-            {
-                if(planet.id == planetSlot.id){
-                    planetSlot.isOverlappingCorrectPlanet();
-                }
-            }
-        );   
+        // let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
+        // introTextbox.setFadeOut(3000); 
     }
 
     update(){
-        this.checkForCorrect();
-
-        //console.log(this.overlap);
-
-        for (let i = 0; i < this.planets.length; i++){
-            //this.planets[i].update();
-        }
-        
-    }
-
-    checkForCorrect(){
-        if (this.isCorrectAnswer){
-            this.isCorrectAnswer = false;
-        }
-        for (let i = 0; i < this.planetSlots.length; i++){
-            if(this.planetSlots[i].isCorrect == true){
-                this.isCorrectAnswer = true;
-            }
-        }
-    }
- 
-    test(){
-        console.log("set overlap to top")
         
     }
 

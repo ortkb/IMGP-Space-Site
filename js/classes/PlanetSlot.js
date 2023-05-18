@@ -30,19 +30,7 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     }
 
     update(){
-        if (this.isCorrect){
-            this.isCorrect = false;
-        }
-        
-        if (this.currentlyOverlappingCorrectPlanet == true){
-            
-            this.isCorrect = true;
-            this.currentlyOverlappingCorrectPlanet = false;
-        }
-    }
-
-    isOverlappingCorrectPlanet(){
-        this.currentlyOverlappingCorrectPlanet = true;
+    
     }
 
     getSquareRadius = (sideLength) => sideLength * Math.sqrt(2)/2;
