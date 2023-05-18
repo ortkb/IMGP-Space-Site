@@ -13,6 +13,8 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         this.graphics = scene.add.graphics();
         this.graphics.lineStyle(2, 0xFFFFFF)
         this.drawGraphics();
+
+        scene.events.on('update', this.update, this);
         
     }
 
@@ -34,6 +36,7 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         }
         
         if (this.currentlyOverlappingCorrectPlanet == true){
+            
             this.isCorrect = true;
             this.currentlyOverlappingCorrectPlanet = false;
         }

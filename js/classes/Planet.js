@@ -16,6 +16,9 @@ class Planet extends Phaser.GameObjects.Image{
         this.orbitRotation = 0;
 
         this.params = this.getParameters();
+
+
+        scene.events.on('update', this.update, this);
     }
 
     orbitSun(){        

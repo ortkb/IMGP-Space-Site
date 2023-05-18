@@ -7,9 +7,11 @@ start location of rotation / rotationRadius should be the coordinates of the pla
 
 - popup messages on incorrect answer
 - intro messages
-
+- high score / time record - send to results scene. 
 
 can't seem to just cleanly destroy() the SingleUseTextbox and everything inside it - not a priority leave it for now.
+
+
 
 
 */
@@ -19,7 +21,7 @@ const introMessageText = [
     "Aliens"
 ]
 
-class SingleUseTextbox extends Phaser.GameObjects.GameObject{
+class Textbox extends Phaser.GameObjects.GameObject{
     constructor(textArray, _x, _y, _width, _height, scene){
         super(scene, "TextBox");
         this.currentPage = 0;
@@ -30,20 +32,7 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
         this.background = scene.add.rexRoundRectangle(_x, _y, _width, _height, 20, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
         
         this.zone = scene.add.zone(0, 0, 1000, 600)
-            .setInteractive()
-            .setOrigin(0, 0); // fullscreen zone to change messages
-
-        this.update = scene.events.on('update', this.update, this);
-
-        this.zone.on("pointerdown", function(){
-            console.log("boop");
-            this.currentPage++;
-            if (this.currentPage >= this.textArray.length){
-                this.destroyAllInArray([this.background, this.zone, this.update, this]);
-            }
-            this.displayText.setText(this.textArray[this.currentPage]);
-            // progress to next page
-        }, this);       
+            .setOrigin(0, 0); // fullscreen zone to change messages      
 
 
         this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
@@ -52,7 +41,6 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
             fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
 			wordWrap: { width: 300 }
 		}).setOrigin(0.5, 0.5);
-
         
         
         if (typeof this.textArray == "string"){
@@ -63,6 +51,8 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
         }
         this.setFadeOut(3000); 
 
+        this.update = scene.events.on('update', this.update, this);
+
     }
 
     update(){
@@ -71,10 +61,12 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
             this.displayText.alpha -= 0.05;
             this.background.alpha -= 0.05;
             if (this.displayText.alpha <= 0){     
-                // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
-                this.destroyAllInArray([this.background, this.zone, this.update, this]); 
+                this.closeTextbox();
+                console.log(this.scene.isCorrectAnswer + " mhm");
+                 
             }
         }
+        
     }
 
     setFadeOut(delay){
@@ -84,14 +76,41 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
         }, [], this); // is this in the wrong scope?
     }
 
+    closeTextbox(){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
+        this.zone.removeInteractive();
+        this.zone.setScale(0, 0);
+        this.destroyAllInArray([this.background, this.zone, this.update, this]);
+        //this.scene.printTxt();
+        //console.log(this.scene);
+    }
+
     destroyAllInArray(_array){
-        for (let i = 0; i < _array.length; i++){         
+        for (let i = 0; i < _array.length; i++){
             _array[i].destroy();
         }
     }    
 }
 
-class PopupTextbox extends SingleUseTextbox{
+class FullscreenTextbox extends Textbox{
+    constructor(textArray, _x, _y, _width, _height, scene){
+        super(textArray, _x, _y, _width, _height, scene);
+        
+        this.zone.setInteractive()
+        
+        this.zone.on("pointerdown", function(){
+            console.log(this.scene);
+            this.currentPage++;
+            if (this.currentPage >= this.textArray.length){
+                this.closeTextbox();
+            }
+            this.displayText.setText(this.textArray[this.currentPage]); // progress to next page
+        }, this); 
+        
+    }
+}
+
+
+class PopupTextbox extends Textbox{
     constructor(textArray, _x, _y, _width, _height, scene){
         super(textArray, _x, _y, _width, _height, scene);
 
@@ -102,11 +121,12 @@ class PopupTextbox extends SingleUseTextbox{
 			wordWrap: { width: 300 }
 		}).setOrigin(0.5, 0.5);
 
-        
 
         let zone = scene.add.zone(0, 0, _width, _height)
             .setInteractive()
-            .setOrigin(0, 0); // fullscreen zone to change messages
+            .setOrigin(0, 0); // Interactable section is limited to the size of the box.
+
+            // Remove interaction if it becomes a pain.
 
             this.scene.time.delayedCall(3000, function(){
                 this.isFadingOut = true;
@@ -150,19 +170,21 @@ class SpaceScene extends Phaser.Scene{
         this.createDragAndDropListeners();
 
         //check for overlap
-        this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
-            {
-                if(planet.id == planetSlot.id){
-                    planetSlot.isOverlappingCorrectPlanet();
-                    
-                }
-            }
-        );     
-        let introTextbox = this.add.existing(new SingleUseTextbox(introMessageText, 200, 150, 400, 200, this));
+  
+        let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
         introTextbox.setFadeOut(3000);
     }
 
     update(){
+        this.checkForCorrect();
+
+        for (let i = 0; i < this.planets.length; i++){
+            //this.planets[i].update();
+        }
+        
+    }
+
+    checkForCorrect(){
         if (this.isCorrectAnswer){
             this.isCorrectAnswer = false;
         }
@@ -172,11 +194,22 @@ class SpaceScene extends Phaser.Scene{
                 this.isCorrectAnswer = true;
             }
         }
+    }
 
-        for (let i = 0; i < this.planets.length; i++){
-            this.planets[i].update();
-        }
-        
+    initOverlap(){
+        console.log("init overlap");
+        this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
+            {
+                if(planet.id == planetSlot.id){
+                    planetSlot.isOverlappingCorrectPlanet();
+                    
+                }
+            }
+        );   
+    }
+
+    printTxt(){
+        alert("text");
     }
 
     createPlanets(){
@@ -264,6 +297,7 @@ class SpaceScene extends Phaser.Scene{
     }
 
     runCorrectAnswer(_planet, _planetSlot){
+        console.log("correct");
         // give audio / visual feedback
         this.physics.world.disable(_planetSlot);
         _planetSlot.graphics.clear();
@@ -273,6 +307,7 @@ class SpaceScene extends Phaser.Scene{
     }
 
     runIncorrectAnswer(_planet, _planetSlot){
+        console.log("incorrect");
         // give audio / visual feedback
         this.showHint(_planetSlot.id);
     }
