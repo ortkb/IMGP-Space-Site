@@ -314,11 +314,11 @@ h4{
     visibility: hidden;
   }
 
-  .popup1 .popupText{
+  .popupText{
     visibility: hidden;
   }
 
-  .popup1 .show {
+  .show {
     visibility: visible;
   }
 
