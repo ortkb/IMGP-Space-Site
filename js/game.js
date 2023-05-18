@@ -9,6 +9,8 @@ start location of rotation / rotationRadius should be the coordinates of the pla
 - intro messages
 
 
+can't seem to just cleanly destroy() the SingleUseTextbox and everything inside it - not a priority leave it for now.
+
 
 */
 
@@ -22,35 +24,36 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
         super(scene, "TextBox");
         this.currentPage = 0;
         this.textArray = textArray;
-        //this.scene = scene;
+        this.scene = scene;
+        this.isFadingOut = false;
 
-        const bg = scene.add.rexRoundRectangle(_x, _y, _width, _height, 20, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
+        this.background = scene.add.rexRoundRectangle(_x, _y, _width, _height, 20, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
         
-        let zone = scene.add.zone(0, 0, 1000, 600)
+        this.zone = scene.add.zone(0, 0, 1000, 600)
             .setInteractive()
             .setOrigin(0, 0); // fullscreen zone to change messages
-        
 
-        zone.on("pointerdown", function(){
+        this.update = scene.events.on('update', this.update, this);
+
+        this.zone.on("pointerdown", function(){
+            console.log("boop");
             this.currentPage++;
             if (this.currentPage >= this.textArray.length){
-                this.destroyAllInArray([bg, zone, this]);
+                this.destroyAllInArray([this.background, this.zone, this.update, this]);
             }
             this.displayText.setText(this.textArray[this.currentPage]);
             // progress to next page
         }, this);       
 
-        this.displayText = scene.make.text({
-            x: _x,
-            y: _y,
-            text: 'TEXTHERE',
-            origin: { x: 0.5, y: 0.5 },
-            style: {
-                font: 'bold 25px Arial',
-                fill: '#000',
-                wordWrap: { width: 300 }
-            },
-        });
+
+        this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
+			fontSize: '25px',
+			color: '#000',
+            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+			wordWrap: { width: 300 }
+		}).setOrigin(0.5, 0.5);
+
+        
         
         if (typeof this.textArray == "string"){
             this.displayText.setText(this.textArray);
@@ -58,14 +61,59 @@ class SingleUseTextbox extends Phaser.GameObjects.GameObject{
         else{
             this.displayText.setText(this.textArray[0]);
         }
+        this.setFadeOut(3000); 
+
+    }
+
+    update(){
+        //console.log(this.displayText.alpha);
+        if (this.isFadingOut){
+            this.displayText.alpha -= 0.05;
+            this.background.alpha -= 0.05;
+            if (this.displayText.alpha <= 0){     
+                // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
+                this.destroyAllInArray([this.background, this.zone, this.update, this]); 
+            }
+        }
+    }
+
+    setFadeOut(delay){
+        console.log(this.isFadingOut);
+        this.scene.time.delayedCall(delay, function(){
+            this.isFadingOut = true;
+        }, [], this); // is this in the wrong scope?
     }
 
     destroyAllInArray(_array){
         for (let i = 0; i < _array.length; i++){         
             _array[i].destroy();
         }
+    }    
+}
+
+class PopupTextbox extends SingleUseTextbox{
+    constructor(textArray, _x, _y, _width, _height, scene){
+        super(textArray, _x, _y, _width, _height, scene);
+
+        this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
+			fontSize: '18px',
+			color: '#000',
+            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+			wordWrap: { width: 300 }
+		}).setOrigin(0.5, 0.5);
+
+        
+
+        let zone = scene.add.zone(0, 0, _width, _height)
+            .setInteractive()
+            .setOrigin(0, 0); // fullscreen zone to change messages
+
+            this.scene.time.delayedCall(3000, function(){
+                this.isFadingOut = true;
+            },this);
     }
 }
+
 
 
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
@@ -110,8 +158,8 @@ class SpaceScene extends Phaser.Scene{
                 }
             }
         );     
-        //const bg = this.add.rexRoundRectangle(200, 150, 300, 300, 30, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
-        this.add.existing(new SingleUseTextbox(introMessageText, 200, 150, 400, 200, this));
+        let introTextbox = this.add.existing(new SingleUseTextbox(introMessageText, 200, 150, 400, 200, this));
+        introTextbox.setFadeOut(3000);
     }
 
     update(){
