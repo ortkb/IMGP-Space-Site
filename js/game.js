@@ -52,36 +52,29 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.setFadeOut(3000); 
 
         this.update = scene.events.on('update', this.update, this);
-
     }
 
     update(){
-        //console.log(this.displayText.alpha);
         if (this.isFadingOut){
             this.displayText.alpha -= 0.05;
             this.background.alpha -= 0.05;
             if (this.displayText.alpha <= 0){     
-                this.closeTextbox();
-                console.log(this.scene.isCorrectAnswer + " mhm");
-                 
+                this.closeTextbox(this.scene);
             }
         }
-        
     }
 
     setFadeOut(delay){
-        console.log(this.isFadingOut);
         this.scene.time.delayedCall(delay, function(){
             this.isFadingOut = true;
         }, [], this); // is this in the wrong scope?
     }
 
-    closeTextbox(){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
+    closeTextbox(_scene){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
+        _scene.test();
         this.zone.removeInteractive();
         this.zone.setScale(0, 0);
         this.destroyAllInArray([this.background, this.zone, this.update, this]);
-        //this.scene.printTxt();
-        //console.log(this.scene);
     }
 
     destroyAllInArray(_array){
@@ -98,14 +91,12 @@ class FullscreenTextbox extends Textbox{
         this.zone.setInteractive()
         
         this.zone.on("pointerdown", function(){
-            console.log(this.scene);
             this.currentPage++;
             if (this.currentPage >= this.textArray.length){
-                this.closeTextbox();
+                this.closeTextbox(scene);
             }
             this.displayText.setText(this.textArray[this.currentPage]); // progress to next page
         }, this); 
-        
     }
 }
 
@@ -173,10 +164,21 @@ class SpaceScene extends Phaser.Scene{
   
         let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 200, 150, 400, 200, this));
         introTextbox.setFadeOut(3000);
+
+        this.overlap = this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
+            {
+                if(planet.id == planetSlot.id){
+                    planetSlot.isOverlappingCorrectPlanet();
+                    
+                }
+            }
+        );   
     }
 
     update(){
         this.checkForCorrect();
+
+        //console.log(this.overlap);
 
         for (let i = 0; i < this.planets.length; i++){
             //this.planets[i].update();
@@ -195,21 +197,10 @@ class SpaceScene extends Phaser.Scene{
             }
         }
     }
-
-    initOverlap(){
-        console.log("init overlap");
-        this.physics.add.overlap(this.planets, this.planetSlots, null, function(planet, planetSlot)
-            {
-                if(planet.id == planetSlot.id){
-                    planetSlot.isOverlappingCorrectPlanet();
-                    
-                }
-            }
-        );   
-    }
-
-    printTxt(){
-        alert("text");
+ 
+    test(){
+        console.log("set overlap to top")
+        
     }
 
     createPlanets(){
@@ -268,6 +259,7 @@ class SpaceScene extends Phaser.Scene{
         }, this);
 
         this.input.on('drop', function(pointer, planet, planetSlot){
+            console.log(planet.id + " - - - " + planetSlot.id);
             if (this.isCorrectAnswer){
                 this.runCorrectAnswer(planet, planetSlot);
                 // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
