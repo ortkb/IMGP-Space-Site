@@ -328,7 +328,7 @@ h4{
 }
 /* Pop-up for Planet Mnemonic */
 .swiper-slide planetpage-container{
-    position: relative;
+    position: absolute;
   }
   
   /* code copied from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup 
@@ -337,10 +337,10 @@ h4{
 
   .popupText1 { /* someone needs to change this up for the styling to properly be on the planet*/
     position: absolute;
-    width: 30vw;
+    width: 35vw;
     height: auto;
-    top: 13%; /*20px*/
-    left: 11%;
+    top: 15%;
+    left: 13%;
     background-color:#f0bf84;
     color: white;
     padding: 15px;
@@ -354,16 +354,16 @@ h4{
 
   .popupText2 { /* someone needs to change this up for the styling to properly be on the planet*/
     position: absolute;
-    width: 30vw;
+    width: 35vw;
     height: auto;
     top: 72%; /*20px*/
-    left: 11%;
+    left: 13%;
     background-color: #1f2747 ; /*could change*/
     color: white;
     padding: 15px;
     visibility: hidden;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
     border-radius: 15px;
     filter: drop-shadow(1px 1px 10px rgba(22, 22, 22, 0.326));
   }
