@@ -105,13 +105,15 @@ class PopupTextbox extends Textbox{
     constructor(textArray, _x, _y, _width, _height, scene){
         super(textArray, _x, _y, _width, _height, scene);
 
+        // get formatting function to change word wrap
+
+        
         this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
 			fontSize: '18px',
 			color: '#000',
             fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
 			wordWrap: { width: 300 }
 		}).setOrigin(0.5, 0.5);
-
 
         let zone = scene.add.zone(0, 0, _width, _height)
             .setInteractive()
@@ -206,7 +208,7 @@ class SpaceScene extends Phaser.Scene{
     }
 
     createDragAndDropListeners(){
-        this.input.on("dragstart", function(pointer, planet){ 
+        this.input.on("dragstart", (pointer, planet) =>{ 
             this.children.bringToTop(planet); // brings image to top layer
         }, this);
 
@@ -224,7 +226,7 @@ class SpaceScene extends Phaser.Scene{
             
         }, this);
 
-        this.input.on('drop', function(pointer, planet, planetSlot){
+        this.input.on('drop', (pointer, planet, planetSlot) => {
             console.log(planet.id + " - - - " + planetSlot.id);
             if (planet.id == planetSlot.id){
                 this.runCorrectAnswer(planet, planetSlot);
@@ -268,11 +270,12 @@ class SpaceScene extends Phaser.Scene{
     runIncorrectAnswer(_planet, _planetSlot){
         console.log("incorrect");
         // give audio / visual feedback
-        this.showHint(_planetSlot.id);
+        this.showHint(_planetSlot);
     }
 
-    showHint(_id){
-        alert("show hint for planetSlot " + _id + " here.");
+    showHint(_planetSlot){
+        this.add.existing(new PopupTextbox("hiii", _planetSlot.x, _planetSlot.y - 100, 100, 150, this));
+        //alert("show hint for planetSlot " + _planetSlot.id + " here.");
     }
 
     slotFilled(){
