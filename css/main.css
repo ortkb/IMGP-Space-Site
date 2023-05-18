@@ -141,6 +141,26 @@ h4{
     background-image: url("../img/space_bg_1920x1080.jpg");
 }
 
+.parallax-alien-container{
+    position: absolute;
+    left: 50%;
+    top: -25%;
+    width: 130%;
+    height: 100%;
+    /*-webkit-background-size: cover; */
+    
+}
+
+.parallax-alien{
+    opacity: 0.3;
+    background-image: url("../img/Alien Spaceship.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: none;
+    width: 300px;
+    height: 300px;
+}
+
 /* Scroll animation */
 
 .scroll-ani {
