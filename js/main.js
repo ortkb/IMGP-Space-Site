@@ -123,9 +123,9 @@ const swipeDirectionListener = new SwipeDirectionListener();
 /* code copied from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup 
     modified function name, changed to getElementsByClassName, added for loop
 */
-function clickToShow() {
-  var popup1 = document.getElementsByClassName("infoPopup");
-  for (var eachPopup of popup1) {
+function clickToShow(className) {
+  var popups = document.getElementsByClassName(className);
+  for (var eachPopup of popups) {
     eachPopup.classList.toggle("show");
   }
 }
