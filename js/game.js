@@ -107,13 +107,12 @@ class PopupTextbox extends Textbox{
 
         // get formatting function to change word wrap
 
+        this.displayText
+        .setFontSize("14px")
+        .setColor("#000")
+        .setWordWrapWidth(_width - 20);
         
-        this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
-			fontSize: '18px',
-			color: '#000',
-            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
-			wordWrap: { width: 300 }
-		}).setOrigin(0.5, 0.5);
+        this.background.radius = 5;
 
         let zone = scene.add.zone(0, 0, _width, _height)
             .setInteractive()
@@ -274,7 +273,7 @@ class SpaceScene extends Phaser.Scene{
     }
 
     showHint(_planetSlot){
-        this.add.existing(new PopupTextbox("hiii", _planetSlot.x, _planetSlot.y - 100, 100, 150, this));
+        this.add.existing(new PopupTextbox("hiii", _planetSlot.x, _planetSlot.y - 100, 100, 50, this));
         //alert("show hint for planetSlot " + _planetSlot.id + " here.");
     }
 
