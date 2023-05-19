@@ -4,6 +4,8 @@
 this should really be running on deltatime instead of frames
 
 - high score / time record - send to results scene. 
+- custom font
+- convert seconds to minutes
 
 */
 
@@ -21,6 +23,8 @@ class ResultsScene extends Phaser.Scene{
 
     init (data){
         console.log("init", data);
+        this.time = data.time;
+        !data.time ? this.time = 99.99 : this.time = data.time;
     }
 
     preload(){
@@ -34,6 +38,24 @@ class ResultsScene extends Phaser.Scene{
         let graphics = this.add.graphics()
             .fillStyle(0xffffff, 0.9)
             .fillRoundedRect(200, 100, 600, 400, 20);
+
+        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.time + "\n\nWant to try again?", {
+			fontSize: '25px',
+			color: '#000',
+            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+			wordWrap: { width: 300 },
+            lineSpacing: 10,
+            align: "center"
+		}).setOrigin(0.5, 0.5);
+        
+    }
+
+    resetGame(){ // values set to classes (such as planet rotation) are NOT reset by a start() or restart() and need to be redeclared in the init() or create()
+        //this.scene.start("SpaceScene");
+
+        var gameScene = this.scene.get('SpaceScene');
+
+        gameScene.scene.restart();
     }
 }
 
@@ -62,16 +84,15 @@ class SpaceScene extends Phaser.Scene{
         this.planets = this.createPlanets(); // Create planet(s)
         this.createDragAndDropListeners();
 
-        //check for overlap
-  
-        // Intro textbox
-        let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this));
-        //introTextbox.setFadeOut(3000); 
+        this.startTime = 0;
 
+        // Intro textbox
+        let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this)).on('destroy', ()=> {
+                this.startTime = this.time.now; // Set timer once messagebox closes
+            }, this);
     }
 
     update(){
-        //console.log(Phaser.Math.RoundTo(this.time.now * 0.001, -2));
     }
 
     createPlanets(){
@@ -120,11 +141,11 @@ class SpaceScene extends Phaser.Scene{
         }, this);
 
         this.input.on('dragenter', (pointer, gameObject, dropZone) => {
-            // show change in graphic when hovering over the dropbox
+            // show change in graphic when hovering over the dropbox?
         }, this);
 
         this.input.on('dragleave', (pointer, gameObject, dropZone) =>{
-            // graphic change after entering >> leaving a hover over the dropbox
+            // graphic change after entering >> leaving a hover over the dropbox?
             
         }, this);
 
@@ -152,8 +173,6 @@ class SpaceScene extends Phaser.Scene{
                 planet.x = planet.input.dragStartX;
                 planet.y = planet.input.dragStartY;
             }
-
-            // change graphic line color
         }, this);
 
     }
@@ -191,7 +210,8 @@ class SpaceScene extends Phaser.Scene{
     }
 
     gameOver(){
-        this.scene.start("ResultsScene", { time: Phaser.Math.RoundTo(this.time.now * 0.001, -2) });
+        let endTimeInSeconds = Phaser.Math.RoundTo( (this.time.now - this.startTime) * 0.001, -2)
+        this.scene.start("ResultsScene", { time: endTimeInSeconds });
     }
 
 
@@ -203,7 +223,7 @@ const config = {
     height: 600,
 
     scene:[SpaceScene, ResultsScene],
-    //scene:[ResultsScene],
+    scene:[ResultsScene],
     physics: {
         default: 'arcade',
         arcade: {
