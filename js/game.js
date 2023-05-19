@@ -39,7 +39,8 @@ class Textbox extends Phaser.GameObjects.GameObject{
 			fontSize: '25px',
 			color: '#000',
             fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
-			wordWrap: { width: 300 }
+			wordWrap: { width: 300 },
+            align: "center"
 		}).setOrigin(0.5, 0.5);
         
         
@@ -211,16 +212,16 @@ class SpaceScene extends Phaser.Scene{
             this.children.bringToTop(planet); // brings image to top layer
         }, this);
 
-        this.input.on("drag", function(pointer, planet, dragX, dragY){
+        this.input.on("drag", (pointer, planet, dragX, dragY) => {
             planet.x = dragX;
             planet.y = dragY;
         }, this);
 
-        this.input.on('dragenter', function(pointer, gameObject, dropZone) {
+        this.input.on('dragenter', (pointer, gameObject, dropZone) => {
             // show change in graphic when hovering over the dropbox
         }, this);
 
-        this.input.on('dragleave', function(pointer, gameObject, dropZone){
+        this.input.on('dragleave', (pointer, gameObject, dropZone) =>{
             // graphic change after entering >> leaving a hover over the dropbox
             
         }, this);
@@ -242,7 +243,7 @@ class SpaceScene extends Phaser.Scene{
             
         }, this);
 
-        this.input.on('dragend', function(pointer, planet, dropped){
+        this.input.on('dragend', (pointer, planet, dropped) =>{
 
             if (!dropped){
                 // If not dropped, return to start position
@@ -262,8 +263,9 @@ class SpaceScene extends Phaser.Scene{
         this.physics.world.disable(_planetSlot);
         _planetSlot.graphics.clear();
         _planet.isOrbiting = true;
-        this.slotFilled();
-        this.isEverySlotFilled()
+        
+        this.removePlanetSlot(_planetSlot);
+        this.isEverySlotFilled(this.planetSlots);
     }
 
     runIncorrectAnswer(_planet, _planetSlot){
@@ -274,15 +276,16 @@ class SpaceScene extends Phaser.Scene{
 
     showHint(_planetSlot){
         this.add.existing(new PopupTextbox(_planetSlot.getHintText(), _planetSlot.x, _planetSlot.y - 100, 200, 80, this));
-        //alert("show hint for planetSlot " + _planetSlot.id + " here.");
     }
 
-    slotFilled(){
-        // check if every slot is filled
+    removePlanetSlot(_planetSlot){
+        this.planetSlots = this.planetSlots.toSpliced(this.planetSlots.indexOf(_planetSlot), 1);
     }
 
-    isEverySlotFilled(){
-
+    isEverySlotFilled(slots){
+        if (slots.length <= 0){
+            alert("win game");
+        }
     }
 }
 

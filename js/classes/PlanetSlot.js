@@ -38,31 +38,31 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         let hintText;
         switch(this.id){
             case 0:
-                hintText = "Wrong planet! Look for the smallest planet in the solar system.";
+                hintText = "Wrong planet!\nLook for the smallest planet in the solar system.";
                 break;
             case 1:
-                hintText = "Error! Find a planet very similar to earth.";
+                hintText = "Error! \nFind a planet very similar to earth.";
                 break;
             case 2:
-                hintText = "Try again! Look for the water planet, close to home.";
+                hintText = "Try again! \nLook for the water planet, close to home.";
                 break;
             case 3:
-                hintText = "Incorrect! Find the rust planet.";
+                hintText = "Incorrect! \nFind the rust planet.";
                 break;
             case 4:
-                hintText = "Oopsie! Get the biggest planet in our solar system.";
+                hintText = "Oopsie! \nGet the biggest planet in our solar system.";
                 break
             case 5:
-                hintText = "Wrong planet! Find the planet with the biggest brightest rings.";
+                hintText = "Wrong planet! \nFind the planet with the biggest brightest rings.";
                 break
             case 6:
-                hintText = "Try again! Find the coldest planet.";
+                hintText = "Try again! \nFind the coldest planet.";
                 break
             case 7:
-                hintText = "Incorrect! Find the planet that’s not visible naked eye.";
+                hintText = "Incorrect! \nFind the planet that’s not visible naked eye.";
                 break
             default:   
-                hintText = "Sorry, wrong answer.";
+                hintText = "Wrong planet. \nTry again!";
         }
         return hintText;
     }
