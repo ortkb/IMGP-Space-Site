@@ -24,7 +24,7 @@ class ResultsScene extends Phaser.Scene{
     init (data){
         console.log("init", data);
         this.time = data.time;
-        !data.time ? this.time = 99.99 : this.time = data.time;
+        !data.time ? this.time = "No Recorded Time" : this.time = data.time;
     }
 
     preload(){
