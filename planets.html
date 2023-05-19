@@ -9,8 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link rel="preload" href="img/wave_1.gif" as="image"> <!-- Preload loading screen gif -->
     <title>IntergalacticExplorers</title>
@@ -69,12 +68,9 @@
                     </h4>
                 </div>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/mercury.png" class="planet-img" alt="mercury" style="cursor:pointer;" onclick="clickToShow();"> <!-- this is the popup for mercury-->
-                <div class="popup1"> <!-- this is the div mentioned in the homepage css--> <!-- link: https://jsfiddle.net/3e8pnLd4/8/-->
-                    <span class="popupText font-rubik" id="infoPopup1" > <p>Although it’s close to the sun, Mercury is not the hottest planet, it is Venus, as it’s very dense!</p>
-                        <p><b>M</b>y Very Educated Mother Just Served Us Nuggets</p></span>
-                </div>
+                <img src="img/Planets/mercury.png" class="planet-img" alt="mercury" style="cursor:pointer;" onclick="clickToShow('mercury-popup');"> <!-- this is the popup for mercury-->
 
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">1 - Mercury</h3>
@@ -90,13 +86,33 @@
                         </li>
                         
                     </ul>
-                </section>
+
+                <!-- popup -->
+
+                    <!-- code copied from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup 
+                    modified class names, removed id and content
+                    this code is repeated throughout the html
+                    -->
+
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik mercury-popup"> <p>Although it’s close to the sun, 
+                            <b>Mercury is not the hottest planet</b>, it's <b>Venus</b>, as it’s very <b>dense!</b></p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik mercury-popup">
+                            <p>A useful phrase to remember the order:</p>
+                            <p><b>My</b> (Mercury) Very Educated Mother Just Served Us Nuggets</p></span>
+                    </div>
+                <!-- end of copied code -->
+
+            </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/venus.png" class="planet-img" alt="venus" style="cursor:pointer;" onclick="clickToShow1();">
-                <div class="text-block" id="clickToShow1"> <!-- each div is numbered to avoid confusion-->
-                    <p> My <b>Very</b> Educated Mother Just Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
+                <img src="img/Planets/venus.png" class="planet-img" alt="venus" style="cursor:pointer;" onclick="clickToShow('venus-popup')">
+                
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">2 - Venus</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -104,15 +120,27 @@
                     </p>
                     <ul>
                         <li class="planetpage-desc font-rubik"> This planet has a <b>similar size and density to earth.</b> </li>
-                        <li class="planetpage-desc font-rubik">The surface has mountains and thousands of large volcanoes. Scientists think that some of these volcanoes are still active. </li>
+                        <li class="planetpage-desc font-rubik">The surface has <b>mountains and thousands of large volcanoes</b> that might still be active. </li>
                     </ul>
+                                    
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik venus-popup"> <p> It <b>spins backwards</b>, 
+                            has a <b>day longer than its year</b>, and has <b>no seasons</b>!
+                        </p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik venus-popup">
+                            <p><b>My</b> (Mercury) Very Educated Mother Just Served Us Nuggets</p></span>
+                    </div>
                 </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
                 <img src="img/Planets/earth.png" class="planet-img" alt="earth" style="cursor:pointer;" onclick="clickToShow2();">
-                <div class="text-block" id="clickToShow2"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very <b>Educated</b> Mother Just Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
+
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">3 - Earth</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -141,7 +169,10 @@
                     </p>
                     <ul>
                         <li class="planetpage-desc font-rubik"> 
-                            <b>Mars also has seasons, ice, valleys and extinct volcanoes.</b>
+                            Mars also has <b>seasons, ice, valleys and extinct volcanoes</b>.
+                        </li>
+                        <li class="planetpage-desc font-rubik"> 
+                            Mars' soil contains a lot of iron oxide - what we call <b>rust</b>. The red color of the planet is caused by this <b>rust soil</b> covering the planet.
                         </li>
                     </ul>
 
