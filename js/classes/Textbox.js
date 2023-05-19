@@ -6,7 +6,10 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.scene = scene;
         this.isFadingOut = false;
 
-        this.background = scene.add.rexRoundRectangle(_x, _y, _width, _height, 20, 0xffffff); //200, 150, 400, 200, 30 (corner radius), 0xffffff
+        this.background = scene.add.graphics()
+            .fillStyle(0xffffff, 0.9)
+            .fillRoundedRect(_x - _width / 2, _y - _height / 2, _width, _height, 20);
+
         
         this.zone = scene.add.zone(0, 0, 1000, 600)
             .setOrigin(0, 0); // fullscreen zone to change messages      

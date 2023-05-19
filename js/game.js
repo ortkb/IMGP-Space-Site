@@ -31,9 +31,9 @@ class ResultsScene extends Phaser.Scene{
         let background = this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
 
         //let textBackground = new Phaser.Geom.Rectangle(500, 300, 600, 400);
-        let graphics = this.add.graphics();
-        graphics.fillStyle(0xffffff, 0.9);
-        graphics.fillRect(500, 300, 600, 400);
+        let graphics = this.add.graphics()
+            .fillStyle(0xffffff, 0.9)
+            .fillRoundedRect(200, 100, 600, 400, 20);
     }
 }
 
@@ -49,9 +49,6 @@ class SpaceScene extends Phaser.Scene{
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
         this.load.image("planet-0", "img/Planets/mercury.png");
-
-        // Round rectangles
-        this.load.plugin('rexroundrectangleplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexroundrectangleplugin.min.js', true);
     }
 
     create(){
@@ -206,7 +203,7 @@ const config = {
     height: 600,
 
     scene:[SpaceScene, ResultsScene],
-    scene:[ResultsScene],
+    //scene:[ResultsScene],
     physics: {
         default: 'arcade',
         arcade: {
