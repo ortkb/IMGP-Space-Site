@@ -335,7 +335,7 @@ h4{
     modified positioning, colour, font size, added drop shadow
   */
 
-  .popupText1 { /* someone needs to change this up for the styling to properly be on the planet*/
+  .popupText1 {
     position: absolute;
     width: 35vw;
     height: auto;
@@ -352,14 +352,14 @@ h4{
     filter: drop-shadow(1px 1px 10px rgba(22, 22, 22, 0.5));
   }
 
-  .popupText2 { /* someone needs to change this up for the styling to properly be on the planet*/
+  .popupText2 { 
     position: absolute;
     width: 35vw;
     height: auto;
-    top: 72%; /*20px*/
+    top: 72%; 
     left: 13%;
-    background-color: #1f2747 ; /*could change*/
-    color: white;
+    background-color: #1f2747;
+    color: #fff;
     padding: 15px;
     visibility: hidden;
     text-align: center;
