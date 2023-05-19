@@ -33,4 +33,25 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     }
 
     getSquareRadius = (sideLength) => sideLength * Math.sqrt(2)/2;
+
+    getHintText(){
+        let hintText;
+        switch(this.id){
+            case 0:
+                hintText = "Wrong planet! Look for the smallest planet in the solar system.";
+                break;
+            case 1:
+                hintText = "Error! Find a planet very similar to earth."
+                break;
+            case 2:
+                hintText = "Try again! This planet is close to home."
+                break;
+            case 1:
+                hintText = "Try again! Find ."
+                break;
+            default:   
+                hintText = "Sorry, wrong answer.";
+        }
+        return hintText;
+    }
 }
