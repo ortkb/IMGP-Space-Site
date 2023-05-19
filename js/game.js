@@ -273,7 +273,7 @@ class SpaceScene extends Phaser.Scene{
     }
 
     showHint(_planetSlot){
-        this.add.existing(new PopupTextbox("hiii", _planetSlot.x, _planetSlot.y - 100, 100, 50, this));
+        this.add.existing(new PopupTextbox(_planetSlot.getHintText(), _planetSlot.x, _planetSlot.y - 100, 200, 80, this));
         //alert("show hint for planetSlot " + _planetSlot.id + " here.");
     }
 
