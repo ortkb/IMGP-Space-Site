@@ -58,8 +58,6 @@
                     <h3 class="font-rubik narrative-desc-3"><b>Learn about the different planets and remember the order!</b></h3>
                 </p>
 
-                <!-- <h3 class="font-rubik narrative-desc-small">3, 2, 1 …. Blast off!</h3> -->
-
                 <div class="swipe-to-scroll">
                     <img class="scroll-ani" src="img/Hand gif.gif" alt="scroll input gif">
                     
@@ -95,7 +93,7 @@
                     -->
 
                     <div class="popup"> 
-                        <span class="popupText1 font-rubik mercury-popup"> <p>Although it’s close to the sun, 
+                        <span class="popupText1 font-rubik mercury-popup"><p>Although it’s close to the sun, 
                             <b>Mercury is not the hottest planet</b>, it's <b>Venus</b>, as it’s very <b>dense!</b></p>
                         </span>
                     </div>
@@ -103,7 +101,7 @@
                     <div class="popup">
                         <span class="popupText2 font-rubik mercury-popup">
                             <p>A useful phrase to remember the order:</p>
-                            <p><b>My</b> (Mercury) Very Educated Mother Just Served Us Nuggets</p></span>
+                            <p><b>My</b> (Mercury) Very Energetic Mother Just Served Us Nuggets</p></span>
                     </div>
                 <!-- end of copied code -->
 
@@ -125,21 +123,20 @@
                                     
                     <!-- popup -->
                     <div class="popup"> 
-                        <span class="popupText1 font-rubik venus-popup"> <p> It <b>spins backwards</b>, 
-                            has a <b>day longer than its year</b>, and has <b>no seasons</b>!
-                        </p>
+                        <span class="popupText1 font-rubik venus-popup"><p>It <b>spins backwards</b>, 
+                            has a <b>day longer than its year</b>, and has <b>no seasons</b>!</p>
                         </span>
                     </div>
 
                     <div class="popup">
                         <span class="popupText2 font-rubik venus-popup">
-                            <p><b>My</b> (Mercury) Very Educated Mother Just Served Us Nuggets</p></span>
+                            <p>My<b> Very</b> (Venus) Energetic Mother Just Served Us Nuggets</p></span>
                     </div>
                 </section>
             </div>
 
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/earth.png" class="planet-img" alt="earth" style="cursor:pointer;" onclick="clickToShow2();">
+                <img src="img/Planets/earth.png" class="planet-img" alt="earth" style="cursor:pointer;" onclick="clickToShow('earth-popup')">
 
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">3 - Earth</h3>
@@ -155,13 +152,24 @@
                             Your home planet is the biggest planet we’ve seen so far!
                         </li>
                     </ul>
+                
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik earth-popup"> <p>The <b>name Earth</b> is at least <b>1,000 years old</b>. Earth has <b>four</b> main layers - 
+                            an <b>inner core</b> at the planet's centre, covered by the <b>outer core, mantle, and crust.</b></p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik earth-popup">
+                            <p>My Very <b>Energetic</b> (Earth) Mother Just Served Us Nuggets</p></span>
+                    </div>
                 </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/mars.png" class="planet-img" alt="mars" style="cursor:pointer;" onclick="clickToShow3();">
-                <div class="text-block" id="clickToShow3"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated <b>Mother</b> Just Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
+                <img src="img/Planets/mars.png" class="planet-img" alt="mars" style="cursor:pointer;" onclick="clickToShow('mars-popup')">
+
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">4 -Mars</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -175,14 +183,25 @@
                             Mars' soil contains a lot of iron oxide - what we call <b>rust</b>. The red color of the planet is caused by this <b>rust soil</b> covering the planet.
                         </li>
                     </ul>
+                
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik mars-popup"><p>The <b>largest rover</b> NASA has ever sent touched down on Mars on 
+                            <b>Feb. 18, 2021</b>, after a <b>203-day journey</b>.
+                        </p>
+                        </span>
+                    </div>
 
+                    <div class="popup">
+                        <span class="popupText2 font-rubik mars-popup">
+                            <p>My Very Energetic <b>Mother</b> (Mars) Just Served Us Nuggets</p></span>
+                    </div>
                 </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/jupiter.png" class="planet-img" alt="jupiter" width="2500" height="7000" style="cursor:pointer;" onclick="clickToShow4();"> <!-- needs fixing for the sizing!-->
-                <div class="text-block" id="clickToShow4"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother <b>Just</b> Served Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
+                <img src="img/Planets/jupiter.png" class="planet-img" alt="jupiter" width="2500" height="7000" style="cursor:pointer;" onclick="clickToShow('jupiter-popup')"> <!-- needs fixing for the sizing!-->
+
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">5 - Jupiter</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -198,13 +217,23 @@
                         </li>
                     </ul>
 
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik jupiter-popup"><p>Jupiter has the <b>shortest day</b> in the solar system.
+                            The planet is mostly <b>swirling gases and liquids</b>.</p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik jupiter-popup">
+                            <p>My Very Energetic Mother <b>Just</b> (Jupiter) Served Us Nuggets</p></span>
+                    </div>
                 </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/saturn.png" class="planet-img" alt="saturn" style="cursor:pointer;" onclick="clickToShow5();" > 
-                <div class="text-block" id="clickToShow5"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother Just <b>Served</b> Us Nuggets</p> <!-- the text for the pop-up -->
-                </div>
+                <img src="img/Planets/saturn.png" class="planet-img" alt="saturn" style="cursor:pointer;" onclick="clickToShow('saturn-popup')"> 
+
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">6 - Saturn</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -218,13 +247,24 @@
                             Did you know that the rings are made out of chunks of ice and rocks?
                         </li>
                     </ul>
+
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik saturn-popup"><p>The <b>rings</b> would look mostly <b>white</b> if you looked at them 
+                            from the <b>cloud tops</b> of Saturn, and <b>each ring</b> orbits at a <b>different speed</b> around the planet.</p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik saturn-popup">
+                            <p>My Very Energetic Mother Just <b>Served</b> (Saturn) Us Nuggets</p></span>
+                    </div>
                 </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/uranus.png" class="planet-img" alt="uranus" style="cursor:pointer;" onclick="clickToShow6();">
-                <div class="text-block" id="clickToShow6"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother Just Served <b>Us</b> Nuggets</p> <!-- the text for the pop-up -->
-                </div>
+                <img src="img/Planets/uranus.png" class="planet-img" alt="uranus" style="cursor:pointer;" onclick="clickToShow('uranus-popup')">
+                
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">7 - Uranus</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -239,13 +279,23 @@
                         </li>
                     </ul>
 
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik uranus-popup"><p>The ice giant is surrounded by <b>13 faint rings and 27 small moons</b>. 
+                            The <b>unique tilt</b> makes Uranus appear to <b>spin sideways</b>.</p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik uranus-popup">
+                            <p>My Very Energetic Mother Just Served <b>Us</b> (Uranus) Nuggets</p></span>
+                    </div>
                 </section>
             </div>
+
             <div class="swiper-slide planetpage-container">
-                <img src="img/Planets/neptune.png" class="planet-img" alt="neptune" style="cursor:pointer;" onclick="clickToShow7();">
-                <div class="text-block" id="clickToShow7"> <!-- each div is numbered to avoid confusion-->
-                    <p> My Very Educated Mother Just Served Us <b>Nuggets</b> </p> <!-- the text for the pop-up -->
-                </div>
+                <img src="img/Planets/neptune.png" class="planet-img" alt="neptune" style="cursor:pointer;" onclick="clickToShow('neptune-popup')">
+
                 <section class="planetpage-textbox">
                     <h3 class="planetpage-title font-bebas">8 - Neptune</h3>
                     <p class="planetpage-desc font-rubik"> 
@@ -260,8 +310,20 @@
                         </li>
                     </ul>
                 
-                    </section>
+                    <!-- popup -->
+                    <div class="popup"> 
+                        <span class="popupText1 font-rubik neptune-popup"><p>Neptune is about <b>four times wider than Earth</b>. 
+                            It takes about <b>16 hours for Neptune to rotate or spin once</b>.</p>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popupText2 font-rubik neptune-popup">
+                            <p>My Very Energetic Mother Just Served Us <b>Nuggets</b> (Neptune)</p></span>
+                    </div>
+                </section>
             </div>
+
             <div class="swiper-slide planetpage-container flex-direction-vertical">
                 <p class="font-rubik planetpage-desc narrative">
                     <h1 class="font-bebas narrative-title"> It's time to save the solar system!</h1>
