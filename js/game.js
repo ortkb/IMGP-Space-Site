@@ -16,6 +16,8 @@ const introMessageText = [
     "Aliens"
 ]
 
+const errorMessageSpread = document.getElementById("errormessage-spread");
+console.log(getComputedStyle(errorMessageSpread).display);
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
 
 
@@ -122,9 +124,24 @@ class SpaceScene extends Phaser.Scene{
         let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this)).on('destroy', ()=> {
                 this.startTime = this.time.now; // Set timer once messagebox closes
         }, this);
+
+        errorMessageSpread.addEventListener("change", function(){
+            console.log("change");
+            /*
+            if (errorMessageSpread.style.display == "none" && this.scene.isPaused){
+                console.log("resume");
+                this.resumeScene();
+            }
+            */
+        });
     }
 
     update(){
+        console.log(errorMessageSpread.style.display);
+        if (errorMessageSpread.style.display != "none" && !this.scene.isPaused("SpaceScene")){
+            console.log("ispaused");
+            this.scene.pause();
+        }
     }
 
     createPlanets(){
@@ -196,6 +213,10 @@ class SpaceScene extends Phaser.Scene{
             }
         }, this);
 
+    }
+
+    resumeScene(){
+        this.scene.resume("SpaceScene");
     }
 
     runCorrectAnswer(_planet, _planetSlot){
