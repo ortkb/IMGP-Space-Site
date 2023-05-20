@@ -36,6 +36,13 @@ h4{
     margin-top: 5%;
 }
 
+#homescreen-button{
+    position: fixed;
+    top: 3vh;
+    left: 3vw;
+    z-index: 2;
+}
+
 /* Swiper */
 
 .swiper {
