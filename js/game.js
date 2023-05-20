@@ -16,15 +16,16 @@ const introMessageText = [
 
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
 
+
+
 class ResultsScene extends Phaser.Scene{
     constructor(){
         super({ key: "ResultsScene"})
     }
 
     init (data){
-        console.log("init", data);
         this.time = data.time;
-        !data.time ? this.time = "No Recorded Time" : this.time = data.time;
+        !data.time ? this.time = "[No Recorded Time]" : this.time = data.time;
     }
 
     preload(){
@@ -39,7 +40,7 @@ class ResultsScene extends Phaser.Scene{
             .fillStyle(0xffffff, 0.9)
             .fillRoundedRect(200, 100, 600, 400, 20);
 
-        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.time + "\n\nWant to try again?", {
+        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.time + "\n\nWant to try again?\n", {
 			fontSize: '25px',
 			color: '#000',
             fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
@@ -47,6 +48,21 @@ class ResultsScene extends Phaser.Scene{
             lineSpacing: 10,
             align: "center"
 		}).setOrigin(0.5, 0.5);
+
+        let homeButton = this.makeButton("Quit Game", 550, 425, 150, 50, this)
+        homeButton.zone.setInteractive()
+        homeButton.zone.on("pointerdown", ()=> {
+            console.log("quit game");
+            // return to homescreen
+        }, this);
+        
+        let retryButton = this.makeButton("Retry", 300, 425, 150, 50, this)
+        retryButton.zone.setInteractive();
+        retryButton.zone.on("pointerdown", ()=> {
+            console.log("reload game");
+            // Reload game
+        }, this);
+        
         
     }
 
@@ -56,6 +72,24 @@ class ResultsScene extends Phaser.Scene{
         var gameScene = this.scene.get('SpaceScene');
 
         gameScene.scene.restart();
+    }
+
+    makeButton(text, x, y, width, height, scene){
+        let buttonGraphics = scene.add.graphics()
+            .fillStyle(0xdddddd, 1)
+            .fillRoundedRect(x, y, width, height, 10);
+
+        let buttonText = this.add.text(x + width / 2, y + height / 2, text, {
+			fontSize: '18px',
+			color: '#000',
+            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+			wordWrap: { width: width },
+            align: "center"
+		}).setOrigin(0.5, 0.5);
+
+        let buttonZone = scene.add.zone(x, y, width, height).setOrigin(0, 0);
+        
+        return {background: buttonGraphics, text: buttonText, zone: buttonZone};
     }
 }
 
