@@ -129,39 +129,3 @@ function clickToShow(className) {
     eachPopup.classList.toggle("show");
   }
 }
-
-// Venus code pop up
-function clickToShow1() {
-  var div = document.getElementById("clickToShow1");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-}
-//earth code pop up
-function clickToShow2() {
-  var div = document.getElementById("clickToShow2");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-}
-//mars popup 
-function clickToShow3() {
-  var div = document.getElementById("clickToShow3");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-  }
-//jupiter popup 
-function clickToShow4() {
-  var div = document.getElementById("clickToShow4");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-}
-//saturn popup
-function clickToShow5() {
-  var div = document.getElementById("clickToShow5");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-}
-//uranus popup
-function clickToShow6() {
-  var div = document.getElementById("clickToShow6");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-}
-//neptune popup
-function clickToShow7() {
-  var div = document.getElementById("clickToShow7");
-    div.style.display = div.style.display == "block" ? "none" : "block";
-}
