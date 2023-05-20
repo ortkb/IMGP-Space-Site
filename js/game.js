@@ -3,7 +3,6 @@
 
 this should really be running on deltatime instead of frames
 
-- high score / time record - send to results scene. 
 - custom font
 - convert seconds to minutes
 
@@ -24,7 +23,8 @@ class ResultsScene extends Phaser.Scene{
     }
 
     init (data){
-        this.time = data.time;
+        this.minutes = data.minutes;
+        this.seconds = data.seconds;
         !data.time ? this.time = "[No Recorded Time]" : this.time = data.time;
     }
 
@@ -33,6 +33,7 @@ class ResultsScene extends Phaser.Scene{
     }
 
     create(){
+        
         let background = this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
 
         //let textBackground = new Phaser.Geom.Rectangle(500, 300, 600, 400);
@@ -40,7 +41,7 @@ class ResultsScene extends Phaser.Scene{
             .fillStyle(0xffffff, 0.9)
             .fillRoundedRect(200, 100, 600, 400, 20);
 
-        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.time + "\n\nWant to try again?\n", {
+        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.minutes + " minutes, " + this.seconds + " seconds\n\nWant to try again?\n", {
 			fontSize: '25px',
 			color: '#000',
             fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
@@ -50,28 +51,22 @@ class ResultsScene extends Phaser.Scene{
 		}).setOrigin(0.5, 0.5);
 
         let homeButton = this.makeButton("Quit Game", 550, 425, 150, 50, this)
-        homeButton.zone.setInteractive()
-        homeButton.zone.on("pointerdown", ()=> {
+        homeButton.zone.setInteractive().on("pointerdown", ()=> {
             console.log("quit game");
-            // return to homescreen
+            window.location.href = 'planets.html';
+            window.location = "planets.html";
         }, this);
         
         let retryButton = this.makeButton("Retry", 300, 425, 150, 50, this)
-        retryButton.zone.setInteractive();
-        retryButton.zone.on("pointerdown", ()=> {
-            console.log("reload game");
-            // Reload game
-        }, this);
-        
-        
+        retryButton.zone.setInteractive().on("pointerdown", this.resetGame, this);
     }
 
     resetGame(){ // values set to classes (such as planet rotation) are NOT reset by a start() or restart() and need to be redeclared in the init() or create()
-        //this.scene.start("SpaceScene");
+        this.scene.start("SpaceScene");
 
-        var gameScene = this.scene.get('SpaceScene');
+        //var gameScene = this.scene.get('SpaceScene');
 
-        gameScene.scene.restart();
+        //gameScene.scene.restart();
     }
 
     makeButton(text, x, y, width, height, scene){
@@ -123,7 +118,7 @@ class SpaceScene extends Phaser.Scene{
         // Intro textbox
         let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this)).on('destroy', ()=> {
                 this.startTime = this.time.now; // Set timer once messagebox closes
-            }, this);
+        }, this);
     }
 
     update(){
@@ -173,25 +168,14 @@ class SpaceScene extends Phaser.Scene{
             planet.x = dragX;
             planet.y = dragY;
         }, this);
-
-        this.input.on('dragenter', (pointer, gameObject, dropZone) => {
-            // show change in graphic when hovering over the dropbox?
-        }, this);
-
-        this.input.on('dragleave', (pointer, gameObject, dropZone) =>{
-            // graphic change after entering >> leaving a hover over the dropbox?
-            
-        }, this);
-
         this.input.on('drop', (pointer, planet, planetSlot) => {
-            //console.log(planet.id + " _ _ " + planetSlot.id);
             if (planet.id == planetSlot.id){
-                this.runCorrectAnswer(planet, planetSlot);
                 // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
                 planet.x = planetSlot.x;
                 planet.y = planetSlot.y;
                 // Make it so that the gameobject can't be interacted with after dropping
                 planet.input.enabled = false;
+                this.runCorrectAnswer(planet, planetSlot);
             }else{
                 this.runIncorrectAnswer(planet, planetSlot);
                 planet.x = planet.input.dragStartX;
@@ -244,8 +228,26 @@ class SpaceScene extends Phaser.Scene{
     }
 
     gameOver(){
-        let endTimeInSeconds = Phaser.Math.RoundTo( (this.time.now - this.startTime) * 0.001, -2)
-        this.scene.start("ResultsScene", { time: endTimeInSeconds });
+        let endTimeTotalSeconds = Phaser.Math.RoundTo( (this.time.now - this.startTime) * 0.001, -2);
+        let endTimeSeconds = endTimeTotalSeconds % 60;
+        let endTimeMinutes = Math.floor(endTimeTotalSeconds / 60);
+        this.scene.start("ResultsScene", { time: endTimeTotalSeconds, minutes: endTimeMinutes, seconds: endTimeSeconds });
+    }
+
+    destroyAll(){
+        // may be unnecessary?
+        this.sun.destroy();
+        for (let item of this.planets){
+            item.destroy();
+        }
+
+        for (let item of this.planetSlots){
+            item.destroy();
+        }
+        
+        this.input.removeListener('dragstart');
+        this.input.removeListener('drop');
+        this.input.removeListener('dragend');
     }
 
 
@@ -257,7 +259,7 @@ const config = {
     height: 600,
 
     scene:[SpaceScene, ResultsScene],
-    scene:[ResultsScene],
+    //scene:[ResultsScene, SpaceScene],
     physics: {
         default: 'arcade',
         arcade: {

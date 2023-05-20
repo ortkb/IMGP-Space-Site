@@ -22,7 +22,9 @@ class Planet extends Phaser.GameObjects.Image{
     }
 
     orbitSun(){        
-        this.body.rotation += 1; // spinning in place
+        if(this.body){ // if this currently has a physics body..
+            this.body.rotation += 1; // spinning in place
+        }
         this.orbitRotation += this.params.rotationSpeed;
         Phaser.Math.RotateTo(this, 0, 300, this.orbitRotation, this.params.rotationRadius);
         if (this.orbitRotation >= 360) {this.rotation = 0;}
