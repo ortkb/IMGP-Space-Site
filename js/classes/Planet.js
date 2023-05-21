@@ -75,28 +75,28 @@ class Planet extends Phaser.GameObjects.Image{
         let params;
         switch(this.id){
             case 0:
-                params = {x: 750, y: 180, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Mercury", x: 750, y: 180, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 1:
-                params = {x: 60, y: 400, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Venus", x: 200, y: 400, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 2:
-                params = {x: 900, y: 100, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Earth", x: 900, y: 100, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 3:
-                params = {x: 160, y: 110, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Mars", x: 160, y: 110, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 4:
-                params = {x: 710, y: 425, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Jupiter", x: 710, y: 425, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 5:
-                params = {x: 615, y: 560, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Saturn", x: 615, y: 560, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 6:
-                params = {x: 460, y: 80, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Uranus", x: 460, y: 120, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             case 7:
-                params = {x: 315, y: 500, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Neptune", x: 405, y: 500, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
                 break
             default:
                 params = {x: 540, y: 185, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}

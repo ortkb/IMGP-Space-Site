@@ -191,7 +191,8 @@ class SpaceScene extends Phaser.Scene{
             this.planetNamePopup.closeTextbox();
             this.planetNamePopup.destroy();
         }
-        this.planetNamePopup = new Textbox("id: " + _planet.id, _planet.x, _planet.y - 80, 100, 60, this, "14px");
+        this.planetNamePopup = new Textbox(_planet.params.name, _planet.x, _planet.y - 80, 100, 40, this, "14px");
+        this.planetNamePopup.background.radius = 1;
     }
 
     runCorrectAnswer(_planet, _planetSlot){

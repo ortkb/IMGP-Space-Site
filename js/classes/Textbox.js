@@ -84,10 +84,6 @@ class Textbox extends Phaser.GameObjects.GameObject{
 class FullscreenTextbox extends Textbox{
     constructor(textArray, _x, _y, _width, _height, scene){
         super(textArray, _x, _y, _width, _height, scene);
-        /*
-        this.zone.width = this.scene.sys.game.canvas.width;
-        this.zone.height = this.scene.sys.game.canvas.height;
-        */
         this.zone.setSize(this.scene.sys.game.canvas.width, this.scene.sys.game.canvas.height)
         this.zone.setInteractive();
         
@@ -107,8 +103,6 @@ class FullscreenTextbox extends Textbox{
 class PopupTextbox extends Textbox{
     constructor(textArray, _x, _y, _width, _height, scene){
         super(textArray, _x, _y, _width, _height, scene);
-
-        // get formatting function to change word wrap
 
         this.displayText
         .setFontSize("14px")
