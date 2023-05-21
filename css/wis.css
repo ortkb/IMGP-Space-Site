@@ -66,6 +66,12 @@ h3 {
     transform: translateX(5vw)translateY(5vw);
 }
 
+.tap-gif {
+    width: 60%;
+    transform: translateX(18vw) translateY(-30vh);
+    height: 0;
+}
+
 .fact1 img {
     width: 25%;
     transform: translateX(10vw) translateY(7vh);

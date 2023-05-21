@@ -333,14 +333,21 @@ h4{
         display: block;
     }  
 }
-/* Pop-up for Planet Mnemonic */
-.swiper-slide planetpage-container{
-    position: absolute;
-  }
+
+.tap-gif {
+    width: 45%;
+    transform: translateX(-15vw) translateY(-10vh);
+
+}
   
+  /* popup */
   /* code copied from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup 
     modified positioning, colour, font size, added drop shadow
   */
+
+  .swiper-slide planetpage-container{
+    position: absolute;
+  }
 
   .popupText1 {
     position: absolute;
