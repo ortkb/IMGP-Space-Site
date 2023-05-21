@@ -8,7 +8,7 @@ class Planet extends Phaser.GameObjects.Image{
         this.planetSlotObject = this.scene.planetSlots[this.id];
         this.setTexture(img)
             .setPosition(x, y)
-            .setScale(0.02);
+            .setScale(0.015);
         scene.physics.world.enableBody(this);
 
         this.isOrbiting = false;
@@ -56,7 +56,7 @@ class Planet extends Phaser.GameObjects.Image{
         }
 
         if(timeSinceOffscreenStartTime * 0.001 > this.maximumOffscreenTime){
-            this.teleportPlanet();
+            this.teleportPlanet(this.params.teleportOffset);
         }
 
         this.wasOffscreen = isOffscreen;
@@ -64,7 +64,7 @@ class Planet extends Phaser.GameObjects.Image{
 
     teleportPlanet(offset = 0){
         if (this.isOrbiting){
-            this.orbitRotation = Phaser.Math.DegToRad(0);
+            this.orbitRotation = Phaser.Math.DegToRad(270 + offset);
         }
     }
 

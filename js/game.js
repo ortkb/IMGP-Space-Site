@@ -42,7 +42,7 @@ class SpaceScene extends Phaser.Scene{
     
     preload(){
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
-        this.load.image("sunBackground", "img/sun 2.png");
+        this.load.image("sunBackground", "img/sun 4.png");
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
         this.load.image("planet-0", "img/Planets/mercury.png");
@@ -53,7 +53,7 @@ class SpaceScene extends Phaser.Scene{
         this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
         this.sun = this.add.image(0, 300, "sunBackground")
             .setOrigin(0, 0.5)
-            .setScale(1.5);
+            .setScale(0.6);
         // Elements
         this.planetSlots = this.createDropZones();
         this.planets = this.createPlanets(); // Create planet(s)
@@ -123,8 +123,8 @@ class SpaceScene extends Phaser.Scene{
     createDropZones(){
         let x = 300;
         const y = 200;
-        const width = 100;
-        const height = 100;
+        const width = 80;
+        const height = 80;
         let zonesArray = [];
         
         for (let i = 0; i < 3; i++){
