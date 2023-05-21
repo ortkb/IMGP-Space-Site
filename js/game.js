@@ -10,12 +10,11 @@ this should really be running on deltatime instead of frames
 
     LOOK OVER EVERYTHING THAT NEEDS TO BE DONE
 
-    add more planets and dropzones
-    spread planets out 
     update intro message
     custom font
-    planets orbit at different speeds
-    far out planets snap back once offscreen for a set number of seconds.
+    localstorage high score?
+    crashes on retry
+    
 
     combine and minify all game related scripts.
 
@@ -25,8 +24,9 @@ this should really be running on deltatime instead of frames
 
 
 const introMessageText = [
-    "Drag the planets back to the correct order.", 
-    "Aliens"
+    "Aliens have put the planets in the wrong places!",
+    "Tap + Drag the planets back to the correct order.", 
+    "INTROTEXT"
 ]
 
 const errorMessageSpread = document.getElementById("errormessage-spread");
@@ -46,7 +46,7 @@ class SpaceScene extends Phaser.Scene{
         this.load.image("sunBackground", "img/sun 4.png");
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
-        this.load.image("planet-0", "img/Planets/mercury.png");
+        //this.load.image("planet-0", "img/Planets/mercury.png");
     }
 
     create(){
@@ -109,15 +109,10 @@ class SpaceScene extends Phaser.Scene{
     }
 
     createPlanets(){
-        //let x = 100;
-        //let y = 400;
         let planetsArray = [];
         for (let i = 0; i < 8; i++){
             let planet = this.children.add(new Planet("planet-" + 0, i, 0, 0, this)).setInteractive();
             this.input.setDraggable(planet);
-            //x += 120;
-            //y += 20;
-
             planetsArray.push(planet);
         }
         return planetsArray;
@@ -148,7 +143,6 @@ class SpaceScene extends Phaser.Scene{
         this.input.on("dragstart", (pointer, planet) =>{ 
             this.children.bringToTop(planet); // brings image to top layer
             this.makePlanetLabel(planet);
-        //this.add.existing(this.introTextbox).on('destroy', ()=> {
         }, this);
 
         this.input.on("drag", (pointer, planet, dragX, dragY) => {
@@ -164,6 +158,8 @@ class SpaceScene extends Phaser.Scene{
                 planet.y = planetSlot.y;
                 // Make it so that the gameobject can't be interacted with after dropping
                 planet.input.enabled = false;
+                // remove label
+                this.planetNamePopup.closeTextbox();
                 // run correct answer
                 this.runCorrectAnswer(planet, planetSlot);
             }else{
@@ -175,7 +171,7 @@ class SpaceScene extends Phaser.Scene{
         }, this);
 
         this.input.on('dragend', (pointer, planet, dropped) =>{
-            // disable label
+            // remove label
             this.planetNamePopup.closeTextbox();
             if (!dropped){
                 // If not dropped, return to start position
@@ -228,8 +224,8 @@ class SpaceScene extends Phaser.Scene{
     }
 
     gameOver(){
-        let endTimeTotalSeconds = Phaser.Math.RoundTo( (this.time.now - this.startTime) * 0.001, -2);
-        let endTimeSeconds = endTimeTotalSeconds % 60;
+        let endTimeTotalSeconds = (this.time.now - this.startTime) * 0.001;
+        let endTimeSeconds = Phaser.Math.RoundTo(endTimeTotalSeconds % 60, -2);
         let endTimeMinutes = Math.floor(endTimeTotalSeconds / 60);
         this.scene.start("ResultsScene", { time: endTimeTotalSeconds, minutes: endTimeMinutes, seconds: endTimeSeconds });
     }

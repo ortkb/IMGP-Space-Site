@@ -13,7 +13,7 @@ class Planet extends Phaser.GameObjects.Image{
         this.isOrbiting = false;
         this.orbitRotation = 0;
 
-        this.maximumOffscreenTime = 3;
+        this.maximumOffscreenTime = 2.5;
 
         scene.events.on('update', this.update, this);
 
@@ -59,7 +59,7 @@ class Planet extends Phaser.GameObjects.Image{
         if(timeSinceOffscreenStartTime * 0.001 > this.maximumOffscreenTime){
             console.log("teleported planet " + this.id);
             this.teleportPlanet(this.params.teleportOffset);
-            timeSinceOffscreenStartTime = 0;
+            this.offscreenStartTime = Date.now();
         }
 
         this.wasOffscreen = isOffscreen;
@@ -67,7 +67,7 @@ class Planet extends Phaser.GameObjects.Image{
 
     teleportPlanet(offset = 0){
         if (this.isOrbiting){
-            this.orbitRotation = Phaser.Math.DegToRad(40 + offset);
+            this.orbitRotation = Phaser.Math.DegToRad(270 + offset);
         }
     }
 
@@ -75,33 +75,32 @@ class Planet extends Phaser.GameObjects.Image{
         let params;
         switch(this.id){
             case 0:
-                params = {name: "Mercury", x: 750, y: 180, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Mercury", x: 750, y: 180, rotationSpeed: 0.015, rotationRadius: this.planetSlotObject.x, teleportOffset: -15}
                 break
             case 1:
-                params = {name: "Venus", x: 200, y: 400, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Venus", x: 200, y: 400, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: -10}
                 break
             case 2:
-                params = {name: "Earth", x: 900, y: 100, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Earth", x: 900, y: 110, rotationSpeed: 0.008, rotationRadius: this.planetSlotObject.x, teleportOffset: 30}
                 break
             case 3:
-                params = {name: "Mars", x: 160, y: 110, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Mars", x: 160, y: 110, rotationSpeed: 0.007, rotationRadius: this.planetSlotObject.x, teleportOffset: 40}
                 break
             case 4:
-                params = {name: "Jupiter", x: 710, y: 425, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Jupiter", x: 710, y: 425, rotationSpeed: 0.006, rotationRadius: this.planetSlotObject.x, teleportOffset: 50}
                 break
             case 5:
-                params = {name: "Saturn", x: 615, y: 560, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Saturn", x: 615, y: 560, rotationSpeed: 0.005, rotationRadius: this.planetSlotObject.x, teleportOffset: 58}
                 break
             case 6:
-                params = {name: "Uranus", x: 460, y: 120, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Uranus", x: 460, y: 120, rotationSpeed: 0.004, rotationRadius: this.planetSlotObject.x, teleportOffset: 65}
                 break
             case 7:
-                params = {name: "Neptune", x: 405, y: 500, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "Neptune", x: 405, y: 500, rotationSpeed: 0.003, rotationRadius: this.planetSlotObject.x, teleportOffset: 71}
                 break
             default:
-                params = {x: 540, y: 185, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                params = {name: "error", x: 0, y: 0, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
         }
-        console.log(params.x + " . . " + params.y);
         return params;
     }
 
