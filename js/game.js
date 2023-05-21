@@ -154,9 +154,9 @@ class SpaceScene extends Phaser.Scene{
         this.input.on("drag", (pointer, planet, dragX, dragY) => {
             planet.x = dragX;
             planet.y = dragY;
-            this.planetNamePopup.x = dragX;
-            this.planetNamePopup.y = dragY - 80;
+            this.planetNamePopup.setCustomPosition(dragX, dragY - 80);
         }, this);
+
         this.input.on('drop', (pointer, planet, planetSlot) => {
             if (planet.id == planetSlot.id){
                 // Position of the gameObject (the held planet) is snapped to the dropZone's origin.
@@ -164,8 +164,6 @@ class SpaceScene extends Phaser.Scene{
                 planet.y = planetSlot.y;
                 // Make it so that the gameobject can't be interacted with after dropping
                 planet.input.enabled = false;
-                // disable label
-                this.planetNamePopup.closeTextbox();
                 // run correct answer
                 this.runCorrectAnswer(planet, planetSlot);
             }else{
@@ -177,7 +175,8 @@ class SpaceScene extends Phaser.Scene{
         }, this);
 
         this.input.on('dragend', (pointer, planet, dropped) =>{
-
+            // disable label
+            this.planetNamePopup.closeTextbox();
             if (!dropped){
                 // If not dropped, return to start position
                 planet.x = planet.input.dragStartX;

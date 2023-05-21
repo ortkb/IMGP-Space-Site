@@ -5,10 +5,11 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.textArray = textArray;
         this.scene = scene;
         this.isFadingOut = false;
+        this.dimensions = {width: _width, height: _height};
 
         this.background = scene.add.graphics();   
 
-        this.zone = scene.add.zone(_x, _y, _width, _height);
+        this.zone = scene.add.zone(_x, _y, _width, _height).setInteractive();
 
         this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
 			fontSize: fontSize,
@@ -17,6 +18,8 @@ class Textbox extends Phaser.GameObjects.GameObject{
 			wordWrap: { width: 300 },
             align: "center"
 		}).setOrigin(0.5, 0.5);
+
+        this.setCustomPosition(_x, _y);
         
         if (typeof this.textArray == "string"){
             this.displayText.setText(this.textArray);
@@ -33,7 +36,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
             this.displayText.alpha -= 0.05;
             this.background.alpha -= 0.05;
             if (this.displayText.alpha <= 0){     
-                this.closeTextbox(this.scene);
+                this.closeTextbox();
             }
         }
     }
@@ -41,7 +44,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
     setCustomPosition(_x, _y){
         this.background.clear();
         this.background.fillStyle(0xffffff, 0.9)
-        .fillRoundedRect(_x - _width / 2, _y - _height / 2, _width, _height, 20);
+        .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, 20);
         this.displayText.setPosition(_x, _y);
         this.zone.setPosition(_x, _y);
     }
@@ -52,7 +55,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
         }, [], this);
     }
 
-    closeTextbox(_scene){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
+    closeTextbox(){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
         this.zone.setScale(0, 0);
         // I cannot find a way to delete this.updateListener cleanly - for some reason the planet orbiting breaks when I just destroy() it. Wild.
         this.destroyAllInArray([this.background, this.displayText, this.zone, this]);
@@ -85,14 +88,13 @@ class FullscreenTextbox extends Textbox{
         this.zone.width = this.scene.sys.game.canvas.width;
         this.zone.height = this.scene.sys.game.canvas.height;
         */
-        console.log(this.scene.sys.game.canvas.width, this.scene.sys.game.canvas.height);
         this.zone.setSize(this.scene.sys.game.canvas.width, this.scene.sys.game.canvas.height)
         this.zone.setInteractive();
         
         this.zone.on("pointerdown", function(){
             this.currentPage++;
             if (this.currentPage >= this.textArray.length){
-                this.closeTextbox(scene);
+                this.closeTextbox();
             }
             else{
                 this.displayText.setText(this.textArray[this.currentPage]); // progress to next page
@@ -115,13 +117,10 @@ class PopupTextbox extends Textbox{
         
         this.background.radius = 5;
 
-        this.zone.setInteractive()
-            .setOrigin(0.5, 0.5); // Interactable section is limited to the size of the box.
-
         this.setFadeOut(3000); 
 
         this.zone.on("pointerdown", function(){
-            this.closeTextbox(scene);
+            this.closeTextbox();
         }, this); 
     }
 }
