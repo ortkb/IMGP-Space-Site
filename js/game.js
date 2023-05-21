@@ -4,14 +4,24 @@
 this should really be running on deltatime instead of frames
 
 - custom font
-- convert seconds to minutes
 
 - check whether the error message is currently being displayed, and pause game if it's not hidden. 
     - alternatively, make it so that phaser won't respond to mousedown on DOM elements.
 
     LOOK OVER EVERYTHING THAT NEEDS TO BE DONE
 
+    add more planets and dropzones
+    spread planets out 
+    update intro message
+    custom font
+    far out planets snap back once offscreen for a set number of seconds.
+
+    combine and minify all game related scripts.
+
 */
+
+// I'm sorry, this got more and more sloppy as it went on. Should have actually written out a proper design document.
+
 
 const introMessageText = [
     "Drag the planets back to the correct order.", 
@@ -19,81 +29,9 @@ const introMessageText = [
 ]
 
 const errorMessageSpread = document.getElementById("errormessage-spread");
-console.log(getComputedStyle(errorMessageSpread).display);
+let errorMessageStyle = getComputedStyle(errorMessageSpread);
 // Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
 
-
-
-class ResultsScene extends Phaser.Scene{
-    constructor(){
-        super({ key: "ResultsScene"})
-    }
-
-    init (data){
-        this.minutes = data.minutes;
-        this.seconds = data.seconds;
-        !data.time ? this.time = "[No Recorded Time]" : this.time = data.time;
-    }
-
-    preload(){
-        this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
-    }
-
-    create(){
-        
-        let background = this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
-
-        //let textBackground = new Phaser.Geom.Rectangle(500, 300, 600, 400);
-        let graphics = this.add.graphics()
-            .fillStyle(0xffffff, 0.9)
-            .fillRoundedRect(200, 100, 600, 400, 20);
-
-        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.minutes + " minutes, " + this.seconds + " seconds\n\nWant to try again?\n", {
-			fontSize: '25px',
-			color: '#000',
-            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
-			wordWrap: { width: 300 },
-            lineSpacing: 10,
-            align: "center"
-		}).setOrigin(0.5, 0.5);
-
-        let homeButton = this.makeButton("Quit Game", 550, 425, 150, 50, this)
-        homeButton.zone.setInteractive().on("pointerdown", ()=> {
-            console.log("quit game");
-            window.location.href = 'planets.html';
-            window.location = "planets.html";
-        }, this);
-        
-        let retryButton = this.makeButton("Retry", 300, 425, 150, 50, this)
-        retryButton.zone.setInteractive().on("pointerdown", this.resetGame, this);
-    }
-
-    resetGame(){ // values set to classes (such as planet rotation) are NOT reset by a start() or restart() and need to be redeclared in the init() or create()
-        this.scene.start("SpaceScene");
-
-        //var gameScene = this.scene.get('SpaceScene');
-
-        //gameScene.scene.restart();
-    }
-
-    makeButton(text, x, y, width, height, scene){
-        let buttonGraphics = scene.add.graphics()
-            .fillStyle(0xdddddd, 1)
-            .fillRoundedRect(x, y, width, height, 10);
-
-        let buttonText = this.add.text(x + width / 2, y + height / 2, text, {
-			fontSize: '18px',
-			color: '#000',
-            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
-			wordWrap: { width: width },
-            align: "center"
-		}).setOrigin(0.5, 0.5);
-
-        let buttonZone = scene.add.zone(x, y, width, height).setOrigin(0, 0);
-        
-        return {background: buttonGraphics, text: buttonText, zone: buttonZone};
-    }
-}
 
 class SpaceScene extends Phaser.Scene{
     constructor(){
@@ -111,7 +49,7 @@ class SpaceScene extends Phaser.Scene{
 
     create(){
         // Background
-        let background = this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
+        this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
         this.sun = this.add.image(0, 300, "sunBackground")
             .setOrigin(0, 0.5)
             .setScale(1.5);
@@ -120,29 +58,50 @@ class SpaceScene extends Phaser.Scene{
         this.planets = this.createPlanets(); // Create planet(s)
         this.createDragAndDropListeners();
 
+        this.interactionsArePaused = false;
+        this.introTextboxActive = true;
+
         this.startTime = 0;
 
         // Intro textbox
-        let introTextbox = this.add.existing(new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this)).on('destroy', ()=> {
+        
+        this.introTextbox = new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this);
+        this.add.existing(this.introTextbox).on('destroy', ()=> {
                 this.startTime = this.time.now; // Set timer once messagebox closes
+                this.introTextboxActive = false;
         }, this);
-
-        errorMessageSpread.addEventListener("change", function(){
-            console.log("change");
-            /*
-            if (errorMessageSpread.style.display == "none" && this.scene.isPaused){
-                console.log("resume");
-                this.resumeScene();
-            }
-            */
-        });
     }
 
+    
     update(){
-        console.log(errorMessageSpread.style.display);
-        if (errorMessageSpread.style.display != "none" && !this.scene.isPaused("SpaceScene")){
-            console.log("ispaused");
-            this.scene.pause();
+        if (errorMessageStyle.display != "none" && !this.interactionsArePaused){ // If the errorscreen is visible
+            this.removeInteractions();
+            this.interactionsArePaused = true;
+        }
+        if (errorMessageStyle.display == "none" && this.interactionsArePaused){ // If the errorscreen is not visible
+            this.setInteractions();
+            this.interactionsArePaused = false;
+        }
+    }
+
+    removeInteractions(){
+        console.log("remove interactions");
+        if (this.introTextboxActive){
+            this.introTextbox.toggleInteractive(false);
+        }
+        for (let planet of this.planets){
+            planet.disableInteractive();
+        }
+    }
+
+    setInteractions(){
+        console.log("resume interactions");
+        if (this.introTextboxActive){
+            this.introTextbox.toggleInteractive(true);
+        }
+        for (let planet of this.planets){
+            planet.setInteractive();
+            console.log("set");
         }
     }
 
@@ -153,13 +112,11 @@ class SpaceScene extends Phaser.Scene{
         for (let i = 0; i < 3; i++){
             let planet = this.children.add(new Planet("planet-" + 0, i, x, y, this)).setInteractive();
             this.input.setDraggable(planet);
-
             x += 120;
             y += 20;
 
             planetsArray.push(planet);
         }
-        
         return planetsArray;
     }
 
@@ -217,10 +174,6 @@ class SpaceScene extends Phaser.Scene{
 
     }
 
-    resumeScene(){
-        this.scene.resume("SpaceScene");
-    }
-
     runCorrectAnswer(_planet, _planetSlot){
         console.log("correct");
         // give audio / visual feedback
@@ -275,8 +228,6 @@ class SpaceScene extends Phaser.Scene{
         this.input.removeListener('drop');
         this.input.removeListener('dragend');
     }
-
-
 }
 
 const config = {

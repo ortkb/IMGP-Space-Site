@@ -60,7 +60,20 @@ class Textbox extends Phaser.GameObjects.GameObject{
         for (let i = 0; i < _array.length; i++){
             _array[i].destroy();
         }
-    }    
+    }
+
+    toggleInteractive(setToInteractive){
+        switch(setToInteractive){
+            case true:
+                this.zone.setInteractive();
+                break
+            case false:
+                this.zone.disableInteractive();
+                break
+            default:
+                console.warn(this, "- toggleInteractive() parameter must be boolean");
+        }
+    }
 }
 
 class FullscreenTextbox extends Textbox{
