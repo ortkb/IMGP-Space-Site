@@ -51,7 +51,7 @@ class SpaceScene extends Phaser.Scene{
     create(){
         // Background
         this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
-        this.sun = this.add.image(0, 300, "sunBackground")
+        this.sun = this.add.image(0, 275, "sunBackground")
             .setOrigin(0, 0.5)
             .setScale(0.6);
         // Elements
@@ -109,11 +109,11 @@ class SpaceScene extends Phaser.Scene{
         let x = 100;
         let y = 400;
         let planetsArray = [];
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < 8; i++){
             let planet = this.children.add(new Planet("planet-" + 0, i, x, y, this)).setInteractive();
             this.input.setDraggable(planet);
-            x += 120;
-            y += 20;
+            //x += 120;
+            //y += 20;
 
             planetsArray.push(planet);
         }
@@ -121,17 +121,20 @@ class SpaceScene extends Phaser.Scene{
     }
 
     createDropZones(){
-        let x = 300;
-        const y = 200;
+        let x = 140;
+        const y = this.sun.y;
         const width = 80;
         const height = 80;
+        let margin = 110;
+        let marginIncrease = 0;
         let zonesArray = [];
         
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < 8; i++){
             let newPlanetSlot = this.children.add(new PlanetSlot(i, x, y, width, height, this));
             this.physics.add.existing(newPlanetSlot, true); // add physics
             
-            x += 200;
+            x += margin;
+            margin += marginIncrease;
 
             zonesArray.push(newPlanetSlot);
         }
@@ -240,7 +243,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true // remove debug to get rid of blue boxes, lines, etc
+            //debug: true // remove debug to get rid of blue boxes, lines, etc
         }
     },
     scale: {

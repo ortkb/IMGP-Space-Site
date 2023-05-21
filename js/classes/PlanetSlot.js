@@ -11,7 +11,7 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
 
         // Graphics 
         this.graphics = scene.add.graphics();
-        this.graphics.lineStyle(2, 0xFFFFFF)
+        this.graphics.lineStyle(2, 0xFFFFFF).fillStyle(0x5A5494, 0.8)
         this.drawGraphics();
 
         scene.events.on('update', this.update, this);
@@ -20,6 +20,7 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     drawGraphics(){
         //this.graphics.strokeCircle(this.x, this.y, this.getSquareRadius(this.input.hitArea.width));
         this.graphics.strokeCircle(this.x, this.y, this.input.hitArea.width / 2);
+        this.graphics.fillCircle(this.x, this.y, this.input.hitArea.width / 2);
 
     }
 
