@@ -9,6 +9,8 @@ this should really be running on deltatime instead of frames
 - check whether the error message is currently being displayed, and pause game if it's not hidden. 
     - alternatively, make it so that phaser won't respond to mousedown on DOM elements.
 
+    LOOK OVER EVERYTHING THAT NEEDS TO BE DONE
+
 */
 
 const introMessageText = [
