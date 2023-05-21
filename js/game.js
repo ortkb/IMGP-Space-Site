@@ -42,6 +42,7 @@ class SpaceScene extends Phaser.Scene{
     
     preload(){
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
+        this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
         this.load.image("sunBackground", "img/sun 4.png");
         // Loading each image individually is silly but I'll do it
         // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
@@ -58,6 +59,8 @@ class SpaceScene extends Phaser.Scene{
         this.planetSlots = this.createDropZones();
         this.planets = this.createPlanets(); // Create planet(s)
         this.createDragAndDropListeners();
+
+        //this.add.sprite(500, 300, "planetsSpritesheet", 3);
 
         this.interactionsArePaused = false;
         this.introTextboxActive = true;
@@ -106,11 +109,11 @@ class SpaceScene extends Phaser.Scene{
     }
 
     createPlanets(){
-        let x = 100;
-        let y = 400;
+        //let x = 100;
+        //let y = 400;
         let planetsArray = [];
         for (let i = 0; i < 8; i++){
-            let planet = this.children.add(new Planet("planet-" + 0, i, x, y, this)).setInteractive();
+            let planet = this.children.add(new Planet("planet-" + 0, i, 0, 0, this)).setInteractive();
             this.input.setDraggable(planet);
             //x += 120;
             //y += 20;
@@ -144,6 +147,8 @@ class SpaceScene extends Phaser.Scene{
     createDragAndDropListeners(){
         this.input.on("dragstart", (pointer, planet) =>{ 
             this.children.bringToTop(planet); // brings image to top layer
+            //this.introTextbox = new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this);
+        //this.add.existing(this.introTextbox).on('destroy', ()=> {
         }, this);
 
         this.input.on("drag", (pointer, planet, dragX, dragY) => {

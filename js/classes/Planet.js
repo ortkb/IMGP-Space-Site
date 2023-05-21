@@ -19,9 +19,10 @@ class Planet extends Phaser.GameObjects.Image{
 
         scene.input.keyboard.on("keydown-SPACE", this.teleportPlanet, this);
 
-        this.setTexture(img)
+        //this.setTexture(img)
+        this.setTexture("planetsSpritesheet", this.id)
             .setPosition(this.params.x, this.params.y)
-            .setScale(0.015);
+            .setScale(0.15);
         scene.physics.world.enableBody(this);
     }
 
