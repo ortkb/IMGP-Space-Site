@@ -357,7 +357,8 @@ h4{
     left: 13%;
     background-color:#f0bf84;
     color: white;
-    padding: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
     visibility: hidden;
     text-align: center;
     color:  black;
