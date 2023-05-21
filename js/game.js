@@ -14,6 +14,7 @@ this should really be running on deltatime instead of frames
     spread planets out 
     update intro message
     custom font
+    planets orbit at different speeds
     far out planets snap back once offscreen for a set number of seconds.
 
     combine and minify all game related scripts.
@@ -101,7 +102,6 @@ class SpaceScene extends Phaser.Scene{
         }
         for (let planet of this.planets){
             planet.setInteractive();
-            console.log("set");
         }
     }
 

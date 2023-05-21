@@ -4,7 +4,6 @@ class Planet extends Phaser.GameObjects.Image{
         super(scene);
 
         this.id = id;
-        
         this.scene = scene; // used when calling scene from functions
         this.planetSlotObject = this.scene.planetSlots[this.id];
         this.setTexture(img)
@@ -17,8 +16,12 @@ class Planet extends Phaser.GameObjects.Image{
 
         this.params = this.getParameters();
 
+        this.maximumOffscreenTime = 3;
 
         scene.events.on('update', this.update, this);
+
+
+        scene.input.keyboard.on("keydown-SPACE", this.teleportPlanet, this);
     }
 
     orbitSun(){        
@@ -32,14 +35,71 @@ class Planet extends Phaser.GameObjects.Image{
 
 
     update(){
+
         if (this.isOrbiting){
             this.orbitSun();
+            this.checkTimeSpentOffscreen();
+        }
+    }
+
+    checkTimeSpentOffscreen(){
+        const sceneWidth = this.scene.sys.game.canvas.width;
+        const sceneHeight = this.scene.sys.game.canvas.height;
+        let isOffscreen = this.x < 0 || this.x > sceneWidth || this.y < 0 || this.y > sceneHeight;
+        let timeSinceOffscreenStartTime;
+        if(this.wasOffscreen != true && isOffscreen){
+            this.offscreenStartTime = Date.now(); // if the planet has just started to go offscreen, record when it went offscreen.
+        }
+        if (isOffscreen){
+            timeSinceOffscreenStartTime = Date.now() - this.offscreenStartTime;
+            console.log(timeSinceOffscreenStartTime);
+        }
+
+        if(timeSinceOffscreenStartTime * 0.001 > this.maximumOffscreenTime){
+            this.teleportPlanet();
+        }
+
+        this.wasOffscreen = isOffscreen;
+    }
+
+    teleportPlanet(offset = 0){
+        if (this.isOrbiting){
+            this.orbitRotation = Phaser.Math.DegToRad(0);
         }
     }
 
     getParameters(){
-        //return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x - this.planetSlotObject.width / 2}
-        return {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x}
+        let params;
+        switch(this.id){
+            case 0:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 1:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 2:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 3:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 4:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 5:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 6:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            case 7:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+                break
+            default:
+                params = {rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
+        }
+
+        return params;
     }
 
 }
