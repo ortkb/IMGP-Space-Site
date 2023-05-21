@@ -147,13 +147,15 @@ class SpaceScene extends Phaser.Scene{
     createDragAndDropListeners(){
         this.input.on("dragstart", (pointer, planet) =>{ 
             this.children.bringToTop(planet); // brings image to top layer
-            //this.introTextbox = new FullscreenTextbox(introMessageText, 500, 300, 600, 400, this);
+            this.makePlanetLabel(planet);
         //this.add.existing(this.introTextbox).on('destroy', ()=> {
         }, this);
 
         this.input.on("drag", (pointer, planet, dragX, dragY) => {
             planet.x = dragX;
             planet.y = dragY;
+            this.planetNamePopup.x = dragX;
+            this.planetNamePopup.y = dragY - 80;
         }, this);
         this.input.on('drop', (pointer, planet, planetSlot) => {
             if (planet.id == planetSlot.id){
@@ -162,6 +164,9 @@ class SpaceScene extends Phaser.Scene{
                 planet.y = planetSlot.y;
                 // Make it so that the gameobject can't be interacted with after dropping
                 planet.input.enabled = false;
+                // disable label
+                this.planetNamePopup.closeTextbox();
+                // run correct answer
                 this.runCorrectAnswer(planet, planetSlot);
             }else{
                 this.runIncorrectAnswer(planet, planetSlot);
@@ -180,6 +185,14 @@ class SpaceScene extends Phaser.Scene{
             }
         }, this);
 
+    }
+
+    makePlanetLabel(_planet){
+        if(this.planetNamePopup){
+            this.planetNamePopup.closeTextbox();
+            this.planetNamePopup.destroy();
+        }
+        this.planetNamePopup = new Textbox("id: " + _planet.id, _planet.x, _planet.y - 80, 100, 60, this, "14px");
     }
 
     runCorrectAnswer(_planet, _planetSlot){
