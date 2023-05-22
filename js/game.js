@@ -25,6 +25,8 @@ this should really be running on deltatime instead of frames
 
 // I'm sorry, this got more and more sloppy as it went on. Should have actually written out a proper design document.
 
+this.scoreText = this.add.text(40, 520, '$0', { fontFamily: 'Noto Sans', fontStyle: '600', fontSize: '55px', fill: '#ffb81a' });
+
 
 const introMessageText = [
     "Aliens have put the planets in the wrong places!",
@@ -34,7 +36,7 @@ const introMessageText = [
 
 const errorMessageSpread = document.getElementById("errormessage-spread");
 let errorMessageStyle = getComputedStyle(errorMessageSpread);
-// Bits and pieces of code taken from: https://labs.phaser.io/edit.html?src=src/input/zones/drop%20zone.js
+// Bits and pieces of code taken from: https://labs.phaser.io/
 
 
 class SpaceScene extends Phaser.Scene{
@@ -53,6 +55,15 @@ class SpaceScene extends Phaser.Scene{
     }
 
     create(){
+        // Font
+        /*
+        WebFont.load({
+            google: {
+                families: ['Noto Sans']
+            }
+        });
+        */
+
         // Background
         this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
         this.sun = this.add.image(0, 275, "sunBackground")
@@ -73,6 +84,17 @@ class SpaceScene extends Phaser.Scene{
         // Score display
         this.score = 0;
         this.scoreDisplay = this.add.existing(new Textbox("Score: " + this.score, 940, 30, 100, 40, this, "14px"));
+
+        // Home button
+        let homeButton = this.add.existing(new OutlineTextbox("HOME", 60, 30, 100, 40, this, "14px"));
+        homeButton.zone.setInteractive().on("pointerdown", ()=> {
+            console.log("quit game");
+            window.location.href = 'planets.html';
+            window.location = "planets.html";
+        }, this);
+        homeButton.changeBackgroundColor(0x5A5494);
+        homeButton.changeBackgroundRadius(5);
+        homeButton.changeTextColor(0xffffff);
 
         // Intro textbox
         

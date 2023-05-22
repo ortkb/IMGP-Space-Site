@@ -85,7 +85,7 @@ class Planet extends Phaser.GameObjects.Image{
                 params = {name: "Earth", x: 900, y: 110, rotationSpeed: 0.008, rotationRadius: this.planetSlotObject.x, teleportOffset: 30}
                 break
             case 3:
-                params = {name: "Mars", x: 160, y: 110, rotationSpeed: 0.007, rotationRadius: this.planetSlotObject.x, teleportOffset: 40}
+                params = {name: "Mars", x: 160, y: 130, rotationSpeed: 0.007, rotationRadius: this.planetSlotObject.x, teleportOffset: 40}
                 break
             case 4:
                 params = {name: "Jupiter", x: 710, y: 425, rotationSpeed: 0.006, rotationRadius: this.planetSlotObject.x, teleportOffset: 50}

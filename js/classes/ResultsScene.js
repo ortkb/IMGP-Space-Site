@@ -47,10 +47,6 @@ class ResultsScene extends Phaser.Scene{
 
     resetGame(){ // values set to classes (such as planet rotation) are NOT reset by a start() or restart() and need to be redeclared in the init() or create()
         this.scene.start("SpaceScene");
-
-        //var gameScene = this.scene.get('SpaceScene');
-
-        //gameScene.scene.restart();
     }
 
     makeButton(text, x, y, width, height, scene){

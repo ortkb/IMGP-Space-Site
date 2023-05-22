@@ -9,6 +9,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
 
         this.background = scene.add.graphics();
         this.backgroundColor = {color: 0xffffff, alpha: 1}
+        this.backgroundRadius = 20;
 
         this.zone = scene.add.zone(_x, _y, _width, _height).setInteractive();
 
@@ -45,20 +46,23 @@ class Textbox extends Phaser.GameObjects.GameObject{
     setCustomPosition(_x, _y){
         this.background.clear();
         this.background.fillStyle(this.backgroundColor.color, this.backgroundColor.alpha)
-            .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, 20);
+            .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, this.backgroundRadius);
         this.displayText.setPosition(_x, _y);
         this.zone.setPosition(_x, _y);
     }
 
     changeBackgroundColor(color, alpha = this.backgroundColor.alpha){
         this.backgroundColor = {color, alpha};
+        this.setCustomPosition(this.displayText.x, this.displayText.y);
+    }
+
+    changeBackgroundRadius(radius){
+        this.backgroundRadius = radius;
         this.setCustomPosition(this.zone.x, this.zone.y);
     }
 
     changeTextColor(_color){ // can't get to work
-        this.displayText.style.color = _color;
-        console.log(this.displayText.style.color);
-        this.displayText.setFill(_color);
+        this.displayText.setTintFill(_color);
     }
 
     setFadeOut(delay){
@@ -94,8 +98,8 @@ class Textbox extends Phaser.GameObjects.GameObject{
 }
 
 class FullscreenTextbox extends Textbox{
-    constructor(textArray, _x, _y, _width, _height, scene){
-        super(textArray, _x, _y, _width, _height, scene);
+    constructor(textArray, _x, _y, _width, _height, scene, fontSize = "25px"){
+        super(textArray, _x, _y, _width, _height, scene, fontSize);
         
         this.displayText.setWordWrapWidth(500);
         
@@ -115,11 +119,11 @@ class FullscreenTextbox extends Textbox{
 
 
 class PopupTextbox extends Textbox{
-    constructor(textArray, _x, _y, _width, _height, scene){
-        super(textArray, _x, _y, _width, _height, scene);
+    constructor(textArray, _x, _y, _width, _height, scene, fontSize = "14px"){
+        super(textArray, _x, _y, _width, _height, scene, fontSize);
 
         this.displayText
-        .setFontSize("14px")
+        .setFontSize(fontSize)
         .setColor("#000")
         .setWordWrapWidth(_width - 20);
 
@@ -129,4 +133,26 @@ class PopupTextbox extends Textbox{
             this.closeTextbox();
         }, this); 
     }
+}
+
+class OutlineTextbox extends Textbox{
+
+    constructor(textArray, _x, _y, _width, _height, scene, fontSize = "25px"){
+        super(textArray, _x, _y, _width, _height, scene, fontSize);
+        this.background.lineStyle(2, 0xffffff);
+    }
+
+    drawOutline(_x, _y){
+        this.background.strokeRoundedRect(_x - this.dimensions.width/2, _y - this.dimensions.height/2, this.dimensions.width, this.dimensions.height, this.backgroundRadius);
+    }
+
+    setCustomPosition(_x, _y){
+        this.background.clear();
+        this.background.fillStyle(this.backgroundColor.color, this.backgroundColor.alpha)
+            .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, this.backgroundRadius);
+        this.displayText.setPosition(_x, _y);
+        this.zone.setPosition(_x, _y);
+        this.drawOutline(_x, _y);
+    }
+
 }
