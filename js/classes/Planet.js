@@ -1,4 +1,3 @@
-
 class Planet extends Phaser.GameObjects.Image{
     constructor (img, id, x, y, scene){
         super(scene);
@@ -31,7 +30,9 @@ class Planet extends Phaser.GameObjects.Image{
             this.body.rotation += 1; // spinning in place
         }
         this.orbitRotation += this.params.rotationSpeed;
-        Phaser.Math.RotateTo(this, this.scene.sun.x, this.scene.sun.y, this.orbitRotation, this.params.rotationRadius);
+        if (this.scene){
+            Phaser.Math.RotateTo(this, this.scene.sun.x, this.scene.sun.y, this.orbitRotation, this.params.rotationRadius);
+        }
         if (this.orbitRotation >= 360) {this.rotation = 0;}
     }
 
@@ -102,6 +103,11 @@ class Planet extends Phaser.GameObjects.Image{
                 params = {name: "error", x: 0, y: 0, rotationSpeed: 0.01, rotationRadius: this.planetSlotObject.x, teleportOffset: 0}
         }
         return params;
+    }
+
+    shutdownPlanet(){
+        console.log("shutdown " + this.params.name);
+        this.scene.input.keyboard.remove("keydown-SPACE", this.teleportPlanet, this);
     }
 
 }

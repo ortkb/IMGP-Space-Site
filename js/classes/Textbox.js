@@ -7,7 +7,8 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.isFadingOut = false;
         this.dimensions = {width: _width, height: _height};
 
-        this.background = scene.add.graphics();   
+        this.background = scene.add.graphics();
+        this.backgroundColor = {color: 0xffffff, alpha: 1}
 
         this.zone = scene.add.zone(_x, _y, _width, _height).setInteractive();
 
@@ -43,10 +44,21 @@ class Textbox extends Phaser.GameObjects.GameObject{
 
     setCustomPosition(_x, _y){
         this.background.clear();
-        this.background.fillStyle(0xffffff, 0.95)
-        .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, 20);
+        this.background.fillStyle(this.backgroundColor.color, this.backgroundColor.alpha)
+            .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, 20);
         this.displayText.setPosition(_x, _y);
         this.zone.setPosition(_x, _y);
+    }
+
+    changeBackgroundColor(color, alpha = this.backgroundColor.alpha){
+        this.backgroundColor = {color, alpha};
+        this.setCustomPosition(this.zone.x, this.zone.y);
+    }
+
+    changeTextColor(_color){ // can't get to work
+        this.displayText.style.color = _color;
+        console.log(this.displayText.style.color);
+        this.displayText.setFill(_color);
     }
 
     setFadeOut(delay){
@@ -110,8 +122,6 @@ class PopupTextbox extends Textbox{
         .setFontSize("14px")
         .setColor("#000")
         .setWordWrapWidth(_width - 20);
-        
-        this.background.radius = 5;
 
         this.setFadeOut(3000); 
 

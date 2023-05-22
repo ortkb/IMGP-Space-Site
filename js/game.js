@@ -12,8 +12,11 @@ this should really be running on deltatime instead of frames
 
     update intro message
     custom font
-    localstorage high score?
+    localstorage high score > visible on corner?
+    + 10 points popup on success
     crashes on retry
+
+    home button on game screen
     
 
     combine and minify all game related scripts.
@@ -66,7 +69,10 @@ class SpaceScene extends Phaser.Scene{
         this.introTextboxActive = true;
 
         this.startTime = 0;
+
+        // Score display
         this.score = 0;
+        this.scoreDisplay = this.add.existing(new Textbox("Score: " + this.score, 940, 30, 100, 40, this, "14px"));
 
         // Intro textbox
         
@@ -75,6 +81,8 @@ class SpaceScene extends Phaser.Scene{
                 this.startTime = this.time.now; // Set timer once messagebox closes
                 this.introTextboxActive = false;
         }, this);
+
+        
     }
 
     
@@ -194,25 +202,41 @@ class SpaceScene extends Phaser.Scene{
 
     runCorrectAnswer(_planet, _planetSlot){
         console.log("correct");
-        this.score += 10;
+        this.editScore(10);
         // give audio / visual feedback
         _planetSlot.removeInteractive();
         this.physics.world.disable(_planetSlot);
         _planetSlot.graphics.clear();
-        _planet.isOrbiting = true;        
+        _planet.isOrbiting = true;      
+        
         this.removePlanetSlot(_planetSlot);
         this.isEverySlotFilled(this.planetSlots);
     }
 
     runIncorrectAnswer(_planet, _planetSlot){
         console.log("incorrect");
-        this.score -= 5;
+        this.editScore(-5);
         // give audio / visual feedback
         this.showHint(_planetSlot);
     }
 
     showHint(_planetSlot){
         this.add.existing(new PopupTextbox(_planetSlot.getHintText(), _planetSlot.x, _planetSlot.y - 100, 200, 80, this));
+    }
+
+    editScore(_scoreChange){
+        this.score += _scoreChange;
+        let isPositiveScore = _scoreChange >= 0;
+        let plusMinus = isPositiveScore ? "+" : "";
+        this.scoreDisplay.displayText.setText("Score: " + this.score);
+        this.showScorePopup(plusMinus + _scoreChange + " points", isPositiveScore);
+    }
+
+    showScorePopup(_text, _isPositiveScore){
+        let scorePopup = new PopupTextbox(_text, 940, 30, 100, 40, this, "14px");
+        scorePopup.changeBackgroundColor(_isPositiveScore ? 0xa2eba8 : 0xe398b9, 1);
+        scorePopup.setFadeOut(1000);
+        this.add.existing(scorePopup);
     }
 
     removePlanetSlot(_planetSlot){
@@ -229,13 +253,14 @@ class SpaceScene extends Phaser.Scene{
         let endTimeTotalSeconds = (this.time.now - this.startTime) * 0.001;
         let endTimeSeconds = Phaser.Math.RoundTo(endTimeTotalSeconds % 60, -2);
         let endTimeMinutes = Math.floor(endTimeTotalSeconds / 60);
+        this.destroyAll();
         this.scene.start("ResultsScene", { score: this.score, time: endTimeTotalSeconds, minutes: endTimeMinutes, seconds: endTimeSeconds });
     }
 
     destroyAll(){
-        // may be unnecessary?
         this.sun.destroy();
         for (let item of this.planets){
+            item.isOrbiting = false;
             item.destroy();
         }
 
