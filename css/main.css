@@ -249,6 +249,10 @@ h4{
     transform: scaleX(-1);
 }
 
+.flex-gap {
+    gap: 8%;
+}
+
 /* Load Screen */
 #loader{
     position: fixed;
