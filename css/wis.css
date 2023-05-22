@@ -38,7 +38,15 @@ h2{
 }
 
 h3 {
-    color:rgb(253, 253, 255); /* this needs to change once the background has been added! */
+    text-align: center;
+    font-size: 1.5rem;
+    font-family:'Rubik', sans-serif;
+    width: 65%;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    color: #fff;
+    padding-top: 2vw;
 }
 
 .font-rubik {
