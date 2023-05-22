@@ -1,22 +1,9 @@
 //to - do
 /*
 
-this should really be running on deltatime instead of frames
-
-- custom font
-
-- check whether the error message is currently being displayed, and pause game if it's not hidden. 
-    - alternatively, make it so that phaser won't respond to mousedown on DOM elements.
-
     LOOK OVER EVERYTHING THAT NEEDS TO BE DONE
 
-    update intro message
-    custom font
     localstorage high score > visible on corner?
-    + 10 points popup on success
-    crashes on retry
-
-    home button on game screen
     
 
     combine and minify all game related scripts.
@@ -33,8 +20,6 @@ const introMessageText = [
 
 const errorMessageSpread = document.getElementById("errormessage-spread");
 let errorMessageStyle = getComputedStyle(errorMessageSpread);
-// Bits and pieces of code taken from: https://labs.phaser.io/
-
 
 class SpaceScene extends Phaser.Scene{
     constructor(){
@@ -46,22 +31,9 @@ class SpaceScene extends Phaser.Scene{
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
         this.load.image("sunBackground", "img/sun 4.png");
-        //this.load.script("webfont", "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"); // Google webfont
     }
 
     create(){
-
-        // Font
-        /*
-        WebFont.load({
-            google: {
-                families: ["Rubik", "Bebas Neue"]
-            },
-            active: ()=>{ // once the font has loaded..
-                
-            }
-        });
-        */
 
         // Background
         this.add.image(0, 0, "spaceBackground").setOrigin(0, 0);
@@ -73,8 +45,6 @@ class SpaceScene extends Phaser.Scene{
         this.planetSlots = this.createDropZones();
         this.planets = this.createPlanets(); // Create planet(s)
         this.createDragAndDropListeners();
-
-        //this.add.sprite(500, 300, "planetsSpritesheet", 3);
 
         this.interactionsArePaused = false;
         this.introTextboxActive = true;
@@ -301,7 +271,6 @@ const config = {
     height: 600,
 
     scene:[SpaceScene, ResultsScene],
-    //scene:[ResultsScene, SpaceScene],
     physics: {
         default: 'arcade',
         arcade: {

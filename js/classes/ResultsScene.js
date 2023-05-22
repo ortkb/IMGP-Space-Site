@@ -28,7 +28,7 @@ class ResultsScene extends Phaser.Scene{
         let text = this.add.text(500, 300, "CONGRATULATIONS!\n\nScore: "+ this.score +"\n\nTime: " + this.minutes + " minutes, " + this.seconds + " seconds\n\nWant to try again?\n", {
 			fontSize: '21px',
 			color: '#000',
-            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+            fontFamily: 'Rubik',
 			wordWrap: { width: 500 },
             lineSpacing: 10,
             align: "center"
@@ -45,7 +45,7 @@ class ResultsScene extends Phaser.Scene{
         retryButton.zone.setInteractive().on("pointerdown", this.resetGame, this);
     }
 
-    resetGame(){ // values set to classes (such as planet rotation) are NOT reset by a start() or restart() and need to be redeclared in the init() or create()
+    resetGame(){
         this.scene.start("SpaceScene");
     }
 
@@ -57,7 +57,7 @@ class ResultsScene extends Phaser.Scene{
         let buttonText = this.add.text(x + width / 2, y + height / 2, text, {
 			fontSize: '18px',
 			color: '#000',
-            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+            fontFamily: 'Rubik',
 			wordWrap: { width: width },
             align: "center"
 		}).setOrigin(0.5, 0.5);

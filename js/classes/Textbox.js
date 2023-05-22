@@ -16,7 +16,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
 			fontSize: fontSize,
 			color: '#000',
-            fontFamily: 'Rubik', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+            fontFamily: 'Rubik',
             fontStyle: "300",
 			wordWrap: { width: 400 },
             align: "center"
@@ -62,7 +62,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.setCustomPosition(this.zone.x, this.zone.y);
     }
 
-    changeTextColor(_color){ // can't get to work
+    changeTextColor(_color){
         this.displayText.setTintFill(_color);
     }
 
@@ -72,7 +72,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
         }, [], this);
     }
 
-    closeTextbox(){ // I somehow cannot get this thing to destroy() itself and its components in a smooth way.
+    closeTextbox(){
         this.zone.setScale(0, 0);
         // I cannot find a way to delete this.updateListener cleanly - for some reason the planet orbiting breaks when I just destroy() it. Wild.
         this.destroyAllInArray([this.background, this.displayText, this.zone, this]);
@@ -95,10 +95,6 @@ class Textbox extends Phaser.GameObjects.GameObject{
             default:
                 console.warn(this, "- toggleInteractive() parameter must be boolean");
         }
-    }
-
-    static updateFont(){
-        //this.
     }
 }
 

@@ -18,13 +18,12 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
     }
 
     drawGraphics(){
-        //this.graphics.strokeCircle(this.x, this.y, this.getSquareRadius(this.input.hitArea.width));
         this.graphics.strokeCircle(this.x, this.y, this.input.hitArea.width / 2);
         this.graphics.fillCircle(this.x, this.y, this.input.hitArea.width / 2);
 
     }
 
-    changeGraphicColor(color){ // this
+    changeGraphicColor(color){
         this.graphics.clear();
         this.graphics.lineStyle(2, color);
         drawGraphics();
