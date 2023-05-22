@@ -16,8 +16,9 @@ class Textbox extends Phaser.GameObjects.GameObject{
         this.displayText = scene.add.text(_x, _y, 'TEXT HERE', {
 			fontSize: fontSize,
 			color: '#000',
-            fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
-			wordWrap: { width: 300 },
+            fontFamily: 'Rubik', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
+            fontStyle: "300",
+			wordWrap: { width: 400 },
             align: "center"
 		}).setOrigin(0.5, 0.5);
 
@@ -95,6 +96,10 @@ class Textbox extends Phaser.GameObjects.GameObject{
                 console.warn(this, "- toggleInteractive() parameter must be boolean");
         }
     }
+
+    static updateFont(){
+        //this.
+    }
 }
 
 class FullscreenTextbox extends Textbox{
@@ -140,6 +145,7 @@ class OutlineTextbox extends Textbox{
     constructor(textArray, _x, _y, _width, _height, scene, fontSize = "25px"){
         super(textArray, _x, _y, _width, _height, scene, fontSize);
         this.background.lineStyle(2, 0xffffff);
+        this.displayText.setFontFamily("Bebas Neue");
     }
 
     drawOutline(_x, _y){

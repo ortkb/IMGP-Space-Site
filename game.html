@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@300&display=swap" rel="stylesheet">
-
+    <!-- Fonts (I would use google fonts, as it's quite flexible, but I can't seem to get it to preload without ending up on a fallback)-->>
+    <link rel="preload" as="font" href="font/BebasNeue-Regular.ttf" type="font/ttf" />
+    <link rel="preload" as="font" href="font/Rubik-VariableFont_wght.ttf" type="font/ttf" />
     <link rel="stylesheet" href="css/main.css">
     <style>
         body{
             margin: 0px;
             padding: 0px;
+        }
+        @font-face {
+            font-family: "Rubik";
+            src: url('font/Rubik-VariableFont_wght.ttf');
+        }
+        @font-face {
+            font-family: "Bebas Neue";
+            src: url('font/BebasNeue-Regular.ttf');
         }
     </style>
     <title>IntergalacticExplorers</title>

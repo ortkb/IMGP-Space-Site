@@ -25,9 +25,6 @@ this should really be running on deltatime instead of frames
 
 // I'm sorry, this got more and more sloppy as it went on. Should have actually written out a proper design document.
 
-this.scoreText = this.add.text(40, 520, '$0', { fontFamily: 'Noto Sans', fontStyle: '600', fontSize: '55px', fill: '#ffb81a' });
-
-
 const introMessageText = [
     "Aliens have put the planets in the wrong places!",
     "Tap + Drag the planets back to the correct order.", 
@@ -49,17 +46,19 @@ class SpaceScene extends Phaser.Scene{
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
         this.load.image("sunBackground", "img/sun 4.png");
-        // Loading each image individually is silly but I'll do it
-        // planet images are HUGE (4500x4500 ??!!!) - rescale and ideally store as one spritesheet or tilemap
-        //this.load.image("planet-0", "img/Planets/mercury.png");
+        //this.load.script("webfont", "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"); // Google webfont
     }
 
     create(){
+
         // Font
         /*
         WebFont.load({
             google: {
-                families: ['Noto Sans']
+                families: ["Rubik", "Bebas Neue"]
+            },
+            active: ()=>{ // once the font has loaded..
+                
             }
         });
         */
@@ -69,6 +68,7 @@ class SpaceScene extends Phaser.Scene{
         this.sun = this.add.image(0, 275, "sunBackground")
             .setOrigin(0, 0.5)
             .setScale(0.6);
+
         // Elements
         this.planetSlots = this.createDropZones();
         this.planets = this.createPlanets(); // Create planet(s)
@@ -86,7 +86,7 @@ class SpaceScene extends Phaser.Scene{
         this.scoreDisplay = this.add.existing(new Textbox("Score: " + this.score, 940, 30, 100, 40, this, "14px"));
 
         // Home button
-        let homeButton = this.add.existing(new OutlineTextbox("HOME", 60, 30, 100, 40, this, "14px"));
+        let homeButton = this.add.existing(new OutlineTextbox("HOME", 60, 30, 100, 40, this, "20px"));
         homeButton.zone.setInteractive().on("pointerdown", ()=> {
             console.log("quit game");
             window.location.href = 'planets.html';
@@ -103,7 +103,6 @@ class SpaceScene extends Phaser.Scene{
                 this.startTime = this.time.now; // Set timer once messagebox closes
                 this.introTextboxActive = false;
         }, this);
-
         
     }
 
