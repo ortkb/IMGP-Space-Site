@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <!-- Fonts (I would use google fonts, as it's quite flexible, but I can't seem to get it to preload without ending up on a fallback)-->>
-    <link rel="preload" as="font" href="font/BebasNeue-Regular.ttf" type="font/ttf" />
-    <link rel="preload" as="font" href="font/Rubik-VariableFont_wght.ttf" type="font/ttf" />
+    <!-- Fonts (I would use google fonts, as it's quite flexible, but I can't seem to get it to preload without ending up on a fallback)-->
+    
+    <link rel="preload" as="font" href="font/BebasNeue-Regular.ttf" type="font/ttf" >
+    <link rel="preload" as="font" href="font/Rubik-VariableFont_wght.ttf" type="font/ttf" >
     <link rel="stylesheet" href="css/main.css">
     <style>
         body{
@@ -26,8 +27,14 @@
 </head>
 
 <body>
+    <div style="font-family:Rubik; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:Bebas Neue; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <!-- Who knew that manually making use of the fonts would work?! Thanks to NoobTW. -->
+    <!-- proper font preloading solution given by NoobTW (Stackoverflow): 
+    https://stackoverflow.com/a/51535550 
+    -->
 
-    
+
     <!-- Error messages -->
 
     <section id="errormessage-spread">
