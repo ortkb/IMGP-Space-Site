@@ -4,9 +4,12 @@ class ResultsScene extends Phaser.Scene{
     }
 
     init (data){
-        this.minutes = data.minutes;
-        this.seconds = data.seconds;
-        !data.time ? this.time = "[No Recorded Time]" : this.time = data.time;
+        this.minutes = data.minutes ?? "[No Recorded Time]";
+        this.seconds = data.seconds ?? "[No Recorded Time]";
+        this.score = data.score ?? "[No Recorded Score]";
+        if (this.score == 80){
+            this.score = "FULL SCORE!"
+        }
     }
 
     preload(){
@@ -22,11 +25,11 @@ class ResultsScene extends Phaser.Scene{
             .fillStyle(0xffffff, 0.9)
             .fillRoundedRect(200, 100, 600, 400, 20);
 
-        let text = this.add.text(500, 300, "CONGRATULATIONS!\nYour time was\n\n" + this.minutes + " minutes, " + this.seconds + " seconds\n\nWant to try again?\n", {
-			fontSize: '25px',
+        let text = this.add.text(500, 300, "CONGRATULATIONS!\n\nScore: "+ this.score +"\n\nTime: " + this.minutes + " minutes, " + this.seconds + " seconds\n\nWant to try again?\n", {
+			fontSize: '21px',
 			color: '#000',
             fontFamily: 'Arial', // Add site font here ( https://webtips.dev/webtips/phaser/custom-fonts-in-phaser3 )
-			wordWrap: { width: 300 },
+			wordWrap: { width: 500 },
             lineSpacing: 10,
             align: "center"
 		}).setOrigin(0.5, 0.5);

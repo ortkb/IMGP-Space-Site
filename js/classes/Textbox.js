@@ -43,7 +43,7 @@ class Textbox extends Phaser.GameObjects.GameObject{
 
     setCustomPosition(_x, _y){
         this.background.clear();
-        this.background.fillStyle(0xffffff, 0.9)
+        this.background.fillStyle(0xffffff, 0.95)
         .fillRoundedRect(_x - this.dimensions.width / 2, _y - this.dimensions.height / 2, this.dimensions.width, this.dimensions.height, 20);
         this.displayText.setPosition(_x, _y);
         this.zone.setPosition(_x, _y);
@@ -84,9 +84,11 @@ class Textbox extends Phaser.GameObjects.GameObject{
 class FullscreenTextbox extends Textbox{
     constructor(textArray, _x, _y, _width, _height, scene){
         super(textArray, _x, _y, _width, _height, scene);
+        
+        this.displayText.setWordWrapWidth(500);
+        
         this.zone.setSize(this.scene.sys.game.canvas.width, this.scene.sys.game.canvas.height)
         this.zone.setInteractive();
-        
         this.zone.on("pointerdown", function(){
             this.currentPage++;
             if (this.currentPage >= this.textArray.length){

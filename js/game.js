@@ -26,7 +26,7 @@ this should really be running on deltatime instead of frames
 const introMessageText = [
     "Aliens have put the planets in the wrong places!",
     "Tap + Drag the planets back to the correct order.", 
-    "INTROTEXT"
+    "Correct answer: +10 points\nIncorrect answer: -5 points.\n\nAim for a high score!"
 ]
 
 const errorMessageSpread = document.getElementById("errormessage-spread");
@@ -66,6 +66,7 @@ class SpaceScene extends Phaser.Scene{
         this.introTextboxActive = true;
 
         this.startTime = 0;
+        this.score = 0;
 
         // Intro textbox
         
@@ -193,18 +194,19 @@ class SpaceScene extends Phaser.Scene{
 
     runCorrectAnswer(_planet, _planetSlot){
         console.log("correct");
+        this.score += 10;
         // give audio / visual feedback
         _planetSlot.removeInteractive();
         this.physics.world.disable(_planetSlot);
         _planetSlot.graphics.clear();
-        _planet.isOrbiting = true;
-        
+        _planet.isOrbiting = true;        
         this.removePlanetSlot(_planetSlot);
         this.isEverySlotFilled(this.planetSlots);
     }
 
     runIncorrectAnswer(_planet, _planetSlot){
         console.log("incorrect");
+        this.score -= 5;
         // give audio / visual feedback
         this.showHint(_planetSlot);
     }
@@ -227,7 +229,7 @@ class SpaceScene extends Phaser.Scene{
         let endTimeTotalSeconds = (this.time.now - this.startTime) * 0.001;
         let endTimeSeconds = Phaser.Math.RoundTo(endTimeTotalSeconds % 60, -2);
         let endTimeMinutes = Math.floor(endTimeTotalSeconds / 60);
-        this.scene.start("ResultsScene", { time: endTimeTotalSeconds, minutes: endTimeMinutes, seconds: endTimeSeconds });
+        this.scene.start("ResultsScene", { score: this.score, time: endTimeTotalSeconds, minutes: endTimeMinutes, seconds: endTimeSeconds });
     }
 
     destroyAll(){
