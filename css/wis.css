@@ -101,6 +101,10 @@ h3 {
     transform: translateX(37vw) translateY(-5vh);
 }
 
+.wis-image{
+    max-width: 35vh;
+}
+
 .popupText1 {
     position: absolute;
     width: 35vw;
@@ -152,7 +156,6 @@ h3 {
     filter: drop-shadow(1px 1px 10px rgba(22, 22, 22, 0.5));
   }
 
-
   .popupText{
     visibility: hidden;
   }
@@ -201,6 +204,9 @@ h3 {
     }  
 }
 
-@media screen and (max-width: 1200px){ /* Small screens (presumably mobile) */ 
+@media screen and (min-width: 1200px){ /* Small screens (presumably mobile) */ 
+    .tap-gif {
+        transform: translateX(10vw) translateY(-30vh);
+    }
     
 }

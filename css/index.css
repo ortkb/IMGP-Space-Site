@@ -71,10 +71,41 @@ body {
   font-family: 'Rubik', sans-serif;
 }
 
+
+/* Error message */
+
+#errormessage-spread{ /* Applies by default to larger screens and/or non-touchscreen devices */
+  position: fixed;
+  background-color: rgba(90, 84, 148, 0.96);
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+}
+
+#errormessage-textbox{
+  text-align: center;
+}
+
+#errormessage-button{
+  border-color: #fff;
+  border-style: solid;
+  text-decoration: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: rgb(90, 84, 148);
+  padding: 15px 32px;
+  text-align: center;
+}
+
+#errormessage-button:hover{
+  background-color: rgb(121, 116, 174);
+}
+
 /* Media Queries */
 
 @media (orientation: landscape) {
-	#errormessage-spread{
-        display: none;
-    }  
+#errormessage-spread{
+      display: none;
+  }  
 }
