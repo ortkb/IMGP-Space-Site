@@ -28,6 +28,7 @@ class SpaceScene extends Phaser.Scene{
     }
     
     preload(){
+        this.load.audio("backgroundAudio", "audio/underwater-white-noise-46423.mp3");
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
         this.load.image("sunBackground", "img/sun 4.png");
@@ -40,6 +41,14 @@ class SpaceScene extends Phaser.Scene{
         this.sun = this.add.image(0, 275, "sunBackground")
             .setOrigin(0, 0.5)
             .setScale(0.6);
+
+        // Audio
+
+        const audio = this.sound.add("backgroundAudio", {
+            volume: 0.05,
+            loop: true
+        });
+        audio.play();
 
         // Elements
         this.planetSlots = this.createDropZones();
