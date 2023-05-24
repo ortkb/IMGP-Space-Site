@@ -8,19 +8,10 @@ const errorMessageButton = document.getElementById("errormessage-button");
 const defaultTitle = errorMessageTitle.innerText;
 const defaultDescription = errorMessageDescription.innerText;
 
-errorMessageButton.addEventListener("click", closeErrorMessage);
-
 let isLandscape = screen.width > screen.height; // Is screen width a higher value then screen height?
 
 
-if (detectDeviceType() == "Desktop"){
-    // if the device is not a mobile device..
-    writeErrorMessage("It's better on tablet / mobile!", "This site is designed for mobile and tablet devices. Please use the side buttons or click + drag to navigate the page.");
-    // user should be able to close this window if needed.
-} else  {
-    // if device is detected as a mobile / tablet device..
-    checkLandscapeOrientation();
-}
+checkLandscapeOrientation();
 
 if (screen.orientation){ // Check if screen orientation API is supported
     // Check whether the orientation is vertical or landscape, every time the orientation changes.
@@ -29,9 +20,6 @@ if (screen.orientation){ // Check if screen orientation API is supported
     console.log("screen orientation API is not supported in this browser, sorry!");
 }
 
-
-
-
 /*
     //// Functions ////
 */
@@ -39,9 +27,11 @@ if (screen.orientation){ // Check if screen orientation API is supported
 function checkLandscapeOrientation(){
     isLandscape = screen.width > screen.height;
     if (!isLandscape){  // is device is a mobile device but is not landscape..
+        displayErrorMessage();
         writeErrorMessage("", "Please change to horizontal orientation", false); // users SHOULD NOT be able to close this window until horizontal
-    }else{ // if the device is landscape 
-        errorMessageButton.style.display = "inline";
+    }
+    else{
+        closeErrorMessage();
     }
 }
 
@@ -59,10 +49,3 @@ function writeErrorMessage(titleText, descText, buttonDisplayBool = true){
     descText !== "" ?  errorMessageDescription.innerText = descText : errorMessageDescription.innerText = defaultDescription;
     buttonDisplayBool ? errorMessageButton.style.display = "inline" : errorMessageButton.style.display = "none";
 }
-
-// Sourced from "detect-device-type.md" from https://github.com/30-seconds/30-seconds-of-code
-// Checks whether the current device matches any of the specified mobile / tablet devices
-function detectDeviceType(){ 
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
-}
-// end of borrowed code

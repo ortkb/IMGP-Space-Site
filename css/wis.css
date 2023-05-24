@@ -1,16 +1,12 @@
 body{
     margin: 0;
     padding: 0;
-}
-
-#bg {
-background-image: url("../img/space_bg_1920x1080.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
+    background-image: url("../img/space_bg_1920x1080.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .text {
@@ -21,7 +17,6 @@ h1{
     text-align:center;
     font-family: 'Bebas Neue', cursive;
     font-size: 3rem;
-    margin-top: -1vw;
     position: relative;
     color: #fff;
 }
@@ -58,6 +53,13 @@ h3 {
     font-family: 'Bebas Neue', cursive;
 }
 
+#homescreen-button{
+    position: absolute;
+    top: 3vh;
+    left: 3vw;
+    z-index: 2;
+}
+
 .message-button{
     border-color: #fff;
     border-style: solid;
@@ -70,8 +72,12 @@ h3 {
     cursor:pointer;
     font-size: 20px;
     margin:0;
-    display: inline-block;
-    transform: translateX(5vw)translateY(5vw);
+    top: 5vw;
+    left: 5vw;
+}
+
+.non-clickable{
+    pointer-events: none; 
 }
 
 .tap-gif {
@@ -156,3 +162,45 @@ h3 {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
   }
+
+/* Error message */
+
+#errormessage-spread{ /* Applies by default to larger screens and/or non-touchscreen devices */
+    position: fixed;
+    background-color: rgba(90, 84, 148, 0.96);
+    color: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
+#errormessage-textbox{
+    text-align: center;
+}
+
+#errormessage-button{
+    border-color: #fff;
+    border-style: solid;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgb(90, 84, 148);
+    padding: 15px 32px;
+    text-align: center;
+}
+
+#errormessage-button:hover{
+    background-color: rgb(121, 116, 174);
+}
+
+/* Media Queries */
+
+@media (orientation: landscape) {
+	#errormessage-spread{
+        display: none;
+    }  
+}
+
+@media screen and (max-width: 1200px){ /* Small screens (presumably mobile) */ 
+    
+}

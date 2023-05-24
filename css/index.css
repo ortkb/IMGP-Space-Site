@@ -4,7 +4,7 @@ body {
 }
 
 #bg {
-  background-image: url("homepage-img/homepage-bg.png");
+  background-image: url("../homepage-img/homepage-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -71,3 +71,10 @@ body {
   font-family: 'Rubik', sans-serif;
 }
 
+/* Media Queries */
+
+@media (orientation: landscape) {
+	#errormessage-spread{
+        display: none;
+    }  
+}
