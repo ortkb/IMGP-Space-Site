@@ -101,6 +101,10 @@ h3 {
     transform: translateX(37vw) translateY(-5vh);
 }
 
+.fact-text{
+    font-size: 18px;
+}
+
 .wis-image{
     max-width: 35vh;
 }
