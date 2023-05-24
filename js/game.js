@@ -45,7 +45,7 @@ class SpaceScene extends Phaser.Scene{
         // Audio
 
         const audio = this.sound.add("backgroundAudio", {
-            volume: 0.03,
+            volume: 0.05,
             loop: true
         });
         audio.play();

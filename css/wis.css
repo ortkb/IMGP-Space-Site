@@ -102,7 +102,7 @@ h3 {
 }
 
 .fact-text{
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .wis-image{
@@ -169,6 +169,21 @@ h3 {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
   }
+
+  /* Responsive Text - Text to Speech */
+
+.text-to-speech-button{
+    border-color: #fff;
+    border-style: solid;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgb(90, 84, 148);
+    padding: 4px 10px;
+    text-align: center;
+    cursor:pointer;
+    font-size: 14px;
+}
 
 /* Error message */
 
