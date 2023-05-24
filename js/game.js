@@ -28,7 +28,7 @@ class SpaceScene extends Phaser.Scene{
     }
     
     preload(){
-        this.load.audio("backgroundAudio", "audio/underwater-white-noise-46423.mp3");
+        this.load.audio("backgroundAudio", "https://upload.wikimedia.org/wikipedia/commons/8/81/Sound_Effects_-_Under_Water_Submarine_sound.ogg");
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
         this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
         this.load.image("sunBackground", "img/sun 4.png");
@@ -45,7 +45,7 @@ class SpaceScene extends Phaser.Scene{
         // Audio
 
         const audio = this.sound.add("backgroundAudio", {
-            volume: 0.05,
+            volume: 0.03,
             loop: true
         });
         audio.play();
