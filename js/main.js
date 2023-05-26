@@ -77,16 +77,14 @@ const swiper = new Swiper('.swiper', {
   },
 });
 
-// check when a swipe has been made
+// Change ship orientation on slide change (does not change when dragging the slide without triggering a slide change)
+// This is used mostly for changing the ship direction when using the side arrow buttons.
 swiper.on('slideChange', function() {
 
-  // console.log(swiper.activeIndex);
-
   if (swiper.activeIndex > swiper.previousIndex) {
-      //console.log('left');
-      // If swipe
+    spaceship.orientSpaceship("RIGHT");
   } else {
-      //console.log('right');
+    spaceship.orientSpaceship("LEFT");
   }
 });
 
