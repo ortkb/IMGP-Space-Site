@@ -30,7 +30,8 @@ class SpaceScene extends Phaser.Scene{
     preload(){
         this.load.audio("backgroundAudio", "https://upload.wikimedia.org/wikipedia/commons/8/81/Sound_Effects_-_Under_Water_Submarine_sound.ogg");
         this.load.image("spaceBackground", "img/space_bg_1920x1080.jpg");
-        this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
+        //this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet.png", { frameWidth: 550, frameHeight: 550});
+        this.load.spritesheet("planetsSpritesheet", "img/game/game-spritesheet-small.png", { frameWidth: 137.5, frameHeight: 138});
         this.load.image("sunBackground", "img/sun 4.png");
     }
 

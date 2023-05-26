@@ -14,7 +14,7 @@ class PlanetSlot extends Phaser.GameObjects.Zone{
         this.graphics.lineStyle(2, 0xFFFFFF).fillStyle(0x5A5494, 0.8)
         this.drawGraphics();
 
-        scene.events.on('update', this.update, this);
+        //scene.events.on('update', this.update, this);
     }
 
     drawGraphics(){

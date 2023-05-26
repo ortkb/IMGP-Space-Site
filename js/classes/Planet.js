@@ -16,12 +16,13 @@ class Planet extends Phaser.GameObjects.Image{
 
         scene.events.on('update', this.update, this);
 
-        scene.input.keyboard.on("keydown-SPACE", this.teleportPlanet, this);
+        //scene.input.keyboard.on("keydown-SPACE", this.teleportPlanet, this);
 
         //this.setTexture(img)
         this.setTexture("planetsSpritesheet", this.id)
             .setPosition(this.params.x, this.params.y)
-            .setScale(0.15);
+            .setScale(0.5);
+            //.setScale(0.15);
         scene.physics.world.enableBody(this);
     }
 
@@ -107,7 +108,7 @@ class Planet extends Phaser.GameObjects.Image{
 
     shutdownPlanet(){
         console.log("shutdown " + this.params.name);
-        this.scene.input.keyboard.remove("keydown-SPACE", this.teleportPlanet, this);
+        //this.scene.input.keyboard.remove("keydown-SPACE", this.teleportPlanet, this);
     }
 
 }
